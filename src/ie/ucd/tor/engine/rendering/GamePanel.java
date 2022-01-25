@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
 
 	public GamePanel(int width, int height) {
 		this.setBounds(0, 0, width, height);
-		this.setOpaque(true);
+		this.setOpaque(false);
 		elements = new CopyOnWriteArrayList<>();
 
 	}

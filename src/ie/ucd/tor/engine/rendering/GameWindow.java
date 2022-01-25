@@ -23,7 +23,7 @@ public class GameWindow {
 		// Create application window frame
 		frame = new JFrame("Dungeon Survival");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(new Dimension(WIDTH, HEIGHT));
+		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		frame.setLayout(null);
 
 		// Game Panel to draw all layers on
@@ -40,19 +40,23 @@ public class GameWindow {
 		uiTest.addComponent(new Texture("res/UIPlaceholder.png"));
 
 		GameObject spriteTest = new GameObject();
-		spriteTest.getTransform().setPosition(new Point2D(500 , 500));
-		spriteTest.getTransform().setScale(new Point2D(32, 32));
+		spriteTest.getTransform().setPosition(new Point2D(750 , 750));
+		spriteTest.getTransform().setScale(new Point2D(1, 1));
 		spriteTest.addComponent(new Texture("res/TexturePlaceholder.png"));
 
 		uiRenderer.addElement(uiTest);
 		spriteRenderer.addElement(spriteTest);
 
-		// add game canvases to frame
-		gamePanel.add(uiRenderer);
-		gamePanel.add(spriteRenderer);
+		// add game canvases to LayeredPane
+		gamePanel.add(spriteRenderer, Integer.valueOf(0));
+		gamePanel.add(uiRenderer, Integer.valueOf(1));
+
+
+		// add LayeredPane to frame
+		frame.add(gamePanel);
 
 		// start the application window
-		frame.add(gamePanel);
+		frame.pack();
 		frame.setVisible(true);
 
 	}
