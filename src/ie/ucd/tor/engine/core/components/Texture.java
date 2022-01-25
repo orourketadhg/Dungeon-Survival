@@ -11,19 +11,22 @@ public class Texture extends Component {
 
 	private final String textureLocation;
 	private Image imageTexture;
+	private int renderPriority;
 	private boolean doesTextureAnimate;
 
 	public Texture() {
-		this(blankTexture, false);
+		this(blankTexture, 0, false);
 	}
 
 	public Texture(String textureLocation) {
-		this(textureLocation, false);
+		this(textureLocation, 0, false);
 	}
 
-	public Texture(String textureLocation, boolean animated) {
+
+	public Texture(String textureLocation, int renderPriority, boolean animated) {
 		this.textureLocation = textureLocation;
 		this.doesTextureAnimate = animated;
+		this.renderPriority = renderPriority;
 		loadImageTexture();
 	}
 
@@ -52,4 +55,13 @@ public class Texture extends Component {
 	public void setDoesTextureAnimate(boolean doesTextureAnimate) {
 		this.doesTextureAnimate = doesTextureAnimate;
 	}
+
+	public int getRenderPriority() {
+		return renderPriority;
+	}
+
+	public void setRenderPriority(int renderPriority) {
+		this.renderPriority = renderPriority;
+	}
+
 }

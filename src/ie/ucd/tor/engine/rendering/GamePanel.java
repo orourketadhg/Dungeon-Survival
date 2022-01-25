@@ -6,6 +6,7 @@ import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -76,6 +77,15 @@ public class GamePanel extends JPanel {
 
 	public void addElement(GameObject element) {
 		elements.add(element);
+		sortElements();
+	}
+
+	private void sortElements() {
+		elements.sort((o1, o2) -> {
+			int p1 = o1.getComponent(Texture.class).getRenderPriority();
+			int p2 = o2.getComponent(Texture.class).getRenderPriority();
+			return p1 - p2;
+		});
 	}
 
 	public void showPanel() {

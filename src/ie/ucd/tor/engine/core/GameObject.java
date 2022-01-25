@@ -10,11 +10,13 @@ public class GameObject {
 	private static int ID_COUNT = 0;
 
 	private final int gameObjectID;
+	private String name;
 	private Transform transform;
 	private CopyOnWriteArrayList<Component> attachedComponents;
 
 	public GameObject() {
 		gameObjectID = ID_COUNT++;
+		name = "";
 
 		attachedComponents = new CopyOnWriteArrayList<Component>();
 
@@ -61,4 +63,13 @@ public class GameObject {
 	public void setTransform(Transform transform) {
 		this.transform = transform;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
