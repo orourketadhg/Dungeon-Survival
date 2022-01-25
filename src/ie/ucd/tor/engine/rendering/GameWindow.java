@@ -37,16 +37,20 @@ public class GameWindow {
 		backgroundRenderer = new GamePanel();
 
 		// testing
+		GameObject backgroundTest = new GameObject();
+		backgroundTest.getTransform().setScale(new Point2D(1000, 1000));
+		backgroundTest.addComponent(new Texture("res/BackgroundPlaceholder.png"));
+
 		GameObject uiTest = new GameObject();
 		uiTest.getTransform().setScale(new Point2D(1000, 1000));
 		uiTest.addComponent(new Texture("res/UIPlaceholder.png"));
 
 		GameObject spriteTest = new GameObject();
-		spriteTest.getTransform().setPosition(new Point2D(750 , 750));
-		System.out.println(spriteTest.getTransform().getPosition());
-		spriteTest.getTransform().setScale(new Point2D(1, 1));
+		spriteTest.getTransform().setPosition(new Point2D(500 , 500));
+		spriteTest.getTransform().setScale(new Point2D(32, 32));
 		spriteTest.addComponent(new Texture("res/TexturePlaceholder.png"));
 
+		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);
 		spriteRenderer.addElement(spriteTest);
 

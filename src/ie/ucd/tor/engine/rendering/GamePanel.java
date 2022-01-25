@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GamePanel extends JPanel {
 
-	private CopyOnWriteArrayList<GameObject> elements;
+	private final CopyOnWriteArrayList<GameObject> elements;
 
 	public GamePanel() {
 		this(GameWindow.WIDTH, GameWindow.HEIGHT);
@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
 
 	public GamePanel(int width, int height) {
 		this.setBounds(0, 0, width, height);
-		this.setOpaque(false);
+		this.setOpaque(false);		// allows panel to be translucent
 		elements = new CopyOnWriteArrayList<>();
 
 	}
