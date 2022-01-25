@@ -71,7 +71,7 @@ public class GamePanel extends JPanel {
 		Point2D position = texture.getTransform().getPosition();
 		Point2D scale = texture.getTransform().getScale();
 
-		graphics.drawImage(texture.getTextureImage(), (int) position.getX(), (int) position.getY(), (int) scale.getX(), (int) scale.getY(), 0, 0, (int) scale.getX(), (int) scale.getY(), null);
+		graphics.drawImage(texture.getTextureImage(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + scale.getX()), (int) (position.getY() + scale.getY()), 0, 0, (int) scale.getX(), (int) scale.getY(), null);
 	}
 
 	public void addElement(GameObject element) {

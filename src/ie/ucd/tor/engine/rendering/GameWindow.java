@@ -17,6 +17,7 @@ public class GameWindow {
 	private final JLayeredPane gamePanel;
 	private final GamePanel spriteRenderer;
 	private final GamePanel uiRenderer;
+	private final GamePanel backgroundRenderer;
 
 	public GameWindow() {
 
@@ -33,6 +34,7 @@ public class GameWindow {
 		// Create layer panes for different game layers
 		uiRenderer = new GamePanel();
 		spriteRenderer = new GamePanel();
+		backgroundRenderer = new GamePanel();
 
 		// testing
 		GameObject uiTest = new GameObject();
@@ -41,6 +43,7 @@ public class GameWindow {
 
 		GameObject spriteTest = new GameObject();
 		spriteTest.getTransform().setPosition(new Point2D(750 , 750));
+		System.out.println(spriteTest.getTransform().getPosition());
 		spriteTest.getTransform().setScale(new Point2D(1, 1));
 		spriteTest.addComponent(new Texture("res/TexturePlaceholder.png"));
 
@@ -48,9 +51,9 @@ public class GameWindow {
 		spriteRenderer.addElement(spriteTest);
 
 		// add game canvases to LayeredPane
-		gamePanel.add(spriteRenderer, Integer.valueOf(0));
-		gamePanel.add(uiRenderer, Integer.valueOf(1));
-
+		gamePanel.add(backgroundRenderer, Integer.valueOf(0)); 		// Background
+		gamePanel.add(spriteRenderer, Integer.valueOf(1));			// Middle ground
+ 		gamePanel.add(uiRenderer, Integer.valueOf(2));				// Foreground
 
 		// add LayeredPane to frame
 		frame.add(gamePanel);
