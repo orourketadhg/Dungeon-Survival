@@ -7,12 +7,18 @@ import java.util.HashMap;
 
 public class Animator extends Component {
 
+	private int renderPriority;
 	private AnimationData currentAnimation;
 	private HashMap<String, AnimationData> animationMap;
 
 	public Animator() {
+		this(0);
+	}
+
+	public Animator(int renderPriority) {
 		currentAnimation = null;
 		animationMap = new HashMap<>();
+		this.renderPriority = renderPriority;
 	}
 
 	// sprite data
@@ -46,4 +52,7 @@ public class Animator extends Component {
 		currentAnimation = getAnimations(animationName);
 	}
 
+	public int getRenderPriority() {
+		return renderPriority;
+	}
 }

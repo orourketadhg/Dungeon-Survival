@@ -1,7 +1,10 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
+import ie.ucd.tor.engine.core.components.texture.Animator;
 import ie.ucd.tor.engine.core.components.texture.Sprite;
+import ie.ucd.tor.engine.core.components.texture.data.AnimationData;
+import ie.ucd.tor.engine.core.components.texture.data.AnimationDirection;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
@@ -99,7 +102,8 @@ public class GameWindow {
 
 		GameObject animationTest = new GameObject();
 		animationTest.getTransform().setPosition(new Point2D(500 , 600));
-
+		animationTest.addComponent(new Animator());
+		animationTest.getComponent(Animator.class).AddAnimation("Test", new AnimationData("res/AnimationPlaceholder.png", 128, 32, 32, 32, AnimationDirection.Horizontal, 4));
 
 		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);
