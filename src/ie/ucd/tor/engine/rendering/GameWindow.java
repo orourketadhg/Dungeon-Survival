@@ -89,23 +89,23 @@ public class GameWindow {
 		GameObject uiTest = new GameObject();
 		uiTest.addComponent(new Sprite("res/UIPlaceholder.png", 1000, 1000, 0));
 
-		GameObject spriteTest = new GameObject();
-		spriteTest.getTransform().setPosition(new Point2D(500 , 500));
-		spriteTest.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
+		GameObject spriteTestA = new GameObject();
+		spriteTestA.getTransform().setPosition(new Point2D(500 , 500));
+		spriteTestA.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
 
-		GameObject spriteTest2 = new GameObject();
-		spriteTest2.getTransform().setPosition(new Point2D(516 , 500));
-		spriteTest2.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
+		GameObject spriteTestB = new GameObject();
+		spriteTestB.getTransform().setPosition(new Point2D(516 , 500));
+		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
 
-		GameObject spriteTest3 = new GameObject();
-		spriteTest3.getTransform().setPosition(new Point2D(532 , 500));
-		spriteTest3.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 2));
+		GameObject animationTest = new GameObject();
+		animationTest.getTransform().setPosition(new Point2D(500 , 600));
+
 
 		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);
-		spriteRenderer.addElement(spriteTest);
-		spriteRenderer.addElement(spriteTest2);
-		spriteRenderer.addElement(spriteTest3);
+		spriteRenderer.addElement(spriteTestA);
+		spriteRenderer.addElement(spriteTestB);
+	 	spriteRenderer.addElement(animationTest);
 
 	}
 

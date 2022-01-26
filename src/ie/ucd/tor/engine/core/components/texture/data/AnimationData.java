@@ -8,14 +8,13 @@ public class AnimationData extends SpriteData {
 	private final AnimationDirection textureDirection;
 	private final int numVerticalSprites;
 	private final int numHorizontalSprites;
-	private final int animationSpeed;
 
-	public AnimationData(Image img, int textureWidth, int textureHeight, int spriteWidth, int spriteHeight, AnimationDirection textureMapDirection, AnimationDirection textureDirection, int numVerticalSprites, int numHorizontalSprites, int animationSpeed) {
+
+	public AnimationData(Image img, int textureWidth, int textureHeight, int spriteWidth, int spriteHeight, AnimationDirection textureDirection, int numVerticalSprites, int numHorizontalSprites) {
 		super(img, textureWidth, textureHeight, spriteWidth, spriteHeight);
 		this.textureDirection = textureDirection;
 		this.numVerticalSprites = numVerticalSprites;
 		this.numHorizontalSprites = numHorizontalSprites;
-		this.animationSpeed = animationSpeed;
 	}
 
 	public int getNumVerticalSprites() {
@@ -24,10 +23,6 @@ public class AnimationData extends SpriteData {
 
 	public int getNumHorizontalSprites() {
 		return numHorizontalSprites;
-	}
-
-	public int getAnimationSpeed() {
-		return animationSpeed;
 	}
 
 	public AnimationDirection getTextureDirection() {

@@ -3,6 +3,7 @@ package ie.ucd.tor.engine.rendering;
 import ie.ucd.tor.engine.core.GameObject;
 import ie.ucd.tor.engine.core.components.texture.Animator;
 import ie.ucd.tor.engine.core.components.texture.Sprite;
+import ie.ucd.tor.engine.core.components.texture.data.AnimationData;
 import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GamePanel extends JPanel {
 
 	private final CopyOnWriteArrayList<GameObject> elements;
-	private long animationTimer;
+	private long animationTime;
 
 	public GamePanel() {
 		this(GameWindow.WIDTH, GameWindow.HEIGHT);
@@ -23,7 +24,7 @@ public class GamePanel extends JPanel {
 	public GamePanel(int width, int height) {
 		this.setBounds(0, 0, width, height);
 		this.setOpaque(false);		// allows panel to be translucent
-		this.animationTimer = 0;
+		this.animationTime = 0;
 		elements = new CopyOnWriteArrayList<>();
 
 	}
@@ -31,7 +32,7 @@ public class GamePanel extends JPanel {
 	public GamePanel(int x, int y, int width, int height) {
 		this.setBounds(x, y, width, height);
 		elements = new CopyOnWriteArrayList<>();
-		this.animationTimer = 0;
+		this.animationTime = 0;
 	}
 
 	public void update() {
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics graphics) {
 		super.paintComponents(graphics);
-		animationTimer += 1;
+		animationTime += 1;
 
 		drawPanelElements(graphics);
 
@@ -63,14 +64,22 @@ public class GamePanel extends JPanel {
 	}
 
 	private void drawAnimatedElement(Animator animator, Graphics graphics) {
-		// TODO Add animation drawing
+		AnimationData data = animator.getCurrentAnimation();
+
+		if(Objects.isNull(data)) {
+			return;
+		}
+
+		Point2D position = animator.getTransform().getPosition();
+		int animationPosition = (int) (animationTime);
+
 	}
 
 	private void drawElement(Sprite sprite, Graphics graphics) {
 		Point2D position = sprite.getTransform().getPosition();
 
 		SpriteData data = sprite.getSpriteData();
-		graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, 0, (int) data.getSpriteWidth(), (int) data.getSpriteHeight(), null);
+		graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, 0, data.getSpriteWidth(), data.getSpriteHeight(), null);
 	}
 
 	public void addElement(GameObject element) {
