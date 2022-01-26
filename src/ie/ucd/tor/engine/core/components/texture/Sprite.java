@@ -1,6 +1,7 @@
 package ie.ucd.tor.engine.core.components.texture;
 
 import ie.ucd.tor.engine.core.components.Component;
+import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
 import ie.ucd.tor.engine.util.FileIO;
 
 import java.awt.*;
@@ -9,39 +10,26 @@ public class Sprite extends Component {
 
 	private static final String blankTexture = "res/blankSprite.png";
 
-	private final String textureLocation;
-	private final Image imageTexture;
-	private int renderPriority;
+	private final SpriteData spriteData;
+	private final int renderPriority;
 
 	public Sprite() {
-		this(blankTexture, 0, false);
+		this(blankTexture, 32, 32, 0);
 	}
 
-	public Sprite(String textureLocation) {
-		this(textureLocation, 0, false);
-	}
-
-
-	public Sprite(String textureLocation, int renderPriority, boolean animated) {
-		this.textureLocation = textureLocation;
+	public Sprite(String textureLocation, int spriteWidth, int spriteHeight, int renderPriority) {
 		this.renderPriority = renderPriority;
-		imageTexture = FileIO.loadImageTexture(textureLocation);
+		Image spriteImage = FileIO.loadImageTexture(textureLocation);
+		assert spriteImage != null;
+		this.spriteData = new SpriteData(spriteImage, spriteImage.getWidth(null), spriteImage.getHeight(null), spriteWidth, spriteHeight);
 	}
 
-	public Image getTextureImage() {
-		return imageTexture;
-	}
-
-	public String getTextureLocation() {
-		return textureLocation;
+	public SpriteData getSpriteData() {
+		return spriteData;
 	}
 
 	public int getRenderPriority() {
 		return renderPriority;
-	}
-
-	public void setRenderPriority(int renderPriority) {
-		this.renderPriority = renderPriority;
 	}
 
 }

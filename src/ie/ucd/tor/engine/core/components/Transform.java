@@ -6,11 +6,9 @@ import ie.ucd.tor.engine.maths.Point2D;
 public class Transform extends Component {
 
 	private Point2D position;
-	private Point2D scale;
 
 	public Transform() {
 		position = Point2D.Zero;
-		scale = Point2D.Zero;
 	}
 
 	@Override
@@ -22,16 +20,8 @@ public class Transform extends Component {
 		return position;
 	}
 
-	public Point2D getScale() {
-		return scale;
-	}
-
 	public void setPosition(Point2D position) {
 		this.position = position;
-	}
-
-	public void setScale(Point2D scale) {
-		this.scale = scale;
 	}
 
 }

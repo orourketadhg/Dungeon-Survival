@@ -84,27 +84,22 @@ public class GameWindow {
 	private void panelTest() {
 		// testing game rendering panels
 		GameObject backgroundTest = new GameObject();
-		backgroundTest.getTransform().setScale(new Point2D(1000, 1000));
-		backgroundTest.addComponent(new Sprite("res/BackgroundPlaceholder.png"));
+		backgroundTest.addComponent(new Sprite("res/BackgroundPlaceholder.png", 1000, 1000, 0));
 
 		GameObject uiTest = new GameObject();
-		uiTest.getTransform().setScale(new Point2D(1000, 1000));
-		uiTest.addComponent(new Sprite("res/UIPlaceholder.png"));
+		uiTest.addComponent(new Sprite("res/UIPlaceholder.png", 1000, 1000, 0));
 
 		GameObject spriteTest = new GameObject();
 		spriteTest.getTransform().setPosition(new Point2D(500 , 500));
-		spriteTest.getTransform().setScale(new Point2D(32, 32));
-		spriteTest.addComponent(new Sprite("res/TexturePlaceholder.png", 0, false));
+		spriteTest.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
 
 		GameObject spriteTest2 = new GameObject();
 		spriteTest2.getTransform().setPosition(new Point2D(516 , 500));
-		spriteTest2.getTransform().setScale(new Point2D(32, 32));
-		spriteTest2.addComponent(new Sprite("res/TexturePlaceholder.png", 1, false));
+		spriteTest2.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
 
 		GameObject spriteTest3 = new GameObject();
 		spriteTest3.getTransform().setPosition(new Point2D(532 , 500));
-		spriteTest3.getTransform().setScale(new Point2D(32, 32));
-		spriteTest3.addComponent(new Sprite("res/TexturePlaceholder.png", 2, false));
+		spriteTest3.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 2));
 
 		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);

@@ -3,6 +3,7 @@ package ie.ucd.tor.engine.rendering;
 import ie.ucd.tor.engine.core.GameObject;
 import ie.ucd.tor.engine.core.components.texture.Animator;
 import ie.ucd.tor.engine.core.components.texture.Sprite;
+import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
@@ -67,9 +68,9 @@ public class GamePanel extends JPanel {
 
 	private void drawElement(Sprite sprite, Graphics graphics) {
 		Point2D position = sprite.getTransform().getPosition();
-		Point2D scale = sprite.getTransform().getScale();
 
-		graphics.drawImage(sprite.getTextureImage(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + scale.getX()), (int) (position.getY() + scale.getY()), 0, 0, (int) scale.getX(), (int) scale.getY(), null);
+		SpriteData data = sprite.getSpriteData();
+		graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, 0, (int) data.getSpriteWidth(), (int) data.getSpriteHeight(), null);
 	}
 
 	public void addElement(GameObject element) {
