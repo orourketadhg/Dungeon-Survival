@@ -1,6 +1,9 @@
 package ie.ucd.tor.engine.core.components;
 
 import ie.ucd.tor.engine.core.GameObject;
+import ie.ucd.tor.engine.core.components.texture.Animator;
+import ie.ucd.tor.engine.core.components.texture.Sprite;
+import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
 
 public class Transform extends Component {
@@ -18,6 +21,20 @@ public class Transform extends Component {
 
 	public Point2D getPosition() {
 		return position;
+	}
+
+	public Point2D getScale() {
+		if (gameObject.hasComponent(Sprite.class)) {
+			SpriteData data = gameObject.getComponent(Sprite.class).getSpriteData();
+			return new Point2D(data.getSpriteWidth(), data.getSpriteHeight());
+		}
+		else if (gameObject.hasComponent(Animator.class)) {
+			// TODO get proper width & height
+			int x = gameObject.getComponent(Animator.class).getSpriteWidth();
+			int y = gameObject.getComponent(Animator.class).getSpriteHeight();
+			return new Point2D(x, y);
+		}
+		return Point2D.Zero;
 	}
 
 	public void setPosition(Point2D position) {

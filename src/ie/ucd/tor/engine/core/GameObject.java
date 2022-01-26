@@ -43,6 +43,15 @@ public class GameObject {
 		return false;
 	}
 
+	public <T extends Component> boolean hasComponent(Class<T> cls) {
+		for (Component component : attachedComponents) {
+			if (cls.isInstance(component)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public <T extends Component> T getComponent(Class<T> cls) {
 		for (Component component : attachedComponents) {
 			if (cls.isInstance(component)) {
