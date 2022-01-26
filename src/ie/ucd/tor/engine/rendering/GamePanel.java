@@ -1,8 +1,8 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.Animation.Animator;
-import ie.ucd.tor.engine.core.components.Texture;
+import ie.ucd.tor.engine.core.components.texture.Animator;
+import ie.ucd.tor.engine.core.components.texture.Sprite;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
@@ -50,13 +50,13 @@ public class GamePanel extends JPanel {
 	private void drawPanelElements(Graphics graphics) {
 		for (GameObject element: elements) {
 
-			Texture texture = element.getComponent(Texture.class);
+			Sprite sprite = element.getComponent(Sprite.class);
 			Animator animator = element.getComponent(Animator.class);
 			if (!Objects.isNull(animator)) {
 				drawAnimatedElement(animator, graphics);
 			}
-			else if (!Objects.isNull(texture)) {
-				drawElement(texture, graphics);
+			else if (!Objects.isNull(sprite)) {
+				drawElement(sprite, graphics);
 			}
 		}
 	}
@@ -65,11 +65,11 @@ public class GamePanel extends JPanel {
 		// TODO Add animation drawing
 	}
 
-	private void drawElement(Texture texture, Graphics graphics) {
-		Point2D position = texture.getTransform().getPosition();
-		Point2D scale = texture.getTransform().getScale();
+	private void drawElement(Sprite sprite, Graphics graphics) {
+		Point2D position = sprite.getTransform().getPosition();
+		Point2D scale = sprite.getTransform().getScale();
 
-		graphics.drawImage(texture.getTextureImage(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + scale.getX()), (int) (position.getY() + scale.getY()), 0, 0, (int) scale.getX(), (int) scale.getY(), null);
+		graphics.drawImage(sprite.getTextureImage(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + scale.getX()), (int) (position.getY() + scale.getY()), 0, 0, (int) scale.getX(), (int) scale.getY(), null);
 	}
 
 	public void addElement(GameObject element) {
@@ -79,8 +79,8 @@ public class GamePanel extends JPanel {
 
 	private void sortElements() {
 		elements.sort((o1, o2) -> {
-			int p1 = o1.getComponent(Texture.class).getRenderPriority();
-			int p2 = o2.getComponent(Texture.class).getRenderPriority();
+			int p1 = o1.getComponent(Sprite.class).getRenderPriority();
+			int p2 = o2.getComponent(Sprite.class).getRenderPriority();
 			return p1 - p2;
 		});
 	}

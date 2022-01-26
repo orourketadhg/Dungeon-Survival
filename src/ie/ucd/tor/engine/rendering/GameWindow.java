@@ -1,7 +1,7 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.Texture;
+import ie.ucd.tor.engine.core.components.texture.Sprite;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
@@ -85,26 +85,26 @@ public class GameWindow {
 		// testing game rendering panels
 		GameObject backgroundTest = new GameObject();
 		backgroundTest.getTransform().setScale(new Point2D(1000, 1000));
-		backgroundTest.addComponent(new Texture("res/BackgroundPlaceholder.png"));
+		backgroundTest.addComponent(new Sprite("res/BackgroundPlaceholder.png"));
 
 		GameObject uiTest = new GameObject();
 		uiTest.getTransform().setScale(new Point2D(1000, 1000));
-		uiTest.addComponent(new Texture("res/UIPlaceholder.png"));
+		uiTest.addComponent(new Sprite("res/UIPlaceholder.png"));
 
 		GameObject spriteTest = new GameObject();
 		spriteTest.getTransform().setPosition(new Point2D(500 , 500));
 		spriteTest.getTransform().setScale(new Point2D(32, 32));
-		spriteTest.addComponent(new Texture("res/TexturePlaceholder.png", 0, false));
+		spriteTest.addComponent(new Sprite("res/TexturePlaceholder.png", 0, false));
 
 		GameObject spriteTest2 = new GameObject();
 		spriteTest2.getTransform().setPosition(new Point2D(516 , 500));
 		spriteTest2.getTransform().setScale(new Point2D(32, 32));
-		spriteTest2.addComponent(new Texture("res/TexturePlaceholder.png", 1, false));
+		spriteTest2.addComponent(new Sprite("res/TexturePlaceholder.png", 1, false));
 
 		GameObject spriteTest3 = new GameObject();
 		spriteTest3.getTransform().setPosition(new Point2D(532 , 500));
 		spriteTest3.getTransform().setScale(new Point2D(32, 32));
-		spriteTest3.addComponent(new Texture("res/TexturePlaceholder.png", 2, false));
+		spriteTest3.addComponent(new Sprite("res/TexturePlaceholder.png", 2, false));
 
 		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);

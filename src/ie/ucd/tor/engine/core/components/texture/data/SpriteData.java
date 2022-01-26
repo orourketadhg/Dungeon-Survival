@@ -1,10 +1,10 @@
-package ie.ucd.tor.engine.core.components.Animation;
+package ie.ucd.tor.engine.core.components.texture.data;
 
 import ie.ucd.tor.engine.maths.Vector2D;
 
 import java.awt.*;
 
-public class AnimationData {
+public class SpriteData {
 
 	// texture data
 	private Image textureMap;
@@ -13,10 +13,5 @@ public class AnimationData {
 
 	// sprite data
 	private Vector2D spriteScale;
-
-	// animation data
-	private int numVerticalSprites;
-	private int numHorizontalSprites;
-	private int animationSpeed;
 
 }
