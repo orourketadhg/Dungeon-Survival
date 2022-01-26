@@ -69,8 +69,8 @@ public class GameWindow {
 	}
 
 	private void updateGamePanel() {
-		spriteRenderer.Update();
-		uiRenderer.Update();
+		spriteRenderer.update();
+		uiRenderer.update();
 	}
 
 	private static void CheckFrameRate(long TargetTime, long DeliveredTime, int TargetFPS) {
@@ -111,7 +111,6 @@ public class GameWindow {
 		spriteRenderer.addElement(spriteTest);
 		spriteRenderer.addElement(spriteTest2);
 		spriteRenderer.addElement(spriteTest3);
-
 
 	}
 

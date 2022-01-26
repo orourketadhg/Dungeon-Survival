@@ -6,13 +6,13 @@ import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GamePanel extends JPanel {
 
 	private final CopyOnWriteArrayList<GameObject> elements;
+	private long animationTimer;
 
 	public GamePanel() {
 		this(GameWindow.WIDTH, GameWindow.HEIGHT);
@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
 	public GamePanel(int width, int height) {
 		this.setBounds(0, 0, width, height);
 		this.setOpaque(false);		// allows panel to be translucent
+		this.animationTimer = 0;
 		elements = new CopyOnWriteArrayList<>();
 
 	}
@@ -28,9 +29,10 @@ public class GamePanel extends JPanel {
 	public GamePanel(int x, int y, int width, int height) {
 		this.setBounds(x, y, width, height);
 		elements = new CopyOnWriteArrayList<>();
+		this.animationTimer = 0;
 	}
 
-	public void Update() {
+	public void update() {
 		this.revalidate();
 		this.repaint();
 	}
@@ -38,6 +40,7 @@ public class GamePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics graphics) {
 		super.paintComponents(graphics);
+		animationTimer += 1;
 
 		drawPanelElements(graphics);
 
