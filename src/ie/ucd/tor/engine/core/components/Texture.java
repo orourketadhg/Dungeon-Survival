@@ -1,5 +1,7 @@
 package ie.ucd.tor.engine.core.components;
 
+import ie.ucd.tor.engine.util.FileIO;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
@@ -10,9 +12,8 @@ public class Texture extends Component {
 	private static final String blankTexture = "res/blankSprite.png";
 
 	private final String textureLocation;
-	private Image imageTexture;
+	private final Image imageTexture;
 	private int renderPriority;
-	private boolean doesTextureAnimate;
 
 	public Texture() {
 		this(blankTexture, 0, false);
@@ -25,23 +26,8 @@ public class Texture extends Component {
 
 	public Texture(String textureLocation, int renderPriority, boolean animated) {
 		this.textureLocation = textureLocation;
-		this.doesTextureAnimate = animated;
 		this.renderPriority = renderPriority;
-		loadImageTexture();
-	}
-
-	private void loadImageTexture() {
-		File textureFile = new File(textureLocation);
-		try {
-			imageTexture = ImageIO.read(textureFile);
-		}
-		catch (IOException err) {
-			err.printStackTrace();
-		}
-	}
-
-	public boolean getTextureAnimationStatus() {
-		return doesTextureAnimate;
+		imageTexture = FileIO.loadImageTexture(textureLocation);
 	}
 
 	public Image getTextureImage() {
@@ -50,10 +36,6 @@ public class Texture extends Component {
 
 	public String getTextureLocation() {
 		return textureLocation;
-	}
-
-	public void setDoesTextureAnimate(boolean doesTextureAnimate) {
-		this.doesTextureAnimate = doesTextureAnimate;
 	}
 
 	public int getRenderPriority() {
