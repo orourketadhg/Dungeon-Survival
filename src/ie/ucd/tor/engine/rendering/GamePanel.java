@@ -98,10 +98,15 @@ public class GamePanel extends JPanel {
 	}
 
 	private void drawElement(Sprite sprite, Graphics graphics) {
-		Point2D position = sprite.getTransform().getPosition();
+		Graphics2D g2 = (Graphics2D) graphics.create();
 
+		Point2D position = sprite.getTransform().getPosition();
 		SpriteData data = sprite.getSpriteData();
-		graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, 0, data.getSpriteWidth(), data.getSpriteHeight(), null);
+
+		// graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, 0, data.getSpriteWidth(), data.getSpriteHeight(), null);
+
+		g2.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
+
 	}
 
 	public void addElement(GameObject element) {

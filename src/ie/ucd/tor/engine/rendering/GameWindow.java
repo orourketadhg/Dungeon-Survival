@@ -97,8 +97,9 @@ public class GameWindow {
 		spriteTestA.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
 
 		GameObject spriteTestB = new GameObject();
-		spriteTestB.getTransform().setPosition(new Point2D(516 , 500));
+		spriteTestB.getTransform().setPosition(new Point2D(532 , 500));
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
+
 
 		GameObject animationTest = new GameObject();
 		animationTest.getTransform().setPosition(new Point2D(500 , 600));

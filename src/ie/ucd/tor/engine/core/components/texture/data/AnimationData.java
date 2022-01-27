@@ -2,8 +2,6 @@ package ie.ucd.tor.engine.core.components.texture.data;
 
 import ie.ucd.tor.engine.util.FileIO;
 
-import java.awt.*;
-
 public class AnimationData extends SpriteData {
 
 	// animation data

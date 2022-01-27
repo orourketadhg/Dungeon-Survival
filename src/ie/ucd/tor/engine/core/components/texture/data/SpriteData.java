@@ -1,14 +1,12 @@
 package ie.ucd.tor.engine.core.components.texture.data;
 
-import ie.ucd.tor.engine.maths.Vector2D;
-import ie.ucd.tor.engine.util.FileIO;
-
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class SpriteData {
 
 	// texture data
-	private final Image textureMap;
+	private final BufferedImage textureMap;
 	private final int textureWidth;
 	private final int textureHeight;
 
@@ -16,12 +14,14 @@ public class SpriteData {
 	private final int spriteWidth;
 	private final int spriteHeight;
 
-	public SpriteData(Image img, int textureWidth, int textureHeight, int spriteWidth, int spriteHeight) {
+
+	public SpriteData(BufferedImage img, int textureWidth, int textureHeight, int spriteWidth, int spriteHeight) {
 		this.textureMap = img;
 		this.textureWidth = textureWidth;
 		this.textureHeight = textureHeight;
 		this.spriteWidth = spriteWidth;
 		this.spriteHeight = spriteHeight;
+
 	}
 
 	public Image getTextureMap() {
@@ -43,4 +43,6 @@ public class SpriteData {
 	public int getSpriteHeight() {
 		return spriteHeight;
 	}
+
+
 }

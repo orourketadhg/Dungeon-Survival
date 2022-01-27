@@ -1,13 +1,13 @@
 package ie.ucd.tor.engine.util;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class FileIO {
 
-	public static Image loadImageTexture(String textureLocation) {
+	public static BufferedImage loadImageTexture(String textureLocation) {
 		File textureFile = new File(textureLocation);
 		try {
 			return ImageIO.read(textureFile);
