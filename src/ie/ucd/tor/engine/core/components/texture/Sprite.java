@@ -2,7 +2,7 @@ package ie.ucd.tor.engine.core.components.texture;
 
 import ie.ucd.tor.engine.core.components.Component;
 import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
-import ie.ucd.tor.engine.util.FileIO;
+import ie.ucd.tor.engine.util.ImagesUtil;
 
 import java.awt.image.BufferedImage;
 
@@ -19,7 +19,7 @@ public class Sprite extends Component {
 
 	public Sprite(String textureLocation, int spriteWidth, int spriteHeight, int renderPriority) {
 		this.renderPriority = renderPriority;
-		BufferedImage spriteImage = FileIO.loadImageTexture(textureLocation);
+		BufferedImage spriteImage = ImagesUtil.loadImageTexture(textureLocation);
 		assert spriteImage != null;
 		this.spriteData = new SpriteData(spriteImage, spriteWidth, spriteHeight);
 	}

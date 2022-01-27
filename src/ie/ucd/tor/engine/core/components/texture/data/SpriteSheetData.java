@@ -1,10 +1,9 @@
 package ie.ucd.tor.engine.core.components.texture.data;
 
-import ie.ucd.tor.engine.util.FileIO;
+import ie.ucd.tor.engine.util.ImagesUtil;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SpriteSheetData {
 
@@ -19,7 +18,7 @@ public class SpriteSheetData {
 		this.spriteSheetColumns = spriteSheetColumns;
 		this.spriteSheetRows = spriteSheetRows;
 
-		BufferedImage spriteSheetImage = FileIO.loadImageTexture(spriteSheet);
+		BufferedImage spriteSheetImage = ImagesUtil.loadImageTexture(spriteSheet);
 		constructSpriteSheet(spriteSheetImage, spriteWidth, spriteHeight);
 	}
 
