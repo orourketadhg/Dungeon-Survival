@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GamePanel extends JPanel {
 
-	private static final double ANIMATION_SPEED = 0.01;
+	private static final double ANIMATION_SPEED = 100;
 
 	private final CopyOnWriteArrayList<GameObject> elements;
 	private long animationTime;
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel {
 
 	public GamePanel(int width, int height) {
 		this.setBounds(0, 0, width, height);
-		this.setOpaque(false);		// allows panel to be translucent
+		this.setOpaque(false);
 		this.animationTime = 0;
 		elements = new CopyOnWriteArrayList<>();
 
@@ -81,6 +81,8 @@ public class GamePanel extends JPanel {
 
 		Point2D position = animator.getTransform().getPosition();
 
+		SpriteData data = animator.calculateNextSprite(animationTime, ANIMATION_SPEED);
+		g2.drawImage(data.getSprite(), (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
 	}
 
 	private void drawElement(Sprite sprite, Graphics graphics) {

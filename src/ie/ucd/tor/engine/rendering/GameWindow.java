@@ -3,6 +3,7 @@ package ie.ucd.tor.engine.rendering;
 import ie.ucd.tor.engine.core.GameObject;
 import ie.ucd.tor.engine.core.components.texture.Animator;
 import ie.ucd.tor.engine.core.components.texture.Sprite;
+import ie.ucd.tor.engine.core.components.texture.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
@@ -99,16 +100,16 @@ public class GameWindow {
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
 
 
-		GameObject animationTest = new GameObject();
-		animationTest.getTransform().setPosition(new Point2D(500 , 600));
-		animationTest.addComponent(new Animator());
-		// animationTest.getComponent(Animator.class).AddAnimation("Test", new AnimationData("res/AnimationPlaceholder.png", 128, 32, 32, 32, SpriteSheetDirection.Horizontal, 4));
+		GameObject animationTestA = new GameObject();
+		animationTestA.getTransform().setPosition(new Point2D(500 , 600));
+		animationTestA.addComponent(new Animator());
+		animationTestA.getComponent(Animator.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 1, 4, 32, 32));
 
 		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);
 		spriteRenderer.addElement(spriteTestA);
 		spriteRenderer.addElement(spriteTestB);
-	 	spriteRenderer.addElement(animationTest);
+	 	spriteRenderer.addElement(animationTestA);
 
 	}
 

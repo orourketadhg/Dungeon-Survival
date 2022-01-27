@@ -8,10 +8,11 @@ import java.util.HashMap;
 
 public class Animator extends Component {
 
+	private final HashMap<String, SpriteSheetData> animationMap;
 	private final int renderPriority;
 	private SpriteSheetData currentAnimation;
 	private SpriteData currentAnimationFrame;
-	private HashMap<String, SpriteSheetData> animationMap;
+
 
 	public Animator() {
 		this(0);
@@ -38,6 +39,12 @@ public class Animator extends Component {
 
 	public SpriteSheetData getCurrentAnimation() {
 		return currentAnimation;
+	}
+
+	public SpriteData calculateNextSprite(long animationTime, double animationSpeed) {
+		int animationFramePosition = (int) ((animationTime / animationSpeed) % getCurrentAnimation().getNumSprites());
+		currentAnimationFrame = currentAnimation.getSpriteSheetData().get(animationFramePosition);
+		return currentAnimationFrame;
 	}
 
 	public SpriteData getCurrentAnimationFrame() {
