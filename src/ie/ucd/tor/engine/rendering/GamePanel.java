@@ -54,15 +54,27 @@ public class GamePanel extends JPanel {
 
 	private void drawPanelElements(Graphics graphics) {
 		for (GameObject element: elements) {
+			if (!element.isEnabled()) {
+				continue;
+			}
 
 			Sprite sprite = element.getComponent(Sprite.class);
 			Animator animator = element.getComponent(Animator.class);
 			if (!Objects.isNull(animator)) {
+				if(!animator.isEnabled()) {
+					continue;
+				}
 				drawAnimatedElement(animator, graphics);
+
 			}
 			else if (!Objects.isNull(sprite)) {
+				if(!sprite.isEnabled()) {
+					continue;
+				}
 				drawElement(sprite, graphics);
+
 			}
+
 		}
 	}
 

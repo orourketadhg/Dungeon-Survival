@@ -66,7 +66,7 @@ public class GameWindow {
 
 			updateGamePanel();
 
-			CheckFrameRate(System.currentTimeMillis(), frameCheck, TARGET_FPS);
+			CheckFrameRate(System.currentTimeMillis(), frameCheck);
 
 		}
 	}
@@ -76,8 +76,8 @@ public class GameWindow {
 		uiRenderer.update();
 	}
 
-	private static void CheckFrameRate(long TargetTime, long DeliveredTime, int TargetFPS) {
-		int TimeBetweenFrames = 1000 / TargetFPS;
+	private static void CheckFrameRate(long TargetTime, long DeliveredTime) {
+		int TimeBetweenFrames = 1000 / TARGET_FPS;
 		if ((TargetTime - DeliveredTime) > TimeBetweenFrames) {
 			System.out.println("FPS failure by 10 m");
 			System.out.println("Frame was late by  " + (TargetTime - DeliveredTime) + " ms");

@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Animator extends Component {
 
-	private int renderPriority;
+	private final int renderPriority;
 	private AnimationData currentAnimation;
 	private HashMap<String, AnimationData> animationMap;
 

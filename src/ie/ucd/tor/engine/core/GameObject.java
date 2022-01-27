@@ -10,13 +10,15 @@ public class GameObject {
 	private static int ID_COUNT = 0;
 
 	private final int gameObjectID;
+	protected boolean isEnabled;
 	private String name;
 	private Transform transform;
-	private CopyOnWriteArrayList<Component> attachedComponents;
+	private final CopyOnWriteArrayList<Component> attachedComponents;
 
 	public GameObject() {
 		gameObjectID = ID_COUNT++;
 		name = "";
+		isEnabled = true;
 
 		attachedComponents = new CopyOnWriteArrayList<Component>();
 
@@ -29,9 +31,9 @@ public class GameObject {
 		return gameObjectID;
 	}
 
-	public boolean addComponent(Component component) {
+	public void addComponent(Component component) {
 		component.registerParent(this, transform);
-		return attachedComponents.add(component);
+		attachedComponents.add(component);
 	}
 
 	public <T extends Component> boolean removeComponent(Class<T> cls) {
@@ -79,6 +81,18 @@ public class GameObject {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void enable() {
+		isEnabled = true;
+	}
+
+	public void disable() {
+		isEnabled = false;
 	}
 
 }

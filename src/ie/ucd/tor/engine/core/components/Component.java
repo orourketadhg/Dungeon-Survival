@@ -4,12 +4,15 @@ import ie.ucd.tor.engine.core.GameObject;
 
 public abstract class Component {
 
+	protected boolean isEnabled;
+
 	protected GameObject gameObject;
 	protected Transform transform;
 
 	public void registerParent(GameObject gameObject, Transform transform) {
 		this.gameObject = gameObject;
 		this.transform = transform;
+		this.isEnabled = true;
 	}
 
 	public GameObject getGameObject() {
@@ -20,12 +23,20 @@ public abstract class Component {
 		return transform;
 	}
 
-	public void Execute() {
-
-	}
-
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName();
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void enable() {
+		isEnabled = true;
+	}
+
+	public void disable() {
+		isEnabled = false;
 	}
 }
