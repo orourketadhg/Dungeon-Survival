@@ -1,6 +1,6 @@
 package ie.ucd.tor.engine.core.components.texture.data;
 
-public enum AnimationDirection {
+public enum SpriteSheetDirection {
 	Vertical,
 	Horizontal
 }

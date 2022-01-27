@@ -1,39 +1,21 @@
 package ie.ucd.tor.engine.core.components.texture.data;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SpriteData {
 
-	// texture data
-	private final BufferedImage textureMap;
-	private final int textureWidth;
-	private final int textureHeight;
-
-	// sprite data
+	private final BufferedImage spriteImage;
 	private final int spriteWidth;
 	private final int spriteHeight;
 
-
-	public SpriteData(BufferedImage img, int textureWidth, int textureHeight, int spriteWidth, int spriteHeight) {
-		this.textureMap = img;
-		this.textureWidth = textureWidth;
-		this.textureHeight = textureHeight;
+	public SpriteData(BufferedImage img, int spriteWidth, int spriteHeight) {
+		this.spriteImage = img;
 		this.spriteWidth = spriteWidth;
 		this.spriteHeight = spriteHeight;
-
 	}
 
-	public Image getTextureMap() {
-		return textureMap;
-	}
-
-	public int getTextureWidth() {
-		return textureWidth;
-	}
-
-	public int getTextureHeight() {
-		return textureHeight;
+	public BufferedImage getSprite() {
+		return spriteImage;
 	}
 
 	public int getSpriteWidth() {
@@ -43,6 +25,5 @@ public class SpriteData {
 	public int getSpriteHeight() {
 		return spriteHeight;
 	}
-
 
 }

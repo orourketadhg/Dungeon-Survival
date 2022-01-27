@@ -29,10 +29,8 @@ public class Transform extends Component {
 			return new Point2D(data.getSpriteWidth(), data.getSpriteHeight());
 		}
 		else if (gameObject.hasComponent(Animator.class)) {
-			// TODO get proper width & height
-			int x = gameObject.getComponent(Animator.class).getSpriteWidth();
-			int y = gameObject.getComponent(Animator.class).getSpriteHeight();
-			return new Point2D(x, y);
+			SpriteData data = gameObject.getComponent(Animator.class).getCurrentAnimationFrame();
+			return new Point2D(data.getSpriteWidth(), data.getSpriteHeight());
 		}
 		return Point2D.Zero;
 	}

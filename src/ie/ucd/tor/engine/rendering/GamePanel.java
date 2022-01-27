@@ -3,8 +3,6 @@ package ie.ucd.tor.engine.rendering;
 import ie.ucd.tor.engine.core.GameObject;
 import ie.ucd.tor.engine.core.components.texture.Animator;
 import ie.ucd.tor.engine.core.components.texture.Sprite;
-import ie.ucd.tor.engine.core.components.texture.data.AnimationData;
-import ie.ucd.tor.engine.core.components.texture.data.AnimationDirection;
 import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
 
@@ -79,22 +77,10 @@ public class GamePanel extends JPanel {
 	}
 
 	private void drawAnimatedElement(Animator animator, Graphics graphics) {
-		AnimationData data = animator.getCurrentAnimation();
-
-		if(Objects.isNull(data)) {
-			return;
-		}
+		Graphics2D g2 = (Graphics2D) graphics.create();
 
 		Point2D position = animator.getTransform().getPosition();
 
-		if (data.getTextureDirection() == AnimationDirection.Horizontal) {
-			int animationPosition = (int) ((animationTime * ANIMATION_SPEED) % data.getNumSpriteAnimations()) * data.getSpriteWidth();
-			graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), animationPosition, 0, animationPosition + data.getSpriteWidth() - 1, data.getSpriteHeight(), null);
-		}
-		else {
-			int animationPosition = (int) ((animationTime * ANIMATION_SPEED) % data.getNumSpriteAnimations()) * data.getSpriteHeight();
-			graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, animationPosition, data.getSpriteWidth(), animationPosition + data.getSpriteHeight() - 1, null);
-		}
 	}
 
 	private void drawElement(Sprite sprite, Graphics graphics) {
@@ -103,9 +89,7 @@ public class GamePanel extends JPanel {
 		Point2D position = sprite.getTransform().getPosition();
 		SpriteData data = sprite.getSpriteData();
 
-		// graphics.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), (int) (position.getX() + data.getSpriteWidth()), (int) (position.getY() + data.getSpriteHeight()), 0, 0, data.getSpriteWidth(), data.getSpriteHeight(), null);
-
-		g2.drawImage(data.getTextureMap(), (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
+		g2.drawImage(data.getSprite(), (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
 
 	}
 

@@ -1,15 +1,17 @@
 package ie.ucd.tor.engine.core.components.texture;
 
 import ie.ucd.tor.engine.core.components.Component;
-import ie.ucd.tor.engine.core.components.texture.data.AnimationData;
+import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
+import ie.ucd.tor.engine.core.components.texture.data.SpriteSheetData;
 
 import java.util.HashMap;
 
 public class Animator extends Component {
 
 	private final int renderPriority;
-	private AnimationData currentAnimation;
-	private HashMap<String, AnimationData> animationMap;
+	private SpriteSheetData currentAnimation;
+	private SpriteData currentAnimationFrame;
+	private HashMap<String, SpriteSheetData> animationMap;
 
 	public Animator() {
 		this(0);
@@ -21,31 +23,25 @@ public class Animator extends Component {
 		this.renderPriority = renderPriority;
 	}
 
-	// sprite data
-	private int spriteWidth = 0;
-	private int spriteHeight = 0;
+	public void AddAnimation(String animationName, SpriteSheetData newAnimation) {
+		animationMap.put(animationName, newAnimation);
 
-	public int getSpriteWidth() {
-		return spriteWidth;
-	}
-
-	public int getSpriteHeight() {
-		return spriteHeight;
-	}
-
-	public void AddAnimation(String animationName, AnimationData newAnimation) {
-		if (animationMap.isEmpty()) {
+		if (currentAnimation == null) {
 			currentAnimation = newAnimation;
 		}
-		animationMap.put(animationName, newAnimation);
+
 	}
 
-	public AnimationData getAnimations(String animationName) {
+	public SpriteSheetData getAnimations(String animationName) {
 		return animationMap.get(animationName);
 	}
 
-	public AnimationData getCurrentAnimation() {
+	public SpriteSheetData getCurrentAnimation() {
 		return currentAnimation;
+	}
+
+	public SpriteData getCurrentAnimationFrame() {
+		return currentAnimationFrame;
 	}
 
 	public void setCurrentAnimation (String animationName) {
