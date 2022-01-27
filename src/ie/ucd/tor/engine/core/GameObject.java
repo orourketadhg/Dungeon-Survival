@@ -71,10 +71,6 @@ public class GameObject {
 		return transform;
 	}
 
-	public void setTransform(Transform transform) {
-		this.transform = transform;
-	}
-
 	public String getName() {
 		return name;
 	}
