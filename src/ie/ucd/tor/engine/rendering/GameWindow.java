@@ -1,7 +1,7 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.Animator;
+import ie.ucd.tor.engine.core.components.Animation;
 import ie.ucd.tor.engine.core.components.Sprite;
 import ie.ucd.tor.engine.core.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.events.InputEventHandler;
@@ -112,8 +112,8 @@ public class GameWindow {
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));
 		animationTestA.getTransform().setScale(new Point2D(-1 , 0));
-		animationTestA.addComponent(new Animator());
-		animationTestA.getComponent(Animator.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 1, 4, 32, 32));
+		animationTestA.addComponent(new Animation());
+		animationTestA.getComponent(Animation.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 1, 4, 32, 32));
 
 		backgroundRenderer.addElement(backgroundTest);
 		uiRenderer.addElement(uiTest);

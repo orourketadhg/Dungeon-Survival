@@ -1,7 +1,7 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.Animator;
+import ie.ucd.tor.engine.core.components.Animation;
 import ie.ucd.tor.engine.core.components.Sprite;
 import ie.ucd.tor.engine.core.components.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
@@ -59,12 +59,12 @@ public class GamePanel extends JPanel {
 			}
 
 			Sprite sprite = element.getComponent(Sprite.class);
-			Animator animator = element.getComponent(Animator.class);
-			if (!Objects.isNull(animator)) {
-				if(!animator.isEnabled()) {
+			Animation animation = element.getComponent(Animation.class);
+			if (!Objects.isNull(animation)) {
+				if(!animation.isEnabled()) {
 					continue;
 				}
-				drawAnimatedElement(animator, graphics);
+				drawAnimatedElement(animation, graphics);
 
 			}
 			else if (!Objects.isNull(sprite)) {
@@ -78,13 +78,13 @@ public class GamePanel extends JPanel {
 		}
 	}
 
-	private void drawAnimatedElement(Animator animator, Graphics graphics) {
+	private void drawAnimatedElement(Animation animation, Graphics graphics) {
 		Graphics2D g2 = (Graphics2D) graphics.create();
 
-		Point2D position = animator.getTransform().getPosition();
-		Point2D scale = animator.getTransform().getScale();
+		Point2D position = animation.getTransform().getPosition();
+		Point2D scale = animation.getTransform().getScale();
 
-		SpriteData data = animator.calculateNextSprite(animationTime, ANIMATION_SPEED);
+		SpriteData data = animation.calculateNextSprite(animationTime, ANIMATION_SPEED);
 		BufferedImage spriteImage = data.getSprite();
 
 		if (scale.getX() < 0) {
@@ -118,8 +118,8 @@ public class GamePanel extends JPanel {
 
 	private void sortElements() {
 		elements.sort((o1, o2) -> {
-			int p1 = o1.hasComponent(Sprite.class) ? o1.getComponent(Sprite.class).getRenderPriority() : o1.getComponent(Animator.class).getRenderPriority();
-			int p2 = o2.hasComponent(Sprite.class) ? o2.getComponent(Sprite.class).getRenderPriority() : o2.getComponent(Animator.class).getRenderPriority();
+			int p1 = o1.hasComponent(Sprite.class) ? o1.getComponent(Sprite.class).getRenderPriority() : o1.getComponent(Animation.class).getRenderPriority();
+			int p2 = o2.hasComponent(Sprite.class) ? o2.getComponent(Sprite.class).getRenderPriority() : o2.getComponent(Animation.class).getRenderPriority();
 			return p1 - p2;
 		});
 	}

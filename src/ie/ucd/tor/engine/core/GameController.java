@@ -16,8 +16,18 @@ public class GameController {
 	}
 
 	public void GameLoop() {
+		UpdateCollisions();
 
-		// Execute the Behaviour attached to a GameObject
+		UpdateBehaviour();
+
+	}
+
+	private void UpdateCollisions() {
+
+	}
+
+	private void UpdateBehaviour() {
+		// Execute the Behaviours attached to a GameObject
 		for (GameObject entity: gameEntities) {
 			if (entity.isEnabled()) {
 				List<Behaviour> behaviours = entity.getComponents(Behaviour.class);
@@ -26,7 +36,6 @@ public class GameController {
 				}
 			}
 		}
-
 	}
 
 	private void recordEntity(GameObject gameObject) {

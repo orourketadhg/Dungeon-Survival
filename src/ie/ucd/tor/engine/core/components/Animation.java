@@ -5,7 +5,7 @@ import ie.ucd.tor.engine.core.components.data.SpriteSheetData;
 
 import java.util.HashMap;
 
-public class Animator extends Component {
+public class Animation extends Component {
 
 	private final HashMap<String, SpriteSheetData> animationMap;
 	private final int renderPriority;
@@ -13,11 +13,11 @@ public class Animator extends Component {
 	private SpriteData currentAnimationFrame;
 
 
-	public Animator() {
+	public Animation() {
 		this(0);
 	}
 
-	public Animator(int renderPriority) {
+	public Animation(int renderPriority) {
 		currentAnimation = null;
 		animationMap = new HashMap<>();
 		this.renderPriority = renderPriority;
