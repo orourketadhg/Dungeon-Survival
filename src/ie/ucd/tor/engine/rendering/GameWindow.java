@@ -9,6 +9,7 @@ import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class GameWindow {
 
@@ -21,7 +22,7 @@ public class GameWindow {
 	private final GamePanel spriteRenderer;
 	private final GamePanel uiRenderer;
 	private final GamePanel backgroundRenderer;
-	private final InputEventHandler input;
+	private final KeyListener input;
 
 
 
@@ -38,7 +39,10 @@ public class GameWindow {
 		// Game Panel to draw all layers on
 		gamePanel = new JLayeredPane();
 		gamePanel.setBounds(0, 0, WIDTH, HEIGHT);
+
+		gamePanel.addKeyListener(input);
 		gamePanel.requestFocusInWindow();
+		gamePanel.setFocusable(true);
 
 		// Create layer panes for different game layers
 		uiRenderer = new GamePanel();

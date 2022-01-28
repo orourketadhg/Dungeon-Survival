@@ -141,8 +141,6 @@ public class InputEventHandler implements KeyListener {
 			}
 		}
 
-		System.out.println(e.getKeyChar());
-
 	}
 
 	@Override
