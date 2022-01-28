@@ -1,26 +1,28 @@
 package ie.ucd.tor.engine.core;
 
 import ie.ucd.tor.engine.core.components.Behaviour;
+import ie.ucd.tor.engine.core.components.Component;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameController {
 
-	private CopyOnWriteArrayList<GameObject> gameObjects;
+	private final CopyOnWriteArrayList<GameObject> gameEntities;
 
 	public GameController() {
-		gameObjects = new CopyOnWriteArrayList<>();
+		gameEntities = new CopyOnWriteArrayList<>();
 
 	}
 
 	public void GameLoop() {
 
 		// Execute the Behaviour attached to a GameObject
-		for (GameObject entity: gameObjects) {
-			if (entity.isEnabled() && entity.hasComponent(Behaviour.class)) {
-				Behaviour entityBehaviour = entity.getComponent(Behaviour.class);
-				if (entityBehaviour.isEnabled()) {
-					entityBehaviour.Execute();
+		for (GameObject entity: gameEntities) {
+			if (entity.isEnabled()) {
+				List<Behaviour> behaviours = entity.getComponents(Behaviour.class);
+				for (Behaviour behaviour: behaviours) {
+					behaviour.Execute();
 				}
 			}
 		}
@@ -28,11 +30,11 @@ public class GameController {
 	}
 
 	private void recordEntity(GameObject gameObject) {
-		gameObjects.add(gameObject);
+		gameEntities.add(gameObject);
 	}
 
 	private void removeEntity(GameObject gameObject) {
-		gameObjects.remove(gameObject);
+		gameEntities.remove(gameObject);
 	}
 
 }

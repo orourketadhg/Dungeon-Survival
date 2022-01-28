@@ -3,6 +3,7 @@ package ie.ucd.tor.engine.core;
 import ie.ucd.tor.engine.core.components.Component;
 import ie.ucd.tor.engine.core.components.Transform;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -12,7 +13,7 @@ public class GameObject {
 	private final int gameObjectID;
 	protected boolean isEnabled;
 	private String name;
-	private Transform transform;
+	private final Transform transform;
 	private final CopyOnWriteArrayList<Component> attachedComponents;
 
 	public GameObject() {
@@ -61,6 +62,16 @@ public class GameObject {
 			}
 		}
 		return null;
+	}
+
+	public <T extends Component> List<T> getComponents(Class<T> cls) {
+		List<T> components = new ArrayList<>();
+		for (Component component : attachedComponents) {
+			if (cls.isInstance(component)) {
+				components.add((T) component);
+			}
+		}
+		return components;
 	}
 
 	public List<Component> getComponents() {

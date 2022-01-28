@@ -24,8 +24,6 @@ public class GameWindow {
 	private final GamePanel backgroundRenderer;
 	private final KeyListener input;
 
-
-
 	public GameWindow() {
 
 		input = InputEventHandler.getInstance();
@@ -55,7 +53,6 @@ public class GameWindow {
 		gamePanel.add(backgroundRenderer, Integer.valueOf(0)); 		// Background
 		gamePanel.add(spriteRenderer, Integer.valueOf(1));			// Middle ground
  		gamePanel.add(uiRenderer, Integer.valueOf(2));				// Foreground
-
 
 		// add LayeredPane to frame
 		frame.add(gamePanel);
@@ -112,7 +109,6 @@ public class GameWindow {
 		spriteTestB.getTransform().setScale(new Point2D(-1, 0));
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
 
-
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));
 		animationTestA.getTransform().setScale(new Point2D(-1 , 0));
@@ -125,6 +121,18 @@ public class GameWindow {
 		spriteRenderer.addElement(spriteTestB);
 	 	spriteRenderer.addElement(animationTestA);
 
+	}
+
+	public GamePanel getSpriteRenderer() {
+		return spriteRenderer;
+	}
+
+	public GamePanel getUiRenderer() {
+		return uiRenderer;
+	}
+
+	public GamePanel getBackgroundRenderer() {
+		return backgroundRenderer;
 	}
 
 }
