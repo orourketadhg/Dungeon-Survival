@@ -1,4 +1,4 @@
-package ie.ucd.tor.engine.core.components.texture.data;
+package ie.ucd.tor.engine.core.components.data;
 
 import ie.ucd.tor.engine.util.ImagesUtil;
 

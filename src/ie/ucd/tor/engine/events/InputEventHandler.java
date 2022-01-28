@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 // Singleton pattern
-public class Input implements KeyListener {
+public class InputEventHandler implements KeyListener {
 
 	/* Number keys */
 	private static boolean Key1Pressed = false;
@@ -62,15 +62,15 @@ public class Input implements KeyListener {
 	private static boolean KeyArrowLeftPressed = false;
 	private static boolean KeyArrowRightPressed = false;
 
-	private static Input instance;
+	private static InputEventHandler instance;
 
-	public Input() {
+	public InputEventHandler() {
 
 	}
 
-	public static Input getInstance() {
+	public static InputEventHandler getInstance() {
 		if (instance == null) {
-			instance = new Input();
+			instance = new InputEventHandler();
 		}
 		return instance;
 	}
@@ -140,6 +140,8 @@ public class Input implements KeyListener {
 				System.out.println("Unknown Input");
 			}
 		}
+
+		System.out.println(e.getKeyChar());
 
 	}
 

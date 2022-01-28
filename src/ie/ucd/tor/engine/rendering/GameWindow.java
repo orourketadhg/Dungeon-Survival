@@ -1,9 +1,10 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.texture.Animator;
-import ie.ucd.tor.engine.core.components.texture.Sprite;
-import ie.ucd.tor.engine.core.components.texture.data.SpriteSheetData;
+import ie.ucd.tor.engine.core.components.Animator;
+import ie.ucd.tor.engine.core.components.Sprite;
+import ie.ucd.tor.engine.core.components.data.SpriteSheetData;
+import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
@@ -20,8 +21,13 @@ public class GameWindow {
 	private final GamePanel spriteRenderer;
 	private final GamePanel uiRenderer;
 	private final GamePanel backgroundRenderer;
+	private final InputEventHandler input;
+
+
 
 	public GameWindow() {
+
+		input = InputEventHandler.getInstance();
 
 		// Create application window frame
 		frame = new JFrame("Dungeon Survival");
@@ -32,6 +38,7 @@ public class GameWindow {
 		// Game Panel to draw all layers on
 		gamePanel = new JLayeredPane();
 		gamePanel.setBounds(0, 0, WIDTH, HEIGHT);
+		gamePanel.requestFocusInWindow();
 
 		// Create layer panes for different game layers
 		uiRenderer = new GamePanel();
@@ -44,6 +51,7 @@ public class GameWindow {
 		gamePanel.add(backgroundRenderer, Integer.valueOf(0)); 		// Background
 		gamePanel.add(spriteRenderer, Integer.valueOf(1));			// Middle ground
  		gamePanel.add(uiRenderer, Integer.valueOf(2));				// Foreground
+
 
 		// add LayeredPane to frame
 		frame.add(gamePanel);
@@ -97,7 +105,9 @@ public class GameWindow {
 
 		GameObject spriteTestB = new GameObject();
 		spriteTestB.getTransform().setPosition(new Point2D(532 , 500));
+		spriteTestB.getTransform().setScale(new Point2D(-1, 0));
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
+
 
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));

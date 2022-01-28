@@ -1,15 +1,14 @@
 package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.texture.Animator;
-import ie.ucd.tor.engine.core.components.texture.Sprite;
-import ie.ucd.tor.engine.core.components.texture.data.SpriteData;
+import ie.ucd.tor.engine.core.components.Animator;
+import ie.ucd.tor.engine.core.components.Sprite;
+import ie.ucd.tor.engine.core.components.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.util.ImagesUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -99,9 +98,16 @@ public class GamePanel extends JPanel {
 		Graphics2D g2 = (Graphics2D) graphics.create();
 
 		Point2D position = sprite.getTransform().getPosition();
+		Point2D scale = sprite.getTransform().getScale();
 		SpriteData data = sprite.getSpriteData();
 
-		g2.drawImage(data.getSprite(), (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
+		BufferedImage spriteImage = data.getSprite();
+
+		if (scale.getX() < 0) {
+			spriteImage =  ImagesUtil.calculateImageFlip(spriteImage);
+		}
+
+		g2.drawImage(spriteImage, (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
 
 	}
 
