@@ -1,6 +1,6 @@
-package ie.ucd.tor.engine.core.components;
+package ie.ucd.tor.engine.core.gameobject.components;
 
-import ie.ucd.tor.engine.core.components.data.SpriteData;
+import ie.ucd.tor.engine.core.gameobject.components.data.SpriteData;
 import ie.ucd.tor.engine.util.ImagesUtil;
 
 import java.awt.image.BufferedImage;

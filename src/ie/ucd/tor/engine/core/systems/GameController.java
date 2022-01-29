@@ -1,7 +1,7 @@
-package ie.ucd.tor.engine.core;
+package ie.ucd.tor.engine.core.systems;
 
-import ie.ucd.tor.engine.core.components.Behaviour;
-import ie.ucd.tor.engine.core.components.Component;
+import ie.ucd.tor.engine.core.gameobject.GameObject;
+import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -23,16 +23,23 @@ public class GameController {
 	}
 
 	private void UpdateCollisions() {
+		for (GameObject entity: gameEntities) {
+			if (entity.isEnabled()) {
 
+			}
+		}
 	}
 
 	private void UpdateBehaviour() {
+
 		// Execute the Behaviours attached to a GameObject
 		for (GameObject entity: gameEntities) {
 			if (entity.isEnabled()) {
-				List<Behaviour> behaviours = entity.getComponents(Behaviour.class);
-				for (Behaviour behaviour: behaviours) {
-					behaviour.Execute();
+				List<Behaviour> behavioursList = entity.getComponents(Behaviour.class);
+				for (Behaviour behaviour: behavioursList) {
+					if (behaviour.isEnabled()) {
+						behaviour.Execute();
+					}
 				}
 			}
 		}

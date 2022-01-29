@@ -1,9 +1,9 @@
 package ie.ucd.tor.engine.rendering;
 
-import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.Animation;
-import ie.ucd.tor.engine.core.components.Sprite;
-import ie.ucd.tor.engine.core.components.data.SpriteData;
+import ie.ucd.tor.engine.core.gameobject.GameObject;
+import ie.ucd.tor.engine.core.gameobject.components.Animation;
+import ie.ucd.tor.engine.core.gameobject.components.Sprite;
+import ie.ucd.tor.engine.core.gameobject.components.data.SpriteData;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.util.ImagesUtil;
 

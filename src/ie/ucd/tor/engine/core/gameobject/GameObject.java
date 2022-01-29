@@ -1,7 +1,7 @@
-package ie.ucd.tor.engine.core;
+package ie.ucd.tor.engine.core.gameobject;
 
-import ie.ucd.tor.engine.core.components.Component;
-import ie.ucd.tor.engine.core.components.Transform;
+import ie.ucd.tor.engine.core.gameobject.components.Component;
+import ie.ucd.tor.engine.core.gameobject.components.Transform;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ie.ucd.tor.engine.core.components.data;
+package ie.ucd.tor.engine.core.gameobject.components.data;
 
 import ie.ucd.tor.engine.util.ImagesUtil;
 

@@ -1,6 +1,6 @@
-package ie.ucd.tor.engine.core.components;
+package ie.ucd.tor.engine.core.gameobject.components;
 
-import ie.ucd.tor.engine.core.GameObject;
+import ie.ucd.tor.engine.core.gameobject.GameObject;
 
 public abstract class Component {
 

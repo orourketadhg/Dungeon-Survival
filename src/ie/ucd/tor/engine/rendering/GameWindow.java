@@ -1,9 +1,9 @@
 package ie.ucd.tor.engine.rendering;
 
-import ie.ucd.tor.engine.core.GameObject;
-import ie.ucd.tor.engine.core.components.Animation;
-import ie.ucd.tor.engine.core.components.Sprite;
-import ie.ucd.tor.engine.core.components.data.SpriteSheetData;
+import ie.ucd.tor.engine.core.gameobject.GameObject;
+import ie.ucd.tor.engine.core.gameobject.components.Animation;
+import ie.ucd.tor.engine.core.gameobject.components.Sprite;
+import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 
@@ -93,7 +93,6 @@ public class GameWindow {
 	}
 
 	private void panelTest() {
-		// testing game rendering panels
 		GameObject backgroundTest = new GameObject();
 		backgroundTest.addComponent(new Sprite("res/BackgroundPlaceholder.png", 1000, 1000, 0));
 
