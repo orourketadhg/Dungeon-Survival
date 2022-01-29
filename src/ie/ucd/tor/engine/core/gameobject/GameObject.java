@@ -39,7 +39,7 @@ public class GameObject {
 		attachedComponents.add(component);
 
 		if (component instanceof Collision) {
-			CollisionController.getInstance().addGameObjectWithCollider(this);
+			CollisionController.getInstance().addColliderToSystem((Collision) component);
 		}
 	}
 

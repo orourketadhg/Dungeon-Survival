@@ -1,6 +1,5 @@
 package ie.ucd.tor.engine.core.systems;
 
-import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionType;
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class CollisionController {
 
-	private final List<GameObject> gameObjectsWithColliders;
+	private final List<Collision> colliders;
 
 	private List<CollisionData> currentCollisions;
 	private List<CollisionData> collisionsLastFrame;
@@ -19,7 +18,7 @@ public class CollisionController {
 	private static CollisionController instance;
 
 	public CollisionController() {
-		gameObjectsWithColliders = new ArrayList<>();
+		colliders = new ArrayList<>();
 
 		currentCollisions = new ArrayList<>();
 		collisionsLastFrame = new ArrayList<>();
@@ -37,8 +36,8 @@ public class CollisionController {
 
 		List<CollisionData> newCollisions = new ArrayList<>();
 
-		for (GameObject A: gameObjectsWithColliders) {
-			for (GameObject B: gameObjectsWithColliders) {
+		for (Collision A: colliders) {
+			for (Collision B: colliders) {
 
 				if (A == B) {
 					continue;
@@ -74,34 +73,34 @@ public class CollisionController {
 		collisionsLastFrame = currentCollisions;
 		currentCollisions = newCollisions;
 
+		System.out.println(currentCollisions);
+
 	}
 
-	public List<CollisionData> getCollisionsWithGameObject(GameObject gameObject) {
-		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(gameObject))).collect(Collectors.toList());
+	public List<CollisionData> getCollisions(Collision collider) {
+		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(collider))).collect(Collectors.toList());
 	}
 
-	public void addGameObjectWithCollider(GameObject gameObject) {
-		gameObjectsWithColliders.add(gameObject);
+	public void addColliderToSystem(Collision collider) {
+		colliders.add(collider);
 	}
 
-	public void removeGameObjectWithCollider(GameObject gameObject) {
-		gameObjectsWithColliders.remove(gameObject);
+	public void removeColliderToSystem(Collision collider) {
+		colliders.remove(collider);
 	}
 
-	private Boolean CheckCollision(GameObject a, GameObject b) {
+	private Boolean CheckCollision(Collision a, Collision b) {
 		Point2D aPosition = a.getTransform().getPosition();
 		Point2D bPosition = b.getTransform().getPosition();
-		Collision aCollider = a.getComponent(Collision.class);
-		Collision bCollider = b.getComponent(Collision.class);
 
-		return 	aPosition.getX() < bPosition.getX() + bCollider.getColliderWidth() &&
-				aPosition.getX() + aCollider.getColliderWidth() > bPosition.getX() &&
-				aPosition.getY() < bPosition.getY() + bCollider.getColliderHeight() &&
-				aPosition.getY() + aCollider.getColliderHeight() > bPosition.getY();
+		return 	aPosition.getX() + a.getOffset().getX() < bPosition.getX() + b.getOffset().getX() + b.getColliderWidth() &&
+				aPosition.getX() + a.getOffset().getX() + a.getColliderWidth() > bPosition.getX() + b.getOffset().getX() &&
+				aPosition.getY() + a.getOffset().getY() < bPosition.getY() + b.getOffset().getY() + b.getColliderHeight() &&
+				aPosition.getY() + a.getOffset().getY() + a.getColliderHeight() > bPosition.getY() + b.getOffset().getY();
 
 	}
 
-	private boolean pastCollisionExists(GameObject A, GameObject B) {
+	private boolean pastCollisionExists(Collision A, Collision B) {
 		return collisionsLastFrame.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B))).toList().size() > 0;
 	}
 

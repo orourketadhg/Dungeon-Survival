@@ -2,6 +2,7 @@ package ie.ucd.tor.engine.core.gameobject.components;
 
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.engine.core.systems.CollisionController;
+import ie.ucd.tor.engine.maths.Point2D;
 
 import java.util.List;
 
@@ -9,10 +10,12 @@ public class Collision extends Component {
 
 	private final int colliderWidth;
 	private final int colliderHeight;
+	private final Point2D offset;
 
-	public Collision(int colliderWidth, int colliderHeight) {
+	public Collision(int colliderWidth, int colliderHeight, Point2D offset) {
 		this.colliderWidth = colliderWidth;
 		this.colliderHeight = colliderHeight;
+		this.offset = offset;
 	}
 
 	public int getColliderWidth() {
@@ -23,20 +26,24 @@ public class Collision extends Component {
 		return colliderHeight;
 	}
 
+	public Point2D getOffset() {
+		return offset;
+	}
+
 	public List<CollisionData> getCollisions() {
-		return CollisionController.getInstance().getCollisionsWithGameObject(gameObject);
+		return CollisionController.getInstance().getCollisions(this);
 	}
 
 	@Override
 	public void enable() {
 		super.enable();
-		CollisionController.getInstance().addGameObjectWithCollider(gameObject);
+		CollisionController.getInstance().addColliderToSystem(this);
 	}
 
 	@Override
 	public void disable() {
 		super.disable();
-		CollisionController.getInstance().removeGameObjectWithCollider(gameObject);
+		CollisionController.getInstance().removeColliderToSystem(this);
 	}
 
 }
