@@ -34,20 +34,27 @@ public class CollisionController {
 	}
 
 	public void UpdateCollisions() {
-		collisionsLastFrame.clear();
-		Collections.copy(collisionsLastFrame, currentCollisions);
-		currentCollisions.clear();
+
+		if (currentCollisions.size() > 0 && collisionsLastFrame.size() > 0) {
+			collisionsLastFrame.clear();
+			Collections.copy(collisionsLastFrame, currentCollisions);
+			currentCollisions.clear();
+		}
 
 		for (GameObject A: gameObjectsWithColliders) {
 			for (GameObject B: gameObjectsWithColliders) {
-				if (A.equals(B)) {
+
+
+				if (A == B) {
 					continue;
 				}
+
 
 				// Check if the collision is already recorded
 				if (currentCollisionExists(A, B)) {
 					continue;
 				}
+
 
 				// check if a collision is occurring between A and B
 				boolean currentCollisionStatus = CheckCollision(A, B);
@@ -70,6 +77,7 @@ public class CollisionController {
 				}
 			}
 		}
+
 	}
 
 	public List<CollisionData> getCollisionsWithGameObject(GameObject gameObject) {
@@ -77,10 +85,6 @@ public class CollisionController {
 	}
 
 	public void addGameObjectWithCollider(GameObject gameObject) {
-		if (!gameObject.hasComponent(Collision.class)) {
-			return;
-		}
-
 		gameObjectsWithColliders.add(gameObject);
 	}
 

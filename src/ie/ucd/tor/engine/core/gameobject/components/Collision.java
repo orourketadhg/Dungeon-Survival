@@ -7,15 +7,12 @@ import java.util.List;
 
 public class Collision extends Component {
 
-	private int colliderWidth;
-	private int colliderHeight;
+	private final int colliderWidth;
+	private final int colliderHeight;
 
 	public Collision(int colliderWidth, int colliderHeight) {
 		this.colliderWidth = colliderWidth;
 		this.colliderHeight = colliderHeight;
-
-		CollisionController.getInstance().addGameObjectWithCollider(gameObject);
-
 	}
 
 	public int getColliderWidth() {
@@ -28,6 +25,18 @@ public class Collision extends Component {
 
 	public List<CollisionData> getCollisions() {
 		return CollisionController.getInstance().getCollisionsWithGameObject(gameObject);
+	}
+
+	@Override
+	public void enable() {
+		super.enable();
+		CollisionController.getInstance().addGameObjectWithCollider(gameObject);
+	}
+
+	@Override
+	public void disable() {
+		super.disable();
+		CollisionController.getInstance().removeGameObjectWithCollider(gameObject);
 	}
 
 }

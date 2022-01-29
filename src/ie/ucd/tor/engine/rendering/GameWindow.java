@@ -2,8 +2,10 @@ package ie.ucd.tor.engine.rendering;
 
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
+import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
+import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 
@@ -72,14 +74,16 @@ public class GameWindow {
 				// wait until next frame time
 			}
 
-			updateGamePanel();
+			updateRendering();
+
+			GameController.getInstance().GameLoop();
 
 			CheckFrameRate(System.currentTimeMillis(), frameCheck);
 
 		}
 	}
 
-	private void updateGamePanel() {
+	private void updateRendering() {
 		spriteRenderer.update();
 		uiRenderer.update();
 	}
@@ -102,11 +106,13 @@ public class GameWindow {
 		GameObject spriteTestA = new GameObject();
 		spriteTestA.getTransform().setPosition(new Point2D(500 , 500));
 		spriteTestA.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
+		spriteTestA.addComponent(new Collision(32, 32));
 
 		GameObject spriteTestB = new GameObject();
-		spriteTestB.getTransform().setPosition(new Point2D(532 , 500));
+		spriteTestB.getTransform().setPosition(new Point2D(516 , 500));
 		spriteTestB.getTransform().setScale(new Point2D(-1, 0));
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
+		spriteTestB.addComponent(new Collision(32, 32));
 
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));

@@ -43,4 +43,12 @@ public class CollisionData {
 		return gameObject == A || gameObject == B;
 	}
 
+	@Override
+	public String toString() {
+		return "CollisionData{" +
+				"collisionType=" + collisionType +
+				", A=" + A +
+				", B=" + B +
+				'}';
+	}
 }

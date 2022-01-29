@@ -1,7 +1,9 @@
 package ie.ucd.tor.engine.core.gameobject;
 
+import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.Component;
 import ie.ucd.tor.engine.core.gameobject.components.Transform;
+import ie.ucd.tor.engine.core.systems.CollisionController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,10 @@ public class GameObject {
 	public void addComponent(Component component) {
 		component.registerParent(this, transform);
 		attachedComponents.add(component);
+
+		if (component instanceof Collision) {
+			CollisionController.getInstance().addGameObjectWithCollider(this);
+		}
 	}
 
 	public <T extends Component> boolean removeComponent(Class<T> cls) {
