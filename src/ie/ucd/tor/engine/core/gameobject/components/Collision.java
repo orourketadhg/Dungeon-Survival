@@ -14,6 +14,8 @@ public class Collision extends Component {
 		this.colliderWidth = colliderWidth;
 		this.colliderHeight = colliderHeight;
 
+		CollisionController.getInstance().addGameObjectWithCollider(gameObject);
+
 	}
 
 	public int getColliderWidth() {
@@ -22,14 +24,6 @@ public class Collision extends Component {
 
 	public int getColliderHeight() {
 		return colliderHeight;
-	}
-
-	public void setColliderWidth(int colliderWidth) {
-		this.colliderWidth = colliderWidth;
-	}
-
-	public void setColliderHeight(int colliderHeight) {
-		this.colliderHeight = colliderHeight;
 	}
 
 	public List<CollisionData> getCollisions() {

@@ -4,6 +4,7 @@ import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionType;
+import ie.ucd.tor.engine.maths.Point2D;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,12 +44,14 @@ public class CollisionController {
 					continue;
 				}
 
+				// Check if the collision is already recorded
 				if (currentCollisionExists(A, B)) {
 					continue;
 				}
 
 				// check if a collision is occurring between A and B
 				boolean currentCollisionStatus = CheckCollision(A, B);
+				// check if a past collision occurred between A and B
 				boolean pastCollisionStatus = pastCollisionExists(A, B);
 
 				// check if collision data exists containing A and B in the current Frame but not the last frame - Entering Collision Detected
@@ -73,20 +76,29 @@ public class CollisionController {
 		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(gameObject))).collect(Collectors.toList());
 	}
 
-	public boolean addGameObjectWithCollider(GameObject gameObject) {
+	public void addGameObjectWithCollider(GameObject gameObject) {
 		if (!gameObject.hasComponent(Collision.class)) {
-			return false;
+			return;
 		}
 
-		return gameObjectsWithColliders.add(gameObject);
+		gameObjectsWithColliders.add(gameObject);
 	}
 
-	public boolean removeGameObjectWithCollider(GameObject gameObject) {
-		return gameObjectsWithColliders.remove(gameObject);
+	public void removeGameObjectWithCollider(GameObject gameObject) {
+		gameObjectsWithColliders.remove(gameObject);
 	}
 
-	private Boolean CheckCollision(GameObject A, GameObject B) {
-		return false;
+	private Boolean CheckCollision(GameObject a, GameObject b) {
+		Point2D aPosition = a.getTransform().getPosition();
+		Point2D bPosition = b.getTransform().getPosition();
+		Collision aCollider = a.getComponent(Collision.class);
+		Collision bCollider = b.getComponent(Collision.class);
+
+		return 	aPosition.getX() < bPosition.getX() + bCollider.getColliderWidth() &&
+				aPosition.getX() + aCollider.getColliderWidth() > bPosition.getX() &&
+				aPosition.getY() < bPosition.getY() + bCollider.getColliderHeight() &&
+				aPosition.getY() + aCollider.getColliderHeight() > bPosition.getY();
+
 	}
 
 	private boolean pastCollisionExists(GameObject A, GameObject B) {
