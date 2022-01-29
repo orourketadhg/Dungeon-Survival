@@ -1,5 +1,10 @@
 package ie.ucd.tor.engine.core.gameobject.components;
 
+import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
+import ie.ucd.tor.engine.core.systems.CollisionController;
+
+import java.util.List;
+
 public class Collision extends Component {
 
 	private int colliderWidth;
@@ -8,7 +13,6 @@ public class Collision extends Component {
 	public Collision(int colliderWidth, int colliderHeight) {
 		this.colliderWidth = colliderWidth;
 		this.colliderHeight = colliderHeight;
-
 
 	}
 
@@ -26,6 +30,10 @@ public class Collision extends Component {
 
 	public void setColliderHeight(int colliderHeight) {
 		this.colliderHeight = colliderHeight;
+	}
+
+	public List<CollisionData> getCollisions() {
+		return CollisionController.getInstance().getCollisionsWithGameObject(gameObject);
 	}
 
 }

@@ -27,7 +27,7 @@ public class CollisionData {
 		return B;
 	}
 
-	public boolean Compare(CollisionData data) {
+	public boolean CompareCollision(CollisionData data) {
 		if (this.A == data.getA() && this.B == data.getB()) {
 			return true;
 		}
@@ -37,6 +37,10 @@ public class CollisionData {
 		else {
 			return false;
 		}
+	}
+
+	public boolean collisionIncludes(GameObject gameObject) {
+		return gameObject == A || gameObject == B;
 	}
 
 }

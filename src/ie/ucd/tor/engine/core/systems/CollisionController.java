@@ -15,39 +15,45 @@ public class CollisionController {
 	private List<CollisionData> currentCollisions;
 	private List<CollisionData> collisionsLastFrame;
 
+	private static CollisionController instance;
+
 	public CollisionController() {
 		gameObjectsWithColliders = new ArrayList<>();
 
 		currentCollisions = new ArrayList<>();
 		collisionsLastFrame = new ArrayList<>();
+
+
+	}
+
+	public static CollisionController getInstance() {
+		if (instance == null) {
+			instance = new CollisionController();
+		}
+		return instance;
 	}
 
 	public void UpdateCollisions() {
 
+		for (GameObject A: gameObjectsWithColliders) {
+			for (GameObject B: gameObjectsWithColliders) {
+				if (A.equals(B)) {
+					continue;
+				}
+
+				// check if a collision is occurring between A and B
+				boolean currentCollisionStatus = CheckCollision(A, B);
+				boolean pastCollisionStatus = pastCollisionExists(A, B);
+
+				// check if collision data exists containing A and B in the current Frame but not the last frame - Entering Collision Detected
+				// check if collision data exists containing A and B in the last Frame but not the current frame- Exiting Collision Detected
+				// check if collision data exists containing A and B in the current Frame and Last Frame - Persisting Collision Detected
+			}
+		}
 	}
 
-	private void distributeCollisions() {
-
-	}
-
-	public List<CollisionData> getNewCollisions() {
-		return currentCollisions.stream().filter((collisionData -> !collisionsLastFrame.contains(collisionData))).collect(Collectors.toList());
-	}
-
-	public List<CollisionData> getPersistingCollisions() {
-		return currentCollisions.stream().filter((collisionData -> collisionsLastFrame.contains(collisionData))).collect(Collectors.toList());
-	}
-
-	public List<CollisionData> getExitingCollisions() {
-		return collisionsLastFrame.stream().filter((collisionData -> currentCollisions.contains(collisionData))).collect(Collectors.toList());
-	}
-
-	public List<CollisionData> getCurrentCollisions() {
-		return currentCollisions;
-	}
-
-	public List<CollisionData> getCollisionsLastFrame() {
-		return collisionsLastFrame;
+	public List<CollisionData> getCollisionsWithGameObject(GameObject gameObject) {
+		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(gameObject))).collect(Collectors.toList());
 	}
 
 	public boolean addGameObjectWithCollider(GameObject gameObject) {
@@ -60,6 +66,18 @@ public class CollisionController {
 
 	public boolean removeGameObjectWithCollider(GameObject gameObject) {
 		return gameObjectsWithColliders.remove(gameObject);
+	}
+
+	private Boolean CheckCollision(GameObject A, GameObject B) {
+		return false;
+	}
+
+	private boolean pastCollisionExists(GameObject A, GameObject B) {
+		return collisionsLastFrame.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B))).toList().size() > 0;
+	}
+
+	private boolean currentCollisionExists(GameObject A, GameObject B) {
+		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B))).toList().size() > 0;
 	}
 
 }

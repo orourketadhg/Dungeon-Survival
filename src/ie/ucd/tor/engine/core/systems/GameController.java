@@ -10,8 +10,13 @@ public class GameController {
 
 	private final CopyOnWriteArrayList<GameObject> gameEntities;
 
+	private CollisionController collisionController;
+	private BehaviourController behaviourController;
+
 	public GameController() {
 		gameEntities = new CopyOnWriteArrayList<>();
+
+		this.collisionController = CollisionController.getInstance();
 
 	}
 
@@ -23,26 +28,11 @@ public class GameController {
 	}
 
 	private void UpdateCollisions() {
-		for (GameObject entity: gameEntities) {
-			if (entity.isEnabled()) {
-
-			}
-		}
+		this.collisionController.UpdateCollisions();
 	}
 
 	private void UpdateBehaviour() {
-
-		// Execute the Behaviours attached to a GameObject
-		for (GameObject entity: gameEntities) {
-			if (entity.isEnabled()) {
-				List<Behaviour> behavioursList = entity.getComponents(Behaviour.class);
-				for (Behaviour behaviour: behavioursList) {
-					if (behaviour.isEnabled()) {
-						behaviour.Execute();
-					}
-				}
-			}
-		}
+		this.behaviourController.UpdateBehaviours();
 	}
 
 	private void recordEntity(GameObject gameObject) {
