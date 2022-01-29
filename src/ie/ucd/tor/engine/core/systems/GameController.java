@@ -32,6 +32,6 @@ public class GameController {
 	}
 
 	private void UpdateBehaviour() {
-		this.behaviourController.UpdateBehaviours();
+		this.behaviourController.updateBehaviours();
 	}
 }

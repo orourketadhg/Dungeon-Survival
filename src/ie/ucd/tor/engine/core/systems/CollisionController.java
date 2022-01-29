@@ -43,6 +43,10 @@ public class CollisionController {
 					continue;
 				}
 
+				if (!A.getGameObject().isEnabled() || !B.getGameObject().isEnabled()) {
+					continue;
+				}
+
 				// Check if the collision is already recorded
 				if (newCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B))).toList().size() > 0) {
 					continue;
@@ -72,8 +76,6 @@ public class CollisionController {
 
 		collisionsLastFrame = currentCollisions;
 		currentCollisions = newCollisions;
-
-		System.out.println(currentCollisions);
 
 	}
 

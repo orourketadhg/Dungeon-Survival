@@ -74,9 +74,9 @@ public class GameWindow {
 				// wait until next frame time
 			}
 
-			updateRendering();
-
 			GameController.getInstance().GameLoop();
+
+			updateRendering();
 
 			CheckFrameRate(System.currentTimeMillis(), frameCheck);
 
@@ -84,6 +84,7 @@ public class GameWindow {
 	}
 
 	private void updateRendering() {
+		backgroundRenderer.update();
 		spriteRenderer.update();
 		uiRenderer.update();
 	}
@@ -110,13 +111,11 @@ public class GameWindow {
 
 		GameObject spriteTestB = new GameObject();
 		spriteTestB.getTransform().setPosition(new Point2D(532 , 500));
-		spriteTestB.getTransform().setScale(new Point2D(-1, 0));
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
-		spriteTestB.addComponent(new Collision(32, 32, new Point2D(-32, 0)));
+		spriteTestB.addComponent(new Collision(32, 32, Point2D.Zero));
 
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));
-		animationTestA.getTransform().setScale(new Point2D(-1 , 0));
 		animationTestA.addComponent(new Animation());
 		animationTestA.getComponent(Animation.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 1, 4, 32, 32));
 

@@ -12,4 +12,16 @@ public class Behaviour extends Component {
 
 	}
 
+	@Override
+	public void enable() {
+		super.enable();
+		BehaviourController.getInstance().addBehaviourToSystem(this);
+	}
+
+	@Override
+	public void disable() {
+		super.disable();
+		BehaviourController.getInstance().removeBehaviourToSystem(this);
+	}
+
 }

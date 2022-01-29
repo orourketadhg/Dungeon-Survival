@@ -1,8 +1,10 @@
 package ie.ucd.tor.engine.core.gameobject;
 
+import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.Component;
 import ie.ucd.tor.engine.core.gameobject.components.Transform;
+import ie.ucd.tor.engine.core.systems.BehaviourController;
 import ie.ucd.tor.engine.core.systems.CollisionController;
 
 import java.util.ArrayList;
@@ -41,6 +43,10 @@ public class GameObject {
 		if (component instanceof Collision) {
 			CollisionController.getInstance().addColliderToSystem((Collision) component);
 		}
+		else if (component instanceof Behaviour) {
+			BehaviourController.getInstance().addBehaviourToSystem((Behaviour) component);
+		}
+
 	}
 
 	public <T extends Component> boolean removeComponent(Class<T> cls) {

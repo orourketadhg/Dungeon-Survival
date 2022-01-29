@@ -1,6 +1,13 @@
 package ie.ucd.tor.engine.core.systems;
 
+import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BehaviourController {
+
+	private final List<Behaviour> behaviours;
 
 	private static BehaviourController instance;
 
@@ -12,10 +19,28 @@ public class BehaviourController {
 	}
 
 	public BehaviourController() {
-
+		behaviours = new ArrayList<>();
 	}
 
-	public void UpdateBehaviours() {
+	public void updateBehaviours() {
+		for (Behaviour behaviour: behaviours) {
+			if (!behaviour.getGameObject().isEnabled()) {
+				continue;
+			}
 
+			behaviour.Execute();
+		}
+	}
+
+	public List<Behaviour> getBehaviours() {
+		return behaviours;
+	}
+
+	public void addBehaviourToSystem(Behaviour behaviour) {
+		behaviours.add(behaviour);
+	}
+
+	public void removeBehaviourToSystem(Behaviour behaviour) {
+		behaviours.remove(behaviour);
 	}
 }
