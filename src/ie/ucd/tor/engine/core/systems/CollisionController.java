@@ -3,17 +3,17 @@ package ie.ucd.tor.engine.core.systems;
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
+import ie.ucd.tor.engine.core.gameobject.components.data.CollisionType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CollisionController {
 
-	private List<GameObject> gameObjectsWithColliders;
+	private final List<GameObject> gameObjectsWithColliders;
 
-	private List<CollisionData> currentCollisions;
-	private List<CollisionData> collisionsLastFrame;
+	private final List<CollisionData> currentCollisions;
+	private final List<CollisionData> collisionsLastFrame;
 
 	private static CollisionController instance;
 
@@ -22,7 +22,6 @@ public class CollisionController {
 
 		currentCollisions = new ArrayList<>();
 		collisionsLastFrame = new ArrayList<>();
-
 
 	}
 
@@ -34,10 +33,17 @@ public class CollisionController {
 	}
 
 	public void UpdateCollisions() {
+		collisionsLastFrame.clear();
+		Collections.copy(collisionsLastFrame, currentCollisions);
+		currentCollisions.clear();
 
 		for (GameObject A: gameObjectsWithColliders) {
 			for (GameObject B: gameObjectsWithColliders) {
 				if (A.equals(B)) {
+					continue;
+				}
+
+				if (currentCollisionExists(A, B)) {
 					continue;
 				}
 
@@ -46,8 +52,19 @@ public class CollisionController {
 				boolean pastCollisionStatus = pastCollisionExists(A, B);
 
 				// check if collision data exists containing A and B in the current Frame but not the last frame - Entering Collision Detected
+				if (currentCollisionStatus && !pastCollisionStatus) {
+					currentCollisions.add(new CollisionData(CollisionType.Entering, A, B));
+				}
+
 				// check if collision data exists containing A and B in the last Frame but not the current frame- Exiting Collision Detected
+				if (!currentCollisionStatus && pastCollisionStatus) {
+					currentCollisions.add(new CollisionData(CollisionType.Exiting, A, B));
+				}
+
 				// check if collision data exists containing A and B in the current Frame and Last Frame - Persisting Collision Detected
+				if (currentCollisionStatus && pastCollisionStatus) {
+					currentCollisions.add(new CollisionData(CollisionType.Persisting, A, B));
+				}
 			}
 		}
 	}
