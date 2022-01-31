@@ -1,10 +1,10 @@
 package ie.ucd.tor;
 
-import ie.ucd.tor.engine.rendering.GameWindow;
+import ie.ucd.tor.engine.core.systems.GameController;
 
 public class Main {
     public static void main(String[] args) {
-        GameWindow window = new GameWindow();
-        window.play();
+        GameController game = new GameController();
+        game.play();
     }
 }

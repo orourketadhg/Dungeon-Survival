@@ -1,13 +1,6 @@
 package ie.ucd.tor.engine.rendering;
 
-import ie.ucd.tor.engine.core.gameobject.GameObject;
-import ie.ucd.tor.engine.core.gameobject.components.Animation;
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
-import ie.ucd.tor.engine.core.gameobject.components.Sprite;
-import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
-import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.events.InputEventHandler;
-import ie.ucd.tor.engine.maths.Point2D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +18,15 @@ public class GameWindow {
 	private final GamePanel uiRenderer;
 	private final GamePanel backgroundRenderer;
 	private final KeyListener input;
+
+	private static GameWindow instance;
+
+	public static GameWindow getInstance() {
+		if (instance == null) {
+			instance = new GameWindow();
+		}
+		return instance;
+	}
 
 	public GameWindow() {
 
@@ -49,8 +51,6 @@ public class GameWindow {
 		spriteRenderer = new GamePanel();
 		backgroundRenderer = new GamePanel();
 
-		panelTest();
-
 		// add game canvases to LayeredPane
 		gamePanel.add(backgroundRenderer, Integer.valueOf(0)); 		// Background
 		gamePanel.add(spriteRenderer, Integer.valueOf(1));			// Middle ground
@@ -65,66 +65,18 @@ public class GameWindow {
 
 	}
 
-	public void play() {
-		while (true) {
-			int timeBetweenFrames = 1000 / TARGET_FPS;
-			long frameCheck = System.currentTimeMillis() + (long) timeBetweenFrames;
-
-			while (frameCheck > System.currentTimeMillis()) {
-				// wait until next frame time
-			}
-
-			GameController.getInstance().GameLoop();
-
-			updateRendering();
-
-			CheckFrameRate(System.currentTimeMillis(), frameCheck);
-
-		}
-	}
-
-	private void updateRendering() {
+	public void updateRendering() {
 		backgroundRenderer.update();
 		spriteRenderer.update();
 		uiRenderer.update();
 	}
 
-	private static void CheckFrameRate(long TargetTime, long DeliveredTime) {
+	public static void checkFrameRate(long TargetTime, long DeliveredTime) {
 		int TimeBetweenFrames = 1000 / TARGET_FPS;
 		if ((TargetTime - DeliveredTime) > TimeBetweenFrames) {
 			System.out.println("FPS failure by 10 m");
 			System.out.println("Frame was late by  " + (TargetTime - DeliveredTime) + " ms");
 		}
-	}
-
-	private void panelTest() {
-		GameObject backgroundTest = new GameObject();
-		backgroundTest.addComponent(new Sprite("res/BackgroundPlaceholder.png", 1000, 1000, 0));
-
-		GameObject uiTest = new GameObject();
-		uiTest.addComponent(new Sprite("res/UIPlaceholder.png", 1000, 1000, 0));
-
-		GameObject spriteTestA = new GameObject();
-		spriteTestA.getTransform().setPosition(new Point2D(500 , 500));
-		spriteTestA.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
-		spriteTestA.addComponent(new Collision(32, 32, Point2D.Zero));
-
-		GameObject spriteTestB = new GameObject();
-		spriteTestB.getTransform().setPosition(new Point2D(532 , 500));
-		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
-		spriteTestB.addComponent(new Collision(32, 32, Point2D.Zero));
-
-		GameObject animationTestA = new GameObject();
-		animationTestA.getTransform().setPosition(new Point2D(500 , 600));
-		animationTestA.addComponent(new Animation());
-		animationTestA.getComponent(Animation.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 1, 4, 32, 32));
-
-		backgroundRenderer.addElement(backgroundTest);
-		uiRenderer.addElement(uiTest);
-		spriteRenderer.addElement(spriteTestA);
-		spriteRenderer.addElement(spriteTestB);
-	 	spriteRenderer.addElement(animationTestA);
-
 	}
 
 	public GamePanel getSpriteRenderer() {
