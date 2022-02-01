@@ -21,18 +21,17 @@ public class GameController {
 		this.collisionController = CollisionController.getInstance();
 		this.behaviourController = BehaviourController.getInstance();
 
-
 		initialization();
 	}
 
 	protected void initialization() {
-		panelTest();
+		// panelTest();
 	}
 
-	public void gameLoop() {
+	private void gameLoop() {
 		updateCollisions();
 
-		updateBehaviour();
+		updateBehaviours();
 
 	}
 
@@ -88,7 +87,7 @@ public class GameController {
 		this.collisionController.UpdateCollisions();
 	}
 
-	private void updateBehaviour() {
+	private void updateBehaviours() {
 		this.behaviourController.updateBehaviours();
 	}
 }
