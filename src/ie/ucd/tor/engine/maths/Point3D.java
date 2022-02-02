@@ -36,6 +36,11 @@ public class Point3D {
 		return new Vector3D(this.getX() - Minus.getX(), this.getY() - Minus.getY(), this.getZ() - Minus.getZ());
 	}
 
+	public void Translate(Vector3D Additional) {
+		this.x += Additional.getX();
+		this.y += Additional.getY();
+		this.z += Additional.getZ();
+	}
 
 	public double getX() {
 		return x;

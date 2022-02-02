@@ -6,6 +6,7 @@ public class Point2D {
 	private double y;
 
 	public static Point2D Zero = new Point2D();
+	public static Point2D One = new Point2D(1, 1);
 
 	public Point2D() {
 		setX(0.0f);
@@ -31,6 +32,11 @@ public class Point2D {
 
 	public Vector2D Subtract(Point3D Minus) {
 		return new Vector2D(this.getX() - Minus.getX(), this.getY() - Minus.getY());
+	}
+
+	public void Translate(Vector2D Additional) {
+		this.x += Additional.getX();
+		this.y += Additional.getY();
 	}
 
 	public double getX() {

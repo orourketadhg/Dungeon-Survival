@@ -12,9 +12,9 @@ import static ie.ucd.tor.engine.rendering.GameWindow.TARGET_FPS;
 
 public class GameController {
 
-	private final CollisionController collisionController;
-	private final BehaviourController behaviourController;
-	private final GameWindow gameWindow;
+	protected final GameWindow gameWindow;
+	protected final CollisionController collisionController;
+	protected final BehaviourController behaviourController;
 
 	public GameController() {
 		this.gameWindow = GameWindow.getInstance();

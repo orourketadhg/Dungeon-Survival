@@ -92,4 +92,8 @@ public class Vector3D {
 		this.z = z;
 	}
 
+	public String toString() {
+		return ("(" + getX() + ", " + getY() + ", " + getZ() + ")");
+	}
+
 }

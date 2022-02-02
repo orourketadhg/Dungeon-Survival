@@ -112,6 +112,7 @@ public class GameObject {
 
 	public void disable() {
 		isEnabled = false;
+
 	}
 
 }

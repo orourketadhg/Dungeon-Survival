@@ -87,9 +87,7 @@ public class GamePanel extends JPanel {
 		SpriteData data = animation.calculateNextSprite(animationTime, ANIMATION_SPEED);
 		BufferedImage spriteImage = data.getSprite();
 
-		if (scale.getX() < 0) {
-			spriteImage =  ImagesUtil.calculateImageFlip(spriteImage);
-		}
+		// spriteImage =  ImagesUtil.scale(spriteImage, scale);
 
 		g2.drawImage(spriteImage, (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
 	}
@@ -103,9 +101,7 @@ public class GamePanel extends JPanel {
 
 		BufferedImage spriteImage = data.getSprite();
 
-		if (scale.getX() < 0) {
-			spriteImage =  ImagesUtil.calculateImageFlip(spriteImage);
-		}
+		// spriteImage =  ImagesUtil.scale(spriteImage, scale);
 
 		g2.drawImage(spriteImage, (int) position.getX(), (int) position.getY(), data.getSpriteWidth(), data.getSpriteHeight(), null);
 

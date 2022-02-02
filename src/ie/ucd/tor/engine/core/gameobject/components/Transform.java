@@ -10,7 +10,7 @@ public class Transform extends Component {
 
 	public Transform() {
 		position = Point2D.Zero;
-		scale = Point2D.Zero;
+		scale = Point2D.One;
 	}
 
 	@Override

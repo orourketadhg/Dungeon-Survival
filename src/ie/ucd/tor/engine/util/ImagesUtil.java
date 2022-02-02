@@ -1,6 +1,9 @@
 package ie.ucd.tor.engine.util;
 
+import ie.ucd.tor.engine.maths.Point2D;
+
 import javax.imageio.ImageIO;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -21,14 +24,14 @@ public class ImagesUtil {
 		return null;
 	}
 
-	public static BufferedImage calculateImageFlip(BufferedImage image) {
-		AffineTransform flippedTransform = new AffineTransform();
-		AffineTransform transform = AffineTransform.getTranslateInstance(image.getWidth(), 0);
-		AffineTransform scale = AffineTransform.getScaleInstance(-1, 1);
-		flippedTransform.concatenate(transform);
-		flippedTransform.concatenate(scale);
+	public static BufferedImage scale(BufferedImage imageToScale, Point2D scale) {
 
-		AffineTransformOp operation = new AffineTransformOp(flippedTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-		return operation.filter(image, null);
+		BufferedImage scaledImage = new BufferedImage((int) (imageToScale.getWidth() * scale.getX()), (int) (imageToScale.getHeight() * scale.getY()), BufferedImage.TYPE_INT_ARGB);
+
+		AffineTransform at = AffineTransform.getScaleInstance(scale.getX(), scale.getY());
+		AffineTransformOp operation = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
+
+		return operation.filter(imageToScale, scaledImage);
+
 	}
 }

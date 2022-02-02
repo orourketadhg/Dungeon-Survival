@@ -55,7 +55,6 @@ public class Vector2D {
 		return (this.getX() * v.getX() + this.getY() * v.getY());
 	}
 
-
 	public double getX() {
 		return x;
 	}
@@ -70,6 +69,10 @@ public class Vector2D {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+
+	public String toString() {
+		return ("(" + getX() + ", " + getY() + ")");
 	}
 
 }
