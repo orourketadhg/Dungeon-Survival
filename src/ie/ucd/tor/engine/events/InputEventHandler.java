@@ -65,7 +65,7 @@ public class InputEventHandler implements KeyListener {
 	private static InputEventHandler instance;
 
 	public InputEventHandler() {
-
+		// TODO - Add Mouse input
 	}
 
 	public static InputEventHandler getInstance() {

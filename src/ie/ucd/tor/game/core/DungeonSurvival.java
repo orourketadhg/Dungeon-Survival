@@ -4,6 +4,7 @@ import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
+import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.game.player.PlayerController;
 
 public class DungeonSurvival extends GameController {
@@ -11,11 +12,23 @@ public class DungeonSurvival extends GameController {
 	@Override
 	protected void initialization() {
 
+		/* Player Initialisation */
 		GameObject player = new GameObject();
-		player.addComponent(new Animation());
-		player.addComponent(new PlayerController());
-		player.getComponent(Animation.class).AddAnimation("Knight_Static", new SpriteSheetData("res/Knight/Knight_static.png", 4, 1, 4,14, 16));
+		player.getTransform().setScale(new Point2D(10, 10));
 
+		// Player Behaviours
+		player.addComponent(new PlayerController());
+		// Animations
+		player.addComponent(new Animation());
+		player.getComponent(Animation.class).AddAnimation("knightStatic", new SpriteSheetData("res/Knight/Knight_static.png", 4, 1, 4,14, 16));
+		player.getComponent(Animation.class).AddAnimation("knightWalkUp", new SpriteSheetData("res/Knight/Knight_walk_up.png", 8, 1, 8,16, 15));
+		player.getComponent(Animation.class).AddAnimation("knightWalkDown", new SpriteSheetData("res/Knight/Knight_walk_down.png", 8, 1, 8,15, 15));
+		player.getComponent(Animation.class).AddAnimation("knightWalkRight", new SpriteSheetData("res/Knight/Knight_walk_right.png", 8, 1, 8,17, 15));
+		player.getComponent(Animation.class).AddAnimation("knightWalkLeft", new SpriteSheetData("res/Knight/Knight_walk_left.png", 8, 1, 8,22, 15));
+		player.getComponent(Animation.class).AddAnimation("knightAttackUp", new SpriteSheetData("res/Knight/Knight_attack_up.png", 6, 1, 6,20, 20));
+		player.getComponent(Animation.class).AddAnimation("knightAttackDown", new SpriteSheetData("res/Knight/Knight_attack_down.png", 6, 1, 6,20, 22));
+		player.getComponent(Animation.class).AddAnimation("knightAttackRight", new SpriteSheetData("res/Knight/Knight_attack_right.png", 6, 1, 6,24, 18));
+		player.getComponent(Animation.class).AddAnimation("knightAttackLeft", new SpriteSheetData("res/Knight/Knight_attack_left.png", 6, 1, 6,22, 18));
 
 		gameWindow.getSpriteRenderer().addElement(player);
 

@@ -1,18 +1,23 @@
 package ie.ucd.tor.game.player;
 
+import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Vector2D;
+import ie.ucd.tor.game.player.animation.PlayerAnimationStateMachine;
 
 public class PlayerController extends Behaviour {
 
 	private final InputEventHandler input;
+	// private final Animation animation;
+	// private final PlayerAnimationStateMachine animationStateMachine;
 
 	private static final float MOVEMENT_SPEED = 2;
 
 	public PlayerController() {
 		input = InputEventHandler.getInstance();
 
+		// animation = gameObject.getComponent(Animation.class);
 	}
 
 	@Override
