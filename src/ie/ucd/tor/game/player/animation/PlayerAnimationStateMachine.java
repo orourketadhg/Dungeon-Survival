@@ -4,5 +4,4 @@ public class PlayerAnimationStateMachine {
 
 	private PlayerAnimationStates currentState;
 
-
 }

@@ -65,16 +65,13 @@ public class GamePanel extends JPanel {
 					continue;
 				}
 				drawAnimatedElement(animation, graphics);
-
 			}
 			else if (!Objects.isNull(sprite)) {
 				if(!sprite.isEnabled()) {
 					continue;
 				}
 				drawElement(sprite, graphics);
-
 			}
-
 		}
 	}
 

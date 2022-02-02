@@ -8,26 +8,22 @@ import java.util.ArrayList;
 public class SpriteSheetData {
 
 	private final ArrayList<SpriteData> spriteSheetData;
-	private final int spriteSheetColumns;
-	private final int spriteSheetRows;
+	private final int numSprites;
 
-	public SpriteSheetData(String spriteSheet, int spriteSheetColumns, int spriteSheetRows, int numSprites, int spriteWidth, int spriteHeight) {
+	public SpriteSheetData(String spriteSheet, int numSprites, int spriteWidth, int spriteHeight) {
 
 		spriteSheetData = new ArrayList<>();
 
-		this.spriteSheetColumns = spriteSheetColumns;
-		this.spriteSheetRows = spriteSheetRows;
+		this.numSprites = numSprites;
 
 		BufferedImage spriteSheetImage = ImagesUtil.loadImageTexture(spriteSheet);
 		constructSpriteSheet(spriteSheetImage, spriteWidth, spriteHeight);
 	}
 
 	private void constructSpriteSheet(BufferedImage spriteSheet, int spriteWidth, int spriteHeight) {
-		for (int i = 0; i < spriteSheetColumns; i++) {
-			for (int j = 0; j < spriteSheetRows; j++) {
-				BufferedImage spriteImage = spriteSheet.getSubimage(i * spriteWidth, j, spriteWidth, spriteHeight);
-				addSpriteToSpriteSheet(spriteImage, spriteWidth, spriteHeight);
-			}
+		for (int i = 0; i < this.numSprites; i++) {
+			BufferedImage spriteImage = spriteSheet.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
+			addSpriteToSpriteSheet(spriteImage, spriteWidth, spriteHeight);
 		}
 	}
 

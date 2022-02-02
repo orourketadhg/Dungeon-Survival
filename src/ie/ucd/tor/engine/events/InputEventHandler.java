@@ -65,7 +65,7 @@ public class InputEventHandler implements KeyListener {
 	private static InputEventHandler instance;
 
 	public InputEventHandler() {
-		// TODO - Add Mouse input
+
 	}
 
 	public static InputEventHandler getInstance() {
@@ -76,7 +76,6 @@ public class InputEventHandler implements KeyListener {
 	}
 
 	@Override
-	// Key pressed , will keep triggering 
 	public void keyTyped(KeyEvent e) {
 
 	}

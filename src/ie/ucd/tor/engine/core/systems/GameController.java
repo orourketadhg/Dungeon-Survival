@@ -73,7 +73,7 @@ public class GameController {
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));
 		animationTestA.addComponent(new Animation());
-		animationTestA.getComponent(Animation.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 1, 4, 32, 32));
+		animationTestA.getComponent(Animation.class).AddAnimation("Test", new SpriteSheetData("res/AnimationPlaceholder.png", 4, 32, 32));
 
 		gameWindow.getBackgroundRenderer().addElement(backgroundTest);
 		gameWindow.getUiRenderer().addElement(uiTest);

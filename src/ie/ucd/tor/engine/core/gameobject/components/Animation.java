@@ -25,11 +25,9 @@ public class Animation extends Component {
 
 	public void AddAnimation(String animationName, SpriteSheetData newAnimation) {
 		animationMap.put(animationName, newAnimation);
-
 		if (currentAnimation == null) {
 			currentAnimation = newAnimation;
 		}
-
 	}
 
 	public SpriteSheetData getAnimations(String animationName) {
