@@ -13,6 +13,11 @@ public class Transform extends Component {
 		scale = Point2D.One;
 	}
 
+	public Transform(Point2D position, Point2D scale) {
+		this.position = position;
+		this.scale = scale;
+	}
+
 	@Override
 	public void registerParent(GameObject gameObject, Transform transform) {
 		super.registerParent(gameObject, this);

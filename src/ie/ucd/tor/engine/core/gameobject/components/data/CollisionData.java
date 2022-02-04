@@ -1,6 +1,5 @@
 package ie.ucd.tor.engine.core.gameobject.components.data;
 
-import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 
 public class CollisionData {

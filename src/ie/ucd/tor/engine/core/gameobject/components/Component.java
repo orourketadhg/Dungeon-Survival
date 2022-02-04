@@ -39,4 +39,5 @@ public abstract class Component {
 	public void disable() {
 		isEnabled = false;
 	}
+
 }

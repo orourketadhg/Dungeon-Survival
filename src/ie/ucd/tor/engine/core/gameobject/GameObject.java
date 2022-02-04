@@ -25,7 +25,7 @@ public class GameObject {
 		name = "";
 		isEnabled = true;
 
-		attachedComponents = new CopyOnWriteArrayList<Component>();
+		attachedComponents = new CopyOnWriteArrayList<>();
 
 		Transform tmp = new Transform();
 		transform = tmp;

@@ -28,7 +28,7 @@ public class GameController {
 		// panelTest();
 	}
 
-	private void gameLoop() {
+	protected void gameLoop() {
 		updateCollisions();
 
 		updateBehaviours();

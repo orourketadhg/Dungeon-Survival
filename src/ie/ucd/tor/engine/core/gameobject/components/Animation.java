@@ -12,7 +12,6 @@ public class Animation extends Component {
 	private SpriteSheetData currentAnimation;
 	private SpriteData currentAnimationFrame;
 
-
 	public Animation() {
 		this(0);
 	}
@@ -42,14 +41,6 @@ public class Animation extends Component {
 		int animationFramePosition = (int) ((animationTime / animationSpeed) % getCurrentAnimation().getNumSprites());
 		currentAnimationFrame = currentAnimation.getSpriteSheetData().get(animationFramePosition);
 		return currentAnimationFrame;
-	}
-
-	public SpriteData getCurrentAnimationFrame() {
-		return currentAnimationFrame;
-	}
-
-	public void setCurrentAnimation (String animationName) {
-		currentAnimation = getAnimations(animationName);
 	}
 
 	public int getRenderPriority() {

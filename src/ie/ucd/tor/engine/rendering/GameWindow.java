@@ -8,8 +8,8 @@ import java.awt.event.KeyListener;
 
 public class GameWindow {
 
-	public static final int WIDTH = 1000;
-	public static final int HEIGHT = 1000;
+	public static final int WIDTH = 1028;
+	public static final int HEIGHT = 1028;
 	public static final int TARGET_FPS = 100;
 
 	private final JFrame frame;
@@ -35,7 +35,7 @@ public class GameWindow {
 		// Create application window frame
 		frame = new JFrame("Dungeon Survival");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT + 24));
 		frame.setLayout(null);
 
 		// Game Panel to draw all layers on
