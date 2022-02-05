@@ -5,16 +5,17 @@ import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
+import ie.ucd.tor.game.room.data.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomManager extends Behaviour {
 
-	private static final int ROOM_WIDTH = 160;
-	private static final int ROOM_HEIGHT = 160;
-	private static final Point2D ROOM_SCALE = new Point2D(6, 6);
-	private static final Point2D ROOM_POSITION = new Point2D(24, 24);
+	public static final int ROOM_WIDTH = 160;
+	public static final int ROOM_HEIGHT = 160;
+	public static final Point2D ROOM_SCALE = new Point2D(6, 6);
+	public static final Point2D ROOM_POSITION = new Point2D(24, 24);
 
 	private final GameWindow window;
 	private final List<RoomData> rooms;
@@ -39,13 +40,16 @@ public class RoomManager extends Behaviour {
 		rooms.add(data);
 	}
 
-	public GameObject getActiveRoom() {
-		return this.activeRoom;
+	public RoomController getActiveRoom() {
+		return this.activeRoom.getComponent(RoomController.class);
 	}
 
 	public void generateNewRoom() {
 
-		window.getBackgroundRenderer().removeElement(activeRoom);
+		if (activeRoom != null) {
+			activeRoom.getComponent(RoomController.class).destroyRoom();
+			window.getBackgroundRenderer().removeElement(activeRoom);
+		}
 
 		// randomly choose data to generate a new room
 		int roomIndex = (int) (Math.random() * rooms.size());
@@ -57,7 +61,7 @@ public class RoomManager extends Behaviour {
 		newRoom.getTransform().setScale(ROOM_SCALE);
 		// add required components to room
 		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
-		newRoom.addComponent(new RoomController());
+		newRoom.addComponent(new RoomController(newRoomData, window));
 
 		this.activeRoom = newRoom;
 

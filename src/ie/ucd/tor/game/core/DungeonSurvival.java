@@ -6,8 +6,9 @@ import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.game.player.PlayerController;
-import ie.ucd.tor.game.room.RoomData;
+import ie.ucd.tor.game.room.data.RoomData;
 import ie.ucd.tor.game.room.RoomManager;
+import ie.ucd.tor.game.room.data.RoomObjectData;
 
 public class DungeonSurvival extends GameController {
 
@@ -58,14 +59,29 @@ public class DungeonSurvival extends GameController {
 		RoomManager manager = new RoomManager(gameWindow);
 
 		// Room Data
-		RoomData room_plus = new RoomData("res/rooms/Room_Plus.png", new int[]{1, 1, 1, 1}, 6, 2, 3);
-		room_plus.addDecorationPosition(new Point2D(48, 0));	// Flag location
-		room_plus.addDecorationPosition(new Point2D(96, 0));	// Flag location
-		room_plus.addDecorationPosition(new Point2D(128, 16));	// Candlestick location
-		room_plus.addDecorationPosition(new Point2D(96, 128)); // Candlestick location
-		room_plus.addDecorationPosition(new Point2D(128, 128)); // Candlestick location
+		RoomData roomOne = new RoomData("res/rooms/Room_Plus.png", new int[]{1, 1, 1, 1}, 6, 2, 3);
 
-		manager.addRoomData(room_plus);
+		// decorations
+		RoomObjectData roomOneCandle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
+		roomOneCandle.addPosition(new Point2D(16, 16));
+		roomOneCandle.addPosition(new Point2D(128, 16));
+		roomOneCandle.addPosition(new Point2D(16, 128));
+		roomOneCandle.addPosition(new Point2D(128, 128));
+		RoomObjectData roomOneFlag = new RoomObjectData("res/rooms/decorations/flag.png", true);
+		roomOneFlag.addPosition(new Point2D(48, 0));
+		roomOneFlag.addPosition(new Point2D(96, 0));
+
+		roomOne.addDecoration(roomOneCandle);
+		roomOne.addDecoration(roomOneFlag);
+
+		// items/collectibles
+		RoomObjectData roomOneCoin = new RoomObjectData("res/Items/coin.png", true);
+		RoomObjectData roomOnePotion = new RoomObjectData("res/Items/Health_Potion.png", true);
+
+		roomOne.addCollectible(roomOneCoin);
+		roomOne.addCollectible(roomOnePotion);
+
+		manager.addRoomData(roomOne);
 
 		roomManager.addComponent(manager);
 
