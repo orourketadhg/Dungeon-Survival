@@ -6,6 +6,7 @@ import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
+import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.room.data.RoomData;
 import ie.ucd.tor.game.room.data.RoomObjectData;
@@ -85,8 +86,10 @@ public class RoomController extends Behaviour {
 
 	private void generateDecoration(String decorationSpriteLocation, Point2D spawnPosition, boolean isAnimatedDecoration) {
 		GameObject decoration = new GameObject();
-		decoration.getTransform().setPosition(spawnPosition);
-		decoration.getTransform().setScale(RoomManager.ROOM_SCALE);
+
+		Point2D position = new Point2D(18 + (spawnPosition.getX() * 6), 24 + (spawnPosition.getY() * 6));
+		decoration.getTransform().setPosition(position);
+		decoration.getTransform().setScale(new Point2D(6, 6));
 
 		if (isAnimatedDecoration) {
 			decoration.addComponent(new Animation(1));
