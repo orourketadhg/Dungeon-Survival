@@ -105,6 +105,10 @@ public class GamePanel extends JPanel {
 		sortElements();
 	}
 
+	public void removeElement(GameObject element) {
+		elements.remove(element);
+	}
+
 	private void sortElements() {
 		elements.sort((o1, o2) -> {
 			int p1 = o1.hasComponent(Sprite.class) ? o1.getComponent(Sprite.class).getRenderPriority() : o1.getComponent(Animation.class).getRenderPriority();

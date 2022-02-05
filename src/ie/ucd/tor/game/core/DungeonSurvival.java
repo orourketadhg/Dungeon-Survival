@@ -6,22 +6,30 @@ import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.game.player.PlayerController;
+import ie.ucd.tor.game.room.RoomData;
+import ie.ucd.tor.game.room.RoomManager;
 
 public class DungeonSurvival extends GameController {
 
 	private GameObject playerOne;
+	private GameObject playerTwo;
+	private GameObject roomManager;
 
 	@Override
 	protected void initialization() {
 
-		initialisePlayer(new Point2D(512, 512));
+		playerOne = initialisePlayer(new Point2D(512, 512));
+		playerTwo = initialisePlayer(new Point2D(512 + 128, 512));
+
+		roomManager = initialiseRoomManager();
+		roomManager.getComponent(RoomManager.class).generateNewRoom();
 
 	}
 
-	private void initialisePlayer(Point2D startingPosition) {
+	private GameObject initialisePlayer(Point2D startingPosition) {
 		/* Player Initialisation */
 		GameObject player = new GameObject();
-		player.getTransform().setPosition(new Point2D(400, 500));
+		player.getTransform().setPosition(startingPosition);
 		player.getTransform().setScale(new Point2D(4, 4));
 		// Player Behaviours
 		player.addComponent(new PlayerController());
@@ -39,6 +47,29 @@ public class DungeonSurvival extends GameController {
 
 		// Add player to renderer
 		this.gameWindow.getSpriteRenderer().addElement(player);
+
+		return player;
+
+	}
+
+	private GameObject initialiseRoomManager() {
+		GameObject roomManager = new GameObject();
+
+		RoomManager manager = new RoomManager(gameWindow);
+
+		// Room Data
+		RoomData room_plus = new RoomData("res/rooms/Room_Plus.png", new int[]{1, 1, 1, 1}, 6, 2, 3);
+		room_plus.addDecorationPosition(new Point2D(48, 0));	// Flag location
+		room_plus.addDecorationPosition(new Point2D(96, 0));	// Flag location
+		room_plus.addDecorationPosition(new Point2D(128, 16));	// Candlestick location
+		room_plus.addDecorationPosition(new Point2D(96, 128)); // Candlestick location
+		room_plus.addDecorationPosition(new Point2D(128, 128)); // Candlestick location
+
+		manager.addRoomData(room_plus);
+
+		roomManager.addComponent(manager);
+
+		return roomManager;
 	}
 
 }
