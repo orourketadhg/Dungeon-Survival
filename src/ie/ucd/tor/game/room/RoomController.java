@@ -6,7 +6,6 @@ import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
-import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
@@ -23,7 +22,7 @@ public class RoomController extends Behaviour {
 
 	private final List<GameObject> doors;
 	private final List<GameObject> decorations;
-	private final List<GameObject> collectibles;
+	private final List<GameObject> intractables;
 	private final List<GameObject> enemies;
 
 	private static final String VERTICAL_DOOR = "res/rooms/decorations/Door_Vertical.png";
@@ -36,14 +35,14 @@ public class RoomController extends Behaviour {
 
 		doors = new ArrayList<>();
 		decorations = new ArrayList<>();
-		collectibles = new ArrayList<>();
+		intractables = new ArrayList<>();
 		enemies = new ArrayList<>();
 
 		generateDoors();
 
 		generateDecorations();
 
-		generateCollectibles();
+		generateIntractables();
 
 		generateEnemies();
 
@@ -54,7 +53,7 @@ public class RoomController extends Behaviour {
 			window.getBackgroundRenderer().removeElement(decoration);
 		}
 
-		for (GameObject collectible : collectibles) {
+		for (GameObject collectible : intractables) {
 			window.getSpriteRenderer().removeElement(collectible);
 		}
 
@@ -148,8 +147,53 @@ public class RoomController extends Behaviour {
 		window.getBackgroundRenderer().addElement(decoration);
 	}
 
-	private void generateCollectibles() {
+	private void generateIntractables() {
+		List<RoomObjectData> intractables = roomData.getIntractables();
+		int numIntractables = (int) (Math.random() * roomData.getNumIntractables());
 
+		System.out.println(numIntractables);
+
+		for (int i = 0; i < numIntractables; i++) {
+			if (intractables.isEmpty()) {
+				System.out.println("Test 1");
+				continue;
+			}
+
+			int randomIntractableIndex = (int) (Math.random() * intractables.size());
+			RoomObjectData intractable = intractables.get(randomIntractableIndex);
+
+			if (intractable.getPositions().isEmpty()) {
+				System.out.println("Test 2");
+				continue;
+			}
+
+			int randomPositionIndex = (int) (Math.random() * intractable.getPositions().size());
+			Point2D intractablePosition = intractable.getPositions().get(randomPositionIndex);
+
+			generateInteractable(intractable.getSpriteLocation(), intractablePosition, intractable.isAnimated());
+
+		}
+	}
+
+	private void generateInteractable(String interactableSpriteLocation, Point2D spawnPosition, boolean isAnimatedDecoration) {
+		GameObject interactable = new GameObject();
+
+		Point2D position = new Point2D(18 + (spawnPosition.getX() * RoomManager.ROOM_SCALE.getX()), 18 + (spawnPosition.getY() * RoomManager.ROOM_SCALE.getY()));
+		interactable.getTransform().setPosition(position);
+		interactable.getTransform().setScale(RoomManager.ROOM_SCALE);
+
+		if (isAnimatedDecoration) {
+			interactable.addComponent(new Animation(1));
+			interactable.getComponent(Animation.class).AddAnimation("Static", new SpriteSheetData(interactableSpriteLocation, 4, 16, 16));
+		}
+		else {
+			interactable.addComponent(new Sprite(interactableSpriteLocation, 16, 16, 1));
+		}
+
+		System.out.println("Generated Interactable");
+
+		intractables.add(interactable);
+		window.getSpriteRenderer().addElement(interactable);
 	}
 
 	private void generateEnemies() {

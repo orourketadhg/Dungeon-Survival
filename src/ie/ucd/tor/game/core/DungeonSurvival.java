@@ -23,7 +23,7 @@ public class DungeonSurvival extends GameController {
 	@Override
 	protected void initialization() {
 
-		playerOne = initialisePlayer(new Point2D(24, 24));
+		playerOne = initialisePlayer(new Point2D(512, 512));
 		playerTwo = initialisePlayer(new Point2D(512 + 128, 512));
 
 		roomManager = initialiseRoomManager();
@@ -39,7 +39,7 @@ public class DungeonSurvival extends GameController {
 		// Player Behaviours
 		player.addComponent(new PlayerController());
 		// Player Animations
-		player.addComponent(new Animation());
+		player.addComponent(new Animation(10));
 		player.getComponent(Animation.class).AddAnimation("knightStatic", new SpriteSheetData("res/Knight/Knight_static.png", 4,14, 16));
 		player.getComponent(Animation.class).AddAnimation("knightWalkUp", new SpriteSheetData("res/Knight/Knight_walk_up.png", 8,16, 15));
 		player.getComponent(Animation.class).AddAnimation("knightWalkDown", new SpriteSheetData("res/Knight/Knight_walk_down.png", 8,15, 15));
@@ -63,7 +63,7 @@ public class DungeonSurvival extends GameController {
 		RoomManager manager = new RoomManager(gameWindow);
 
 		// Room Data
-		RoomData roomOne = new RoomData("res/rooms/Room_Plus.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 6, 1, 3);
+		RoomData roomOne = new RoomData("res/rooms/Room_Plus.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 6, 2, 3);
 
 		// decorations
 		RoomObjectData roomOneCandle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
@@ -79,9 +79,13 @@ public class DungeonSurvival extends GameController {
 		roomOne.addDecoration(roomOneFlag);
 
 		// Interactive
-		RoomObjectData roomOneCoin = new RoomObjectData("res/rooms/decorations/Box.png", true);
+		RoomObjectData roomOneBox = new RoomObjectData("res/rooms/decorations/Box.png", true);
+		roomOneBox.addPosition(new Point2D(32, 32));
+		roomOneBox.addPosition(new Point2D(32, 112));
+		roomOneBox.addPosition(new Point2D(112, 32));
+		roomOneBox.addPosition(new Point2D(112, 112));
 
-		roomOne.addInteractable(roomOneCoin);
+		roomOne.addInteractable(roomOneBox);
 
 		manager.addRoomData(roomOne);
 

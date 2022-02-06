@@ -9,17 +9,17 @@ public class RoomData {
 	private final List<DoorLocation> doorLocations;
 
 	private final int numDecorations;
-	private final int numCollectables;
+	private final int numIntractables;
 	private final int numEnemies;
 
 	private final List<RoomObjectData> decorations;
 	private final List<RoomObjectData> collectables;
 
-	public RoomData(String roomTexture, List<DoorLocation> doorLocations, int numDecorations, int numCollectables, int numEnemies) {
+	public RoomData(String roomTexture, List<DoorLocation> doorLocations, int numDecorations, int numInteractibles, int numEnemies) {
 		this.roomTexture = roomTexture;
 		this.doorLocations = doorLocations;
 		this.numDecorations = numDecorations;
-		this.numCollectables = numCollectables;
+		this.numIntractables = numInteractibles;
 		this.numEnemies = numEnemies;
 
 		decorations = new ArrayList<>();
@@ -47,8 +47,8 @@ public class RoomData {
 		return numDecorations;
 	}
 
-	public int getNumCollectables() {
-		return numCollectables;
+	public int getNumIntractables() {
+		return numIntractables;
 	}
 
 	public int getNumEnemies() {
@@ -59,7 +59,7 @@ public class RoomData {
 		return decorations;
 	}
 
-	public List<RoomObjectData> getCollectables() {
+	public List<RoomObjectData> getIntractables() {
 		return collectables;
 	}
 
