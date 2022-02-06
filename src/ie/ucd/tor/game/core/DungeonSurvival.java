@@ -6,9 +6,13 @@ import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.game.player.PlayerController;
+import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
 import ie.ucd.tor.game.room.RoomManager;
 import ie.ucd.tor.game.room.data.RoomObjectData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DungeonSurvival extends GameController {
 
@@ -59,7 +63,7 @@ public class DungeonSurvival extends GameController {
 		RoomManager manager = new RoomManager(gameWindow);
 
 		// Room Data
-		RoomData roomOne = new RoomData("res/rooms/Room_Plus.png", new int[]{1, 1, 1, 1}, 6, 2, 3);
+		RoomData roomOne = new RoomData("res/rooms/Room_Plus.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 6, 1, 3);
 
 		// decorations
 		RoomObjectData roomOneCandle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
@@ -74,12 +78,10 @@ public class DungeonSurvival extends GameController {
 		roomOne.addDecoration(roomOneCandle);
 		roomOne.addDecoration(roomOneFlag);
 
-		// items/collectibles
-		RoomObjectData roomOneCoin = new RoomObjectData("res/Items/coin.png", true);
-		RoomObjectData roomOnePotion = new RoomObjectData("res/Items/Health_Potion.png", true);
+		// Interactive
+		RoomObjectData roomOneCoin = new RoomObjectData("res/rooms/decorations/Box.png", true);
 
-		roomOne.addCollectible(roomOneCoin);
-		roomOne.addCollectible(roomOnePotion);
+		roomOne.addInteractable(roomOneCoin);
 
 		manager.addRoomData(roomOne);
 
