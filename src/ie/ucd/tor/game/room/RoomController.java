@@ -88,6 +88,8 @@ public class RoomController extends Behaviour {
 				default -> throw new IllegalStateException("Unexpected value: " + doorLocation);
 			}
 
+			// TODO fix collider scales
+
 			switch (doorLocation) {
 				case NORTH, SOUTH -> {
 					doorSprite = new Sprite(HORIZONTAL_DOOR, 32, 16, 1);

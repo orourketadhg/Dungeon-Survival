@@ -84,9 +84,6 @@ public class RoomManager extends Behaviour {
 
 		window.getBackgroundRenderer().addElement(activeRoom);
 
-		// DungeonSurvival.getInstance().getPlayerOne().getTransform().setPosition(new Point2D(512, 512));
-		// DungeonSurvival.getInstance().getPlayerTwo().getTransform().setPosition(new Point2D(512 + 128, 512));
-
 	}
 
 }

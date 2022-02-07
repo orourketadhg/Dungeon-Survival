@@ -22,11 +22,11 @@ public class DoorController extends Behaviour {
 			System.out.println(collision);
 		}
 
-		for (CollisionData collision : gameObject.getComponent(Collision.class).getCollisions()) {
-			if (collision.collisionIncludes(DungeonSurvival.getInstance().getPlayerOne().getComponent(Collision.class)) || collision.collisionIncludes(DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collision.class))) {
-				controller.setExitedDoor(door);
-			}
-		}
+//		for (CollisionData collision : gameObject.getComponent(Collision.class).getCollisions()) {
+//			if (collision.collisionIncludes(DungeonSurvival.getInstance().getPlayerOne().getComponent(Collision.class)) || collision.collisionIncludes(DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collision.class))) {
+//				controller.setExitedDoor(door);
+//			}
+//		}
 
 	}
 

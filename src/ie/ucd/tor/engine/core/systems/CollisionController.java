@@ -52,6 +52,8 @@ public class CollisionController {
 					continue;
 				}
 
+				// TODO remove exiting collisions
+
 				// check if a collision is occurring between A and B
 				boolean currentCollisionStatus = CheckCollision(A, B);
 				// check if a past collision occurred between A and B
