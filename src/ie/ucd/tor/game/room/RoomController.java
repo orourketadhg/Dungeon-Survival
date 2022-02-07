@@ -3,6 +3,7 @@ package ie.ucd.tor.game.room;
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
+import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
@@ -18,7 +19,8 @@ public class RoomController extends Behaviour {
 
 	private final RoomData roomData;
 	private final GameWindow window;
-	private boolean roomComplete;
+	private boolean roomComplete = false;
+	private DoorLocation exitedDoor;
 
 	private final List<GameObject> doors;
 	private final List<GameObject> decorations;
@@ -76,6 +78,7 @@ public class RoomController extends Behaviour {
 
 			Point2D doorPosition;
 			Sprite doorSprite;
+			Collision collider;
 
 			switch (doorLocation) {
 				case NORTH -> doorPosition = new Point2D(18 + (64 * RoomManager.ROOM_SCALE.getX()), 24 + (0 * RoomManager.ROOM_SCALE.getY()));
@@ -86,8 +89,14 @@ public class RoomController extends Behaviour {
 			}
 
 			switch (doorLocation) {
-				case NORTH, SOUTH -> doorSprite = new Sprite(HORIZONTAL_DOOR, 32, 16, 1);
-				case EAST, WEST -> doorSprite = new Sprite(VERTICAL_DOOR, 16, 32, 1);
+				case NORTH, SOUTH -> {
+					doorSprite = new Sprite(HORIZONTAL_DOOR, 32, 16, 1);
+					collider = new Collision(32, 16, Point2D.Zero);
+				}
+				case EAST, WEST -> {
+					doorSprite = new Sprite(VERTICAL_DOOR, 16, 32, 1);
+					collider = new Collision(16, 32, Point2D.Zero);
+				}
 				default -> throw new IllegalStateException("Unexpected value: " + doorLocation);
 			}
 
@@ -95,6 +104,8 @@ public class RoomController extends Behaviour {
 			door.getTransform().setPosition(doorPosition);
 			door.getTransform().setScale(RoomManager.ROOM_SCALE);
 			door.addComponent(doorSprite);
+			door.addComponent(collider);
+			door.addComponent(new DoorController(this, doorLocation));
 
 			doors.add(door);
 			window.getBackgroundRenderer().addElement(door);
@@ -151,11 +162,8 @@ public class RoomController extends Behaviour {
 		List<RoomObjectData> intractables = roomData.getIntractables();
 		int numIntractables = (int) (Math.random() * roomData.getNumIntractables());
 
-		System.out.println(numIntractables);
-
 		for (int i = 0; i < numIntractables; i++) {
 			if (intractables.isEmpty()) {
-				System.out.println("Test 1");
 				continue;
 			}
 
@@ -163,7 +171,6 @@ public class RoomController extends Behaviour {
 			RoomObjectData intractable = intractables.get(randomIntractableIndex);
 
 			if (intractable.getPositions().isEmpty()) {
-				System.out.println("Test 2");
 				continue;
 			}
 
@@ -200,8 +207,15 @@ public class RoomController extends Behaviour {
 
 	}
 
+	public DoorLocation getExitedDoor() {
+		return exitedDoor;
+	}
+
 	public List<GameObject> getEnemies() {
 		return enemies;
 	}
 
+	public void setExitedDoor(DoorLocation exitedDoor) {
+		this.exitedDoor = exitedDoor;
+	}
 }

@@ -5,10 +5,13 @@ import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
+import ie.ucd.tor.game.core.DungeonSurvival;
+import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoomManager extends Behaviour {
 
@@ -31,7 +34,7 @@ public class RoomManager extends Behaviour {
 	@Override
 	public void Execute() {
 		if (activeRoom.getComponent(RoomController.class).isRoomComplete()) {
-			generateNewRoom();
+			// generateNewRoom();
 		}
 
 	}
@@ -46,14 +49,28 @@ public class RoomManager extends Behaviour {
 
 	public void generateNewRoom() {
 
+		DoorLocation exitedDoor = DoorLocation.NORTH;
+		DoorLocation entranceDoor = DoorLocation.SOUTH;
+
 		if (activeRoom != null) {
+			exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
 			activeRoom.getComponent(RoomController.class).destroyRoom();
 			window.getBackgroundRenderer().removeElement(activeRoom);
 		}
 
+		switch (exitedDoor) {
+			case NORTH -> entranceDoor = DoorLocation.SOUTH;
+			case SOUTH -> entranceDoor = DoorLocation.NORTH;
+			case EAST -> entranceDoor = DoorLocation.WEST;
+			case WEST -> entranceDoor = DoorLocation.EAST;
+		}
+
+		DoorLocation finalEntranceDoor = entranceDoor;
+		List<RoomData> filteredRooms = rooms.stream().filter((roomData -> roomData.getDoorLocations().contains(finalEntranceDoor))).toList();
+
 		// randomly choose data to generate a new room
-		int roomIndex = (int) (Math.random() * rooms.size());
-		RoomData newRoomData = rooms.get(roomIndex);
+		int roomIndex = (int) (Math.random() * filteredRooms.size());
+		RoomData newRoomData = filteredRooms.get(roomIndex);
 
 		// Initialise new room
 		GameObject newRoom = new GameObject();
@@ -66,6 +83,9 @@ public class RoomManager extends Behaviour {
 		this.activeRoom = newRoom;
 
 		window.getBackgroundRenderer().addElement(activeRoom);
+
+		// DungeonSurvival.getInstance().getPlayerOne().getTransform().setPosition(new Point2D(512, 512));
+		// DungeonSurvival.getInstance().getPlayerTwo().getTransform().setPosition(new Point2D(512 + 128, 512));
 
 	}
 

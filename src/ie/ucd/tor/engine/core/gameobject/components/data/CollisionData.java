@@ -1,5 +1,6 @@
 package ie.ucd.tor.engine.core.gameobject.components.data;
 
+import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 
 public class CollisionData {
@@ -41,6 +42,19 @@ public class CollisionData {
 
 	public boolean collisionIncludes(Collision collider) {
 		return collider == A || collider == B;
+	}
+
+	public GameObject getOther(Collision collider) {
+
+		if (!collisionIncludes(collider)) {
+			return null;
+		}
+
+		if (collider == A) {
+			return B.getGameObject();
+		}
+
+		return A.getGameObject();
 	}
 
 	@Override

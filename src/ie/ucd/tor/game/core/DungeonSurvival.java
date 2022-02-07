@@ -2,6 +2,7 @@ package ie.ucd.tor.game.core;
 
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
+import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
@@ -20,6 +21,15 @@ public class DungeonSurvival extends GameController {
 	private GameObject playerTwo;
 	private GameObject roomManager;
 
+	private static DungeonSurvival instance;
+
+	public static DungeonSurvival getInstance() {
+		if (instance == null) {
+			instance = new DungeonSurvival();
+		}
+		return instance;
+	}
+
 	@Override
 	protected void initialization() {
 
@@ -34,6 +44,7 @@ public class DungeonSurvival extends GameController {
 	private GameObject initialisePlayer(Point2D startingPosition) {
 		/* Player Initialisation */
 		GameObject player = new GameObject();
+		player.setName("Player");
 		player.getTransform().setPosition(startingPosition);
 		player.getTransform().setScale(new Point2D(4, 4));
 		// Player Behaviours
@@ -49,6 +60,8 @@ public class DungeonSurvival extends GameController {
 		player.getComponent(Animation.class).AddAnimation("knightAttackDown", new SpriteSheetData("res/Knight/Knight_attack_down.png", 6,20, 22));
 		player.getComponent(Animation.class).AddAnimation("knightAttackRight", new SpriteSheetData("res/Knight/Knight_attack_right.png", 6,24, 18));
 		player.getComponent(Animation.class).AddAnimation("knightAttackLeft", new SpriteSheetData("res/Knight/Knight_attack_left.png", 6,22, 18));
+		// Add colliders
+		player.addComponent(new Collision(16, 16, Point2D.Zero));
 
 		// Add player to renderer
 		this.gameWindow.getSpriteRenderer().addElement(player);
@@ -91,6 +104,18 @@ public class DungeonSurvival extends GameController {
 
 		roomManager.addComponent(manager);
 
+		return roomManager;
+	}
+
+	public GameObject getPlayerOne() {
+		return playerOne;
+	}
+
+	public GameObject getPlayerTwo() {
+		return playerTwo;
+	}
+
+	public GameObject getRoomManager() {
 		return roomManager;
 	}
 

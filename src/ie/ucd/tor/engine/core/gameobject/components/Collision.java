@@ -1,5 +1,6 @@
 package ie.ucd.tor.engine.core.gameobject.components;
 
+import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.engine.core.systems.CollisionController;
 import ie.ucd.tor.engine.maths.Point2D;
