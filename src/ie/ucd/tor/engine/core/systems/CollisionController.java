@@ -52,8 +52,6 @@ public class CollisionController {
 					continue;
 				}
 
-				// TODO remove exiting collisions
-
 				// check if a collision is occurring between A and B
 				boolean currentCollisionStatus = CheckCollision(A, B);
 				// check if a past collision occurred between A and B
@@ -105,7 +103,7 @@ public class CollisionController {
 	}
 
 	private boolean pastCollisionExists(Collision A, Collision B) {
-		return collisionsLastFrame.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B))).toList().size() > 0;
+		return collisionsLastFrame.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B) && collisionData.getCollisionType() != CollisionType.Exiting)).toList().size() > 0;
 	}
 
 }
