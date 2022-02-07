@@ -61,7 +61,7 @@ public class DungeonSurvival extends GameController {
 		player.getComponent(Animation.class).AddAnimation("knightAttackRight", new SpriteSheetData("res/Knight/Knight_attack_right.png", 6,24, 18));
 		player.getComponent(Animation.class).AddAnimation("knightAttackLeft", new SpriteSheetData("res/Knight/Knight_attack_left.png", 6,22, 18));
 		// Add colliders
-		player.addComponent(new Collision(16, 16, Point2D.Zero));
+		player.addComponent(new Collision((int) (16 * 4), (int) (16 * 4), Point2D.Zero));
 
 		// Add player to renderer
 		this.gameWindow.getSpriteRenderer().addElement(player);
