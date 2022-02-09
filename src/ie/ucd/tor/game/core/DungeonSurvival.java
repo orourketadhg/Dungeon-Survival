@@ -17,8 +17,7 @@ import java.util.List;
 
 public class DungeonSurvival extends GameController {
 
-	private GameObject playerOne;
-	private GameObject playerTwo;
+	private GameObject player;
 	private GameObject roomManager;
 
 	private static DungeonSurvival instance;
@@ -33,11 +32,10 @@ public class DungeonSurvival extends GameController {
 	@Override
 	protected void initialization() {
 
-		playerOne = initialisePlayer(new Point2D(512, 512));
-		playerTwo = initialisePlayer(new Point2D(512 + 128, 512));
+		player = initialisePlayer(new Point2D(512, 512));
 
 		roomManager = initialiseRoomManager();
-		roomManager.getComponent(RoomManager.class).generateNewRoom();
+		roomManager.getComponent(RoomManager.class).generateStarterRoom();
 
 	}
 
@@ -61,7 +59,7 @@ public class DungeonSurvival extends GameController {
 		player.getComponent(Animation.class).AddAnimation("knightAttackRight", new SpriteSheetData("res/Knight/Knight_attack_right.png", 6,24, 18));
 		player.getComponent(Animation.class).AddAnimation("knightAttackLeft", new SpriteSheetData("res/Knight/Knight_attack_left.png", 6,22, 18));
 		// Add colliders
-		player.addComponent(new Collision((int) (16 * 4), (int) (16 * 4), Point2D.Zero));
+		player.addComponent(new Collision(16 * 4, 16 * 4, Point2D.Zero));
 
 		// Add player to renderer
 		this.gameWindow.getSpriteRenderer().addElement(player);
@@ -107,12 +105,8 @@ public class DungeonSurvival extends GameController {
 		return roomManager;
 	}
 
-	public GameObject getPlayerOne() {
-		return playerOne;
-	}
-
-	public GameObject getPlayerTwo() {
-		return playerTwo;
+	public GameObject getPlayer() {
+		return player;
 	}
 
 	public GameObject getRoomManager() {

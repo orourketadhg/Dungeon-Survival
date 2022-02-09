@@ -4,6 +4,7 @@ import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.maths.Point2D;
+import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.core.DungeonSurvival;
 import ie.ucd.tor.game.room.data.DoorLocation;
@@ -11,7 +12,6 @@ import ie.ucd.tor.game.room.data.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RoomManager extends Behaviour {
 
@@ -34,7 +34,8 @@ public class RoomManager extends Behaviour {
 	@Override
 	public void Execute() {
 		if (activeRoom.getComponent(RoomController.class).isRoomComplete()) {
-			// generateNewRoom();
+			 // generateNewRoom();
+			System.out.println("Generate New Room");
 		}
 
 	}
@@ -47,17 +48,29 @@ public class RoomManager extends Behaviour {
 		return this.activeRoom.getComponent(RoomController.class);
 	}
 
+	public void generateStarterRoom() {
+
+		RoomData newRoomData = rooms.get(0);
+
+		// Initialise room
+		GameObject newRoom = new GameObject();
+		newRoom.getTransform().setPosition(ROOM_POSITION);
+		newRoom.getTransform().setScale(ROOM_SCALE);
+		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
+		newRoom.addComponent(new RoomController(newRoomData, window));
+
+		this.activeRoom = newRoom;
+
+		window.getBackgroundRenderer().addElement(activeRoom);
+	}
+
 	public void generateNewRoom() {
 
-		DoorLocation exitedDoor = DoorLocation.NORTH;
-		DoorLocation entranceDoor = DoorLocation.SOUTH;
+		DoorLocation exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
+		activeRoom.getComponent(RoomController.class).destroyRoom();
+		window.getBackgroundRenderer().removeElement(activeRoom);
 
-		if (activeRoom != null) {
-			exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
-			activeRoom.getComponent(RoomController.class).destroyRoom();
-			window.getBackgroundRenderer().removeElement(activeRoom);
-		}
-
+		DoorLocation entranceDoor = DoorLocation.NORTH;
 		switch (exitedDoor) {
 			case NORTH -> entranceDoor = DoorLocation.SOUTH;
 			case SOUTH -> entranceDoor = DoorLocation.NORTH;
@@ -84,6 +97,15 @@ public class RoomManager extends Behaviour {
 
 		window.getBackgroundRenderer().addElement(activeRoom);
 
+		GameObject player = DungeonSurvival.getInstance().getPlayer();
+
+		switch (entranceDoor) {
+			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
+			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
+			case EAST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
+			case WEST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
+			default -> player.getTransform().setPosition(new Point2D(512, 512));
+		}
 	}
 
 }

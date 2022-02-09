@@ -32,12 +32,7 @@ public class CollisionData {
 		if (this.A == data.getA() && this.B == data.getB()) {
 			return true;
 		}
-		else if (this.A == data.getB() && this.B == data.getA()) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		else return this.A == data.getB() && this.B == data.getA();
 	}
 
 	public boolean collisionIncludes(Collision collider) {

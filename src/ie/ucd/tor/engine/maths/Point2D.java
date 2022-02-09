@@ -34,7 +34,7 @@ public class Point2D {
 		return new Vector2D(this.getX() - Minus.getX(), this.getY() - Minus.getY());
 	}
 
-	public void Translate(Vector2D Additional) {
+	public void translate(Vector2D Additional) {
 		this.x += Additional.getX();
 		this.y += Additional.getY();
 	}

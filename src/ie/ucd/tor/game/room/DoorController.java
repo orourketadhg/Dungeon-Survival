@@ -8,23 +8,20 @@ import ie.ucd.tor.game.room.data.DoorLocation;
 
 public class DoorController extends Behaviour {
 
-	private DoorLocation door;
-	private RoomController controller;
+	private final DoorLocation door;
+	private boolean exitAttempt;
 
-	public DoorController(RoomController controller, DoorLocation door) {
+	public DoorController(DoorLocation door) {
 		this.door = door;
-		this.controller = controller;
 	}
 
 	@Override
 	public void Execute() {
-		for (CollisionData collision : gameObject.getComponent(Collision.class).getCollisions()) {
-			System.out.println(collision);
-		}
+		exitAttempt = false;
 
 //		for (CollisionData collision : gameObject.getComponent(Collision.class).getCollisions()) {
-//			if (collision.collisionIncludes(DungeonSurvival.getInstance().getPlayerOne().getComponent(Collision.class)) || collision.collisionIncludes(DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collision.class))) {
-//				controller.setExitedDoor(door);
+//			if (collision.collisionIncludes(DungeonSurvival.getInstance().getPlayer().getComponent(Collision.class))) {
+//				exitAttempt = true;
 //			}
 //		}
 
@@ -32,6 +29,10 @@ public class DoorController extends Behaviour {
 
 	public DoorLocation getDoor() {
 		return door;
+	}
+
+	public boolean getExitAttempt() {
+		return exitAttempt;
 	}
 
 }

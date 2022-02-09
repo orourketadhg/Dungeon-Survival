@@ -6,6 +6,7 @@ import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Collision;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
+import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.room.data.DoorLocation;
@@ -20,6 +21,7 @@ public class RoomController extends Behaviour {
 	private final RoomData roomData;
 	private final GameWindow window;
 	private boolean roomComplete = false;
+	private boolean roomLock = true;
 	private DoorLocation exitedDoor;
 
 	private final List<GameObject> doors;
@@ -50,6 +52,44 @@ public class RoomController extends Behaviour {
 
 	}
 
+	@Override
+	public void Execute() {
+
+		if (InputEventHandler.getInstance().isKeyFPressed() && !enemies.isEmpty()) {
+			enemies.clear();
+		}
+
+		if (!enemies.isEmpty()) {
+			return;
+		}
+
+		if (roomLock) {
+			unlockRoom();
+			roomLock = false;
+			return;
+		}
+
+		for (GameObject door : doors) {
+			DoorController doorController = door.getComponent(DoorController.class);
+			if (doorController.getExitAttempt()) {
+				exitedDoor = doorController.getDoor();
+				roomComplete = true;
+			}
+		}
+
+	}
+
+	private void unlockRoom() {
+		for (GameObject door: doors) {
+			if (door.hasComponent(Sprite.class)) {
+				door.getComponent(Sprite.class).disable();
+			}
+			else if (door.hasComponent(Animation.class)) {
+				door.getComponent(Animation.class).disable();
+			}
+		}
+	}
+
 	public void destroyRoom() {
 		for (GameObject decoration : decorations) {
 			window.getBackgroundRenderer().removeElement(decoration);
@@ -62,14 +102,6 @@ public class RoomController extends Behaviour {
 		for (GameObject enemy : enemies) {
 			window.getSpriteRenderer().removeElement(enemy);
 		}
-	}
-
-	public void setRoomComplete() {
-		this.roomComplete = true;
-	}
-
-	public boolean isRoomComplete() {
-		return roomComplete;
 	}
 
 	private void generateDoors() {
@@ -105,10 +137,13 @@ public class RoomController extends Behaviour {
 			door.getTransform().setScale(RoomManager.ROOM_SCALE);
 			door.addComponent(doorSprite);
 			door.addComponent(collider);
-			door.addComponent(new DoorController(this, doorLocation));
+			door.addComponent(new DoorController(doorLocation));
 
 			doors.add(door);
 			window.getBackgroundRenderer().addElement(door);
+
+
+
 		}
 
 	}
@@ -204,7 +239,13 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateEnemies() {
+		GameObject testEnemy = new GameObject();
+		enemies.add(testEnemy);
 
+	}
+
+	public boolean isRoomComplete() {
+		return roomComplete;
 	}
 
 	public DoorLocation getExitedDoor() {
@@ -215,7 +256,4 @@ public class RoomController extends Behaviour {
 		return enemies;
 	}
 
-	public void setExitedDoor(DoorLocation exitedDoor) {
-		this.exitedDoor = exitedDoor;
-	}
 }
