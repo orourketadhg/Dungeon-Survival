@@ -43,7 +43,6 @@ public class Collider extends Component {
 	@Override
 	public void disable() {
 		super.disable();
-		CollisionController.getInstance().removeColliderToSystem(this);
 	}
 
 	@Override

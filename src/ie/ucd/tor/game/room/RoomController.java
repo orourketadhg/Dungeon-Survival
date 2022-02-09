@@ -20,7 +20,7 @@ public class RoomController extends Behaviour {
 
 	private final RoomData roomData;
 	private final GameWindow window;
-	private boolean roomComplete = false;
+	private boolean roomComplete;
 	private boolean roomLock = true;
 	private DoorLocation exitedDoor;
 
@@ -93,17 +93,26 @@ public class RoomController extends Behaviour {
 	}
 
 	public void destroyRoom() {
+		for (GameObject door: doors) {
+			door.destroy();
+		}
+
 		for (GameObject decoration : decorations) {
 			window.getBackgroundRenderer().removeElement(decoration);
+			decoration.destroy();
 		}
 
 		for (GameObject collectible : intractables) {
 			window.getSpriteRenderer().removeElement(collectible);
+			collectible.destroy();
 		}
 
 		for (GameObject enemy : enemies) {
 			window.getSpriteRenderer().removeElement(enemy);
+			enemy.destroy();
 		}
+
+		disable();
 	}
 
 	private void generateDoors() {

@@ -23,13 +23,21 @@ public class BehaviourController {
 	}
 
 	public void updateBehaviours() {
+
 		for (Behaviour behaviour: behaviours) {
+
+			if (behaviour == null) {
+				continue;
+			}
 
 			if (!behaviour.getGameObject().isEnabled()) {
 				continue;
 			}
 
+			System.out.println(behaviour);
+
 			behaviour.Execute();
+
 		}
 	}
 

@@ -29,10 +29,12 @@ public class RoomManager extends Behaviour {
 		this.window = window;
 
 		rooms = new ArrayList<>();
+
 	}
 
 	@Override
 	public void Execute() {
+
 		if (activeRoom == null) {
 			return;
 		}
@@ -43,6 +45,8 @@ public class RoomManager extends Behaviour {
 
 		if (activeRoom.getComponent(RoomController.class).isRoomComplete()) {
 			generateNewRoom();
+
+			System.out.println("Room Generation complete");
 		}
 
 	}
@@ -75,6 +79,7 @@ public class RoomManager extends Behaviour {
 
 		DoorLocation exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
 		activeRoom.getComponent(RoomController.class).destroyRoom();
+		activeRoom.destroy();
 
 		window.getBackgroundRenderer().removeElement(activeRoom);
 
@@ -105,15 +110,15 @@ public class RoomManager extends Behaviour {
 		newRoom.addComponent(new RoomController(newRoomData, window));
 		this.activeRoom = newRoom;
 
-//		GameObject player = DungeonSurvival.getInstance().getPlayer();
-//
-//		switch (entranceDoor) {
-//			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
-//			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
-//			case EAST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
-//			case WEST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
-//			default -> player.getTransform().setPosition(new Point2D(512, 512));
-//		}
+		GameObject player = DungeonSurvival.getInstance().getPlayer();
+
+		switch (entranceDoor) {
+			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
+			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
+			case EAST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
+			case WEST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
+			default -> player.getTransform().setPosition(new Point2D(512, 512));
+		}
 	}
 
 }

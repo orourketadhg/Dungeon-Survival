@@ -115,6 +115,12 @@ public class GameObject {
 
 	}
 
+	public void destroy() {
+		for (Component component : attachedComponents) {
+			component.disable();
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "GameObject{" +
