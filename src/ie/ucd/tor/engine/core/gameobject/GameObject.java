@@ -6,6 +6,7 @@ import ie.ucd.tor.engine.core.gameobject.components.Component;
 import ie.ucd.tor.engine.core.gameobject.components.Transform;
 import ie.ucd.tor.engine.core.systems.BehaviourController;
 import ie.ucd.tor.engine.core.systems.CollisionController;
+import ie.ucd.tor.engine.rendering.GameWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,12 +114,14 @@ public class GameObject {
 	public void disable() {
 		isEnabled = false;
 
-	}
-
-	public void destroy() {
-		for (Component component : attachedComponents) {
+		for (Component component: attachedComponents) {
 			component.disable();
 		}
+
+		GameWindow.getInstance().getBackgroundRenderer().removeElement(this);
+		GameWindow.getInstance().getUiRenderer().removeElement(this);
+		GameWindow.getInstance().getSpriteRenderer().removeElement(this);
+
 	}
 
 	@Override

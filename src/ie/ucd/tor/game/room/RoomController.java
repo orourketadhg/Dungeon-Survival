@@ -94,25 +94,23 @@ public class RoomController extends Behaviour {
 
 	public void destroyRoom() {
 		for (GameObject door: doors) {
-			door.destroy();
+			door.disable();
 		}
 
 		for (GameObject decoration : decorations) {
-			window.getBackgroundRenderer().removeElement(decoration);
-			decoration.destroy();
+			// window.getBackgroundRenderer().removeElement(decoration);
+			decoration.disable();
 		}
 
 		for (GameObject collectible : intractables) {
-			window.getSpriteRenderer().removeElement(collectible);
-			collectible.destroy();
+			// window.getSpriteRenderer().removeElement(collectible);
+			collectible.disable();
 		}
 
 		for (GameObject enemy : enemies) {
-			window.getSpriteRenderer().removeElement(enemy);
-			enemy.destroy();
+			// window.getSpriteRenderer().removeElement(enemy);
+			enemy.disable();
 		}
-
-		disable();
 	}
 
 	private void generateDoors() {

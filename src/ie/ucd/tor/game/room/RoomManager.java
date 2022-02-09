@@ -35,17 +35,8 @@ public class RoomManager extends Behaviour {
 	@Override
 	public void Execute() {
 
-		if (activeRoom == null) {
-			return;
-		}
-
-		if (!activeRoom.hasComponent(RoomController.class)) {
-			return;
-		}
-
 		if (activeRoom.getComponent(RoomController.class).isRoomComplete()) {
 			generateNewRoom();
-
 			System.out.println("Room Generation complete");
 		}
 
@@ -77,48 +68,42 @@ public class RoomManager extends Behaviour {
 
 	public void generateNewRoom() {
 
-		DoorLocation exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
-		activeRoom.getComponent(RoomController.class).destroyRoom();
-		activeRoom.destroy();
+		RoomController oldController = activeRoom.getComponent(RoomController.class);
+		oldController.destroyRoom();
 
-		window.getBackgroundRenderer().removeElement(activeRoom);
+		activeRoom.removeComponent(RoomController.class);
+		activeRoom.removeComponent(Sprite.class);
 
-		DoorLocation entranceDoor = DoorLocation.NORTH;
-		switch (exitedDoor) {
-			case NORTH -> entranceDoor = DoorLocation.SOUTH;
-			case SOUTH -> entranceDoor = DoorLocation.NORTH;
-			case EAST -> entranceDoor = DoorLocation.WEST;
-			case WEST -> entranceDoor = DoorLocation.EAST;
-		}
-
-		DoorLocation finalEntranceDoor = entranceDoor;
-		List<RoomData> filteredRooms = rooms.stream().filter((roomData -> roomData.getDoorLocations().contains(finalEntranceDoor))).toList();
-
-		// randomly choose data to generate a new room
-		int roomIndex = (int) (Math.random() * filteredRooms.size());
-		RoomData newRoomData = filteredRooms.get(roomIndex);
-
-		// Initialise new room
-		GameObject newRoom = new GameObject();
-		newRoom.getTransform().setPosition(ROOM_POSITION);
-		newRoom.getTransform().setScale(ROOM_SCALE);
-
-		// add required components to room
-		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
-		window.getBackgroundRenderer().addElement(activeRoom);
-
-		newRoom.addComponent(new RoomController(newRoomData, window));
-		this.activeRoom = newRoom;
-
-		GameObject player = DungeonSurvival.getInstance().getPlayer();
-
-		switch (entranceDoor) {
-			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
-			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
-			case EAST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
-			case WEST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
-			default -> player.getTransform().setPosition(new Point2D(512, 512));
-		}
+//		DoorLocation exitedDoor = oldController.getExitedDoor();
+//
+//		DoorLocation entranceDoor = DoorLocation.NORTH;
+//		switch (exitedDoor) {
+//			case NORTH -> entranceDoor = DoorLocation.SOUTH;
+//			case SOUTH -> entranceDoor = DoorLocation.NORTH;
+//			case EAST -> entranceDoor = DoorLocation.WEST;
+//			case WEST -> entranceDoor = DoorLocation.EAST;
+//		}
+//
+//		DoorLocation finalEntranceDoor = entranceDoor;
+//		List<RoomData> filteredRooms = rooms.stream().filter((roomData -> roomData.getDoorLocations().contains(finalEntranceDoor))).toList();
+//
+//		// randomly choose data to generate a new room
+//		int roomIndex = (int) (Math.random() * filteredRooms.size());
+//		RoomData newRoomData = filteredRooms.get(roomIndex);
+//
+//		// add required components to room
+//		activeRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
+//		activeRoom.addComponent(new RoomController(newRoomData, window));
+//
+//		GameObject player = DungeonSurvival.getInstance().getPlayer();
+//
+//		switch (entranceDoor) {
+//			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
+//			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
+//			case EAST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
+//			case WEST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
+//			default -> player.getTransform().setPosition(new Point2D(512, 512));
+//		}
 	}
 
 }
