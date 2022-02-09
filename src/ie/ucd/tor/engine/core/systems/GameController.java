@@ -2,7 +2,7 @@ package ie.ucd.tor.engine.core.systems;
 
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
@@ -63,12 +63,12 @@ public class GameController {
 		GameObject spriteTestA = new GameObject();
 		spriteTestA.getTransform().setPosition(new Point2D(500 , 500));
 		spriteTestA.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 0));
-		spriteTestA.addComponent(new Collision(32, 32, Point2D.Zero));
+		spriteTestA.addComponent(new Collider(32, 32, Point2D.Zero));
 
 		GameObject spriteTestB = new GameObject();
 		spriteTestB.getTransform().setPosition(new Point2D(532 , 500));
 		spriteTestB.addComponent(new Sprite("res/TexturePlaceholder.png", 32, 32, 1));
-		spriteTestB.addComponent(new Collision(32, 32, Point2D.Zero));
+		spriteTestB.addComponent(new Collider(32, 32, Point2D.Zero));
 
 		GameObject animationTestA = new GameObject();
 		animationTestA.getTransform().setPosition(new Point2D(500 , 600));

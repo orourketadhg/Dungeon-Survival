@@ -1,6 +1,6 @@
 package ie.ucd.tor.engine.core.systems;
 
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionType;
 import ie.ucd.tor.engine.maths.Point2D;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class CollisionController {
 
-	private final List<Collision> colliders;
+	private final List<Collider> colliders;
 
 	private List<CollisionData> currentCollisions;
 	private List<CollisionData> collisionsLastFrame;
@@ -36,8 +36,8 @@ public class CollisionController {
 
 		List<CollisionData> newCollisions = new ArrayList<>();
 
-		for (Collision A: colliders) {
-			for (Collision B: colliders) {
+		for (Collider A: colliders) {
+			for (Collider B: colliders) {
 
 				if (A == B) {
 					continue;
@@ -79,19 +79,19 @@ public class CollisionController {
 
 	}
 
-	public List<CollisionData> getCollisions(Collision collider) {
+	public List<CollisionData> getCollisions(Collider collider) {
 		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(collider))).collect(Collectors.toList());
 	}
 
-	public void addColliderToSystem(Collision collider) {
+	public void addColliderToSystem(Collider collider) {
 		colliders.add(collider);
 	}
 
-	public void removeColliderToSystem(Collision collider) {
+	public void removeColliderToSystem(Collider collider) {
 		colliders.remove(collider);
 	}
 
-	private Boolean CheckCollision(Collision a, Collision b) {
+	private Boolean CheckCollision(Collider a, Collider b) {
 		Point2D aPosition = a.getTransform().getPosition();
 		Point2D bPosition = b.getTransform().getPosition();
 
@@ -102,7 +102,7 @@ public class CollisionController {
 
 	}
 
-	private boolean pastCollisionExists(Collision A, Collision B) {
+	private boolean pastCollisionExists(Collider A, Collider B) {
 		return collisionsLastFrame.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B) && collisionData.getCollisionType() != CollisionType.Exiting)).toList().size() > 0;
 	}
 

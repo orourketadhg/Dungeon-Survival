@@ -33,9 +33,16 @@ public class RoomManager extends Behaviour {
 
 	@Override
 	public void Execute() {
+		if (activeRoom == null) {
+			return;
+		}
+
+		if (!activeRoom.hasComponent(RoomController.class)) {
+			return;
+		}
+
 		if (activeRoom.getComponent(RoomController.class).isRoomComplete()) {
-			 // generateNewRoom();
-			System.out.println("Generate New Room");
+			generateNewRoom();
 		}
 
 	}
@@ -68,6 +75,7 @@ public class RoomManager extends Behaviour {
 
 		DoorLocation exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
 		activeRoom.getComponent(RoomController.class).destroyRoom();
+
 		window.getBackgroundRenderer().removeElement(activeRoom);
 
 		DoorLocation entranceDoor = DoorLocation.NORTH;
@@ -89,23 +97,23 @@ public class RoomManager extends Behaviour {
 		GameObject newRoom = new GameObject();
 		newRoom.getTransform().setPosition(ROOM_POSITION);
 		newRoom.getTransform().setScale(ROOM_SCALE);
+
 		// add required components to room
 		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
-		newRoom.addComponent(new RoomController(newRoomData, window));
-
-		this.activeRoom = newRoom;
-
 		window.getBackgroundRenderer().addElement(activeRoom);
 
-		GameObject player = DungeonSurvival.getInstance().getPlayer();
+		newRoom.addComponent(new RoomController(newRoomData, window));
+		this.activeRoom = newRoom;
 
-		switch (entranceDoor) {
-			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
-			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
-			case EAST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
-			case WEST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
-			default -> player.getTransform().setPosition(new Point2D(512, 512));
-		}
+//		GameObject player = DungeonSurvival.getInstance().getPlayer();
+//
+//		switch (entranceDoor) {
+//			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, 100));
+//			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, -100));
+//			case EAST -> player.getTransform().getPosition().translate(new Vector2D(-100, 0));
+//			case WEST -> player.getTransform().getPosition().translate(new Vector2D(100, 0));
+//			default -> player.getTransform().setPosition(new Point2D(512, 512));
+//		}
 	}
 
 }

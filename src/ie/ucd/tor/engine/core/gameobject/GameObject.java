@@ -1,7 +1,7 @@
 package ie.ucd.tor.engine.core.gameobject;
 
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.Component;
 import ie.ucd.tor.engine.core.gameobject.components.Transform;
 import ie.ucd.tor.engine.core.systems.BehaviourController;
@@ -40,8 +40,8 @@ public class GameObject {
 		component.registerParent(this, transform);
 		attachedComponents.add(component);
 
-		if (component instanceof Collision) {
-			CollisionController.getInstance().addColliderToSystem((Collision) component);
+		if (component instanceof Collider) {
+			CollisionController.getInstance().addColliderToSystem((Collider) component);
 		}
 		else if (component instanceof Behaviour) {
 			BehaviourController.getInstance().addBehaviourToSystem((Behaviour) component);
@@ -115,4 +115,11 @@ public class GameObject {
 
 	}
 
+	@Override
+	public String toString() {
+		return "GameObject{" +
+				"gameObjectID=" + gameObjectID +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

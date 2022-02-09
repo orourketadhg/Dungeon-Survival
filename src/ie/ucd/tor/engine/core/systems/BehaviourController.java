@@ -24,6 +24,7 @@ public class BehaviourController {
 
 	public void updateBehaviours() {
 		for (Behaviour behaviour: behaviours) {
+
 			if (!behaviour.getGameObject().isEnabled()) {
 				continue;
 			}

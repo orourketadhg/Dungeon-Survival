@@ -2,7 +2,7 @@ package ie.ucd.tor.game.core;
 
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
@@ -59,7 +59,7 @@ public class DungeonSurvival extends GameController {
 		player.getComponent(Animation.class).AddAnimation("knightAttackRight", new SpriteSheetData("res/Knight/Knight_attack_right.png", 6,24, 18));
 		player.getComponent(Animation.class).AddAnimation("knightAttackLeft", new SpriteSheetData("res/Knight/Knight_attack_left.png", 6,22, 18));
 		// Add colliders
-		player.addComponent(new Collision(16 * 4, 16 * 4, Point2D.Zero));
+		player.addComponent(new Collider(16 * 4, 16 * 4, Point2D.Zero));
 
 		// Add player to renderer
 		this.gameWindow.getSpriteRenderer().addElement(player);
@@ -70,6 +70,7 @@ public class DungeonSurvival extends GameController {
 
 	private GameObject initialiseRoomManager() {
 		GameObject roomManager = new GameObject();
+		roomManager.setName("Room Manager");
 
 		RoomManager manager = new RoomManager(gameWindow);
 

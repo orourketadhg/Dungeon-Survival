@@ -3,7 +3,7 @@ package ie.ucd.tor.game.room;
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.events.InputEventHandler;
@@ -81,6 +81,8 @@ public class RoomController extends Behaviour {
 
 	private void unlockRoom() {
 		for (GameObject door: doors) {
+			door.getComponent(DoorController.class).unlockDoor();
+
 			if (door.hasComponent(Sprite.class)) {
 				door.getComponent(Sprite.class).disable();
 			}
@@ -110,7 +112,7 @@ public class RoomController extends Behaviour {
 
 			Point2D doorPosition;
 			Sprite doorSprite;
-			Collision collider;
+			Collider collider;
 
 			switch (doorLocation) {
 				case NORTH -> doorPosition = new Point2D(18 + (64 * RoomManager.ROOM_SCALE.getX()), 24 + (0 * RoomManager.ROOM_SCALE.getY()));
@@ -123,11 +125,11 @@ public class RoomController extends Behaviour {
 			switch (doorLocation) {
 				case NORTH, SOUTH -> {
 					doorSprite = new Sprite(HORIZONTAL_DOOR, 32, 16, 1);
-					collider = new Collision((int) (32 * RoomManager.ROOM_SCALE.getX()), (int) (16 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero);
+					collider = new Collider((int) (32 * RoomManager.ROOM_SCALE.getX()), (int) (16 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero);
 				}
 				case EAST, WEST -> {
 					doorSprite = new Sprite(VERTICAL_DOOR, 16, 32, 1);
-					collider = new Collision((int) (16 * RoomManager.ROOM_SCALE.getX()), (int) (32 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero);
+					collider = new Collider((int) (16 * RoomManager.ROOM_SCALE.getX()), (int) (32 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero);
 				}
 				default -> throw new IllegalStateException("Unexpected value: " + doorLocation);
 			}
@@ -141,8 +143,6 @@ public class RoomController extends Behaviour {
 
 			doors.add(door);
 			window.getBackgroundRenderer().addElement(door);
-
-
 
 		}
 
@@ -231,8 +231,6 @@ public class RoomController extends Behaviour {
 		else {
 			interactable.addComponent(new Sprite(interactableSpriteLocation, 16, 16, 1));
 		}
-
-		System.out.println("Generated Interactable");
 
 		intractables.add(interactable);
 		window.getSpriteRenderer().addElement(interactable);

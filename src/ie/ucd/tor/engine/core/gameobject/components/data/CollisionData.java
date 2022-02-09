@@ -1,16 +1,16 @@
 package ie.ucd.tor.engine.core.gameobject.components.data;
 
 import ie.ucd.tor.engine.core.gameobject.GameObject;
-import ie.ucd.tor.engine.core.gameobject.components.Collision;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 
 public class CollisionData {
 
 	private final CollisionType collisionType;
 
-	private final Collision A;
-	private final Collision B;
+	private final Collider A;
+	private final Collider B;
 
-	public CollisionData(CollisionType collisionType, Collision a, Collision b) {
+	public CollisionData(CollisionType collisionType, Collider a, Collider b) {
 		this.collisionType = collisionType;
 		A = a;
 		B = b;
@@ -20,11 +20,11 @@ public class CollisionData {
 		return collisionType;
 	}
 
-	public Collision getA() {
+	public Collider getA() {
 		return A;
 	}
 
-	public Collision getB() {
+	public Collider getB() {
 		return B;
 	}
 
@@ -35,11 +35,11 @@ public class CollisionData {
 		else return this.A == data.getB() && this.B == data.getA();
 	}
 
-	public boolean collisionIncludes(Collision collider) {
+	public boolean collisionIncludes(Collider collider) {
 		return collider == A || collider == B;
 	}
 
-	public GameObject getOther(Collision collider) {
+	public GameObject getOther(Collider collider) {
 
 		if (!collisionIncludes(collider)) {
 			return null;
