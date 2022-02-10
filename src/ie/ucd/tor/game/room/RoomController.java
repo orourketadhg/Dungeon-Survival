@@ -53,7 +53,7 @@ public class RoomController extends Behaviour {
 	}
 
 	@Override
-	public void Execute() {
+	public void execute() {
 
 		if (InputEventHandler.getInstance().isKeyFPressed() && !enemies.isEmpty()) {
 			enemies.clear();

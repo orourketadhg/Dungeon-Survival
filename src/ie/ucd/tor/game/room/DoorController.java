@@ -20,7 +20,7 @@ public class DoorController extends Behaviour {
 	}
 
 	@Override
-	public void Execute() {
+	public void execute() {
 		if (doorLock) {
 			return;
 		}

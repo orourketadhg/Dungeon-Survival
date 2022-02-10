@@ -19,7 +19,7 @@ public class PlayerController extends Behaviour {
 	}
 
 	@Override
-	public void Execute() {
+	public void execute() {
 
 		Move();
 

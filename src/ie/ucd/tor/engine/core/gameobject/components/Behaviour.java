@@ -8,7 +8,7 @@ public class Behaviour extends Component {
 
 	}
 
-	public void Execute() {
+	public void execute() {
 
 	}
 
