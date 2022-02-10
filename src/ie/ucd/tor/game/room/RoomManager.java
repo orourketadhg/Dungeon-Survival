@@ -68,6 +68,8 @@ public class RoomManager extends Behaviour {
 
 	public void generateNewRoom() {
 
+		window.getBackgroundRenderer().removeElement(activeRoom);
+
 		DoorLocation exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
 		activeRoom.getComponent(RoomController.class).destroyRoom();
 
@@ -87,6 +89,8 @@ public class RoomManager extends Behaviour {
 		RoomData newRoomData = filteredRooms.get(roomIndex);
 
 		GameObject newRoom = new GameObject();
+		newRoom.getTransform().setPosition(ROOM_POSITION);
+		newRoom.getTransform().setScale(ROOM_SCALE);
 
 		// add required components to room
 		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
@@ -103,6 +107,8 @@ public class RoomManager extends Behaviour {
 		}
 
 		activeRoom = newRoom;
+
+		window.getBackgroundRenderer().addElement(activeRoom);
 
 	}
 

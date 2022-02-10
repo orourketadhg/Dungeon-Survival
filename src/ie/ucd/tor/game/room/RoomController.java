@@ -98,17 +98,17 @@ public class RoomController extends Behaviour {
 		}
 
 		for (GameObject decoration : decorations) {
-			// window.getBackgroundRenderer().removeElement(decoration);
+			 window.getBackgroundRenderer().removeElement(decoration);
 			decoration.disable();
 		}
 
 		for (GameObject collectible : intractables) {
-			// window.getSpriteRenderer().removeElement(collectible);
+			 window.getSpriteRenderer().removeElement(collectible);
 			collectible.disable();
 		}
 
 		for (GameObject enemy : enemies) {
-			// window.getSpriteRenderer().removeElement(enemy);
+			 window.getSpriteRenderer().removeElement(enemy);
 			enemy.disable();
 		}
 	}
@@ -156,6 +156,8 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateDecorations() {
+
+		// TODO fix random num decorations 
 
 		List<RoomObjectData> decorations = roomData.getDecorations();
 		int numDecorations = (int) (Math.random() * roomData.getNumDecorations());
@@ -225,6 +227,7 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateInteractable(String interactableSpriteLocation, Point2D spawnPosition, boolean isAnimatedDecoration) {
+
 		GameObject interactable = new GameObject();
 
 		Point2D position = new Point2D(18 + (spawnPosition.getX() * RoomManager.ROOM_SCALE.getX()), 18 + (spawnPosition.getY() * RoomManager.ROOM_SCALE.getY()));

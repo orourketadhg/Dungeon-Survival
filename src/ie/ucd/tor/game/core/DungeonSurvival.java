@@ -74,32 +74,57 @@ public class DungeonSurvival extends GameController {
 
 		RoomManager manager = new RoomManager(gameWindow);
 
-		// Room Data
-		RoomData roomOne = new RoomData("res/rooms/Room_Plus.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 6, 2, 3);
+		{
+			/* PLUS ROOM */
+			RoomData plusRoom = new RoomData("res/rooms/Room_plus.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 6, 2, 3);
 
-		// decorations
-		RoomObjectData roomOneCandle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
-		roomOneCandle.addPosition(new Point2D(16, 16));
-		roomOneCandle.addPosition(new Point2D(128, 16));
-		roomOneCandle.addPosition(new Point2D(16, 128));
-		roomOneCandle.addPosition(new Point2D(128, 128));
-		RoomObjectData roomOneFlag = new RoomObjectData("res/rooms/decorations/flag.png", true);
-		roomOneFlag.addPosition(new Point2D(48, 0));
-		roomOneFlag.addPosition(new Point2D(96, 0));
+			// decorations
+			RoomObjectData plusRoomCandle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
+			plusRoomCandle.addPosition(new Point2D(16, 16));
+			plusRoomCandle.addPosition(new Point2D(128, 16));
+			plusRoomCandle.addPosition(new Point2D(16, 128));
+			plusRoomCandle.addPosition(new Point2D(128, 128));
+			RoomObjectData plusRoomFlag = new RoomObjectData("res/rooms/decorations/flag.png", true);
+			plusRoomFlag.addPosition(new Point2D(48, 0));
+			plusRoomFlag.addPosition(new Point2D(96, 0));
 
-		roomOne.addDecoration(roomOneCandle);
-		roomOne.addDecoration(roomOneFlag);
+			plusRoom.addDecoration(plusRoomCandle);
+			plusRoom.addDecoration(plusRoomFlag);
 
-		// Interactive
-		RoomObjectData roomOneBox = new RoomObjectData("res/rooms/decorations/Box.png", true);
-		roomOneBox.addPosition(new Point2D(32, 32));
-		roomOneBox.addPosition(new Point2D(32, 112));
-		roomOneBox.addPosition(new Point2D(112, 32));
-		roomOneBox.addPosition(new Point2D(112, 112));
+			// Interactive
+			RoomObjectData plusRoomBox = new RoomObjectData("res/rooms/decorations/Box.png", true);
+			plusRoomBox.addPosition(new Point2D(32, 32));
+			plusRoomBox.addPosition(new Point2D(32, 112));
+			plusRoomBox.addPosition(new Point2D(112, 32));
+			plusRoomBox.addPosition(new Point2D(112, 112));
 
-		roomOne.addInteractable(roomOneBox);
+			plusRoom.addInteractable(plusRoomBox);
 
-		manager.addRoomData(roomOne);
+			manager.addRoomData(plusRoom);
+
+		}
+
+		{
+			/* ROOM PLUS HALL */
+			RoomData plusRoomHall = new RoomData("res/rooms/Room_plus_hall.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 4, 2, 4);
+
+			// decorations
+			RoomObjectData plusRoomHallCandle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
+			plusRoomHallCandle.addPosition(new Point2D(72, 72));
+
+			plusRoomHall.addDecoration(plusRoomHallCandle);
+
+			// Interactive
+			RoomObjectData plusRoomHallBox = new RoomObjectData("res/rooms/decorations/Box.png", true);
+			plusRoomHallBox.addPosition(new Point2D(72, 32));
+			plusRoomHallBox.addPosition(new Point2D(32, 32));
+			plusRoomHallBox.addPosition(new Point2D(32, 72));
+			plusRoomHallBox.addPosition(new Point2D(72, 72));
+
+			plusRoomHall.addInteractable(plusRoomHallBox);
+
+			manager.addRoomData(plusRoomHall);
+		}
 
 		roomManager.addComponent(manager);
 
