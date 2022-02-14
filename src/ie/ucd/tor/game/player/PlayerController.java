@@ -85,11 +85,9 @@ public class PlayerController extends Behaviour {
 			Point2D newPosition = transform.getPosition();
 			newPosition.Add(movement.scale(MOVEMENT_SPEED));
 
-			if (validateMove(newPosition, controller.getBlockedAreas())) {
-				System.out.println("In area");
+			if (!validateMove(newPosition, controller.getBlockedAreas())) {
+				transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
 			}
-
-			transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
 
 		}
 
@@ -115,9 +113,9 @@ public class PlayerController extends Behaviour {
 		for (BlockedAreaData area: blockedAreas) {
 
 			boolean isIntersecting = position.getX() < area.getPosition().getX() + area.getWidth() &&
-					position.getX() + playerWidth > area.getPosition().getX() &&
-					position.getY() < area.getPosition().getY() + area.getHeight() &&
-					position.getY() + playerHeight > area.getPosition().getY();
+				position.getX() + playerWidth > area.getPosition().getX() &&
+				position.getY() < area.getPosition().getY() + area.getHeight() &&
+				position.getY() + playerHeight > area.getPosition().getY();
 
 			if (isIntersecting) {
 				return true;
