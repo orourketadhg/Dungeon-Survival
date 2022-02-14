@@ -125,6 +125,7 @@ public class GamePanel extends JPanel {
 		this.setVisible(false);
 	}
 
-
-
+	public long getAnimationTime() {
+		return animationTime;
+	}
 }

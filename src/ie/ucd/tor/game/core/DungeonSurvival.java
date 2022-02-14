@@ -249,4 +249,8 @@ public class DungeonSurvival extends GameController {
 		return roomManager;
 	}
 
+	public long getSpriteAnimationTime() {
+		return this.gameWindow.getSpriteRenderer().getAnimationTime();
+	}
+
 }

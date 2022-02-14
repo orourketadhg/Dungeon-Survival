@@ -13,6 +13,9 @@ public class SpriteSheetData {
 	private final int spriteWidth;
 	private final int spriteHeight;
 
+	private final int animationDuration;
+	private final int animationSpeed;
+
 	public SpriteSheetData(String spriteSheet, int numSprites, int spriteWidth, int spriteHeight) {
 
 		spriteSheetData = new ArrayList<>();
@@ -21,6 +24,25 @@ public class SpriteSheetData {
 		this.numSprites = numSprites;
 		this.spriteWidth = spriteWidth;
 		this.spriteHeight = spriteHeight;
+
+		// TODO update
+		this.animationDuration = numSprites;
+		this.animationSpeed = numSprites;
+
+		BufferedImage spriteSheetImage = ImagesUtil.loadImageTexture(spriteSheet);
+		constructSpriteSheet(spriteSheetImage, spriteWidth, spriteHeight);
+	}
+
+	public SpriteSheetData(String spriteSheet, int numSprites, int spriteWidth, int spriteHeight, int animationDuration, int animationSpeed) {
+
+		spriteSheetData = new ArrayList<>();
+
+		this.spriteSheetLocation = spriteSheet;
+		this.numSprites = numSprites;
+		this.spriteWidth = spriteWidth;
+		this.spriteHeight = spriteHeight;
+		this.animationDuration = animationDuration;
+		this.animationSpeed = animationSpeed;
 
 		BufferedImage spriteSheetImage = ImagesUtil.loadImageTexture(spriteSheet);
 		constructSpriteSheet(spriteSheetImage, spriteWidth, spriteHeight);
