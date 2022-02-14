@@ -9,6 +9,7 @@ import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
+import ie.ucd.tor.game.room.data.BlockedAreaData;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
 import ie.ucd.tor.game.room.data.RoomObjectData;
@@ -23,6 +24,8 @@ public class RoomController extends Behaviour {
 	private boolean roomComplete;
 	private boolean roomLock = true;
 	private DoorLocation exitedDoor;
+
+	private final List<BlockedAreaData> blockedAreas;
 
 	private final List<GameObject> doors;
 	private final List<GameObject> decorations;
@@ -41,6 +44,9 @@ public class RoomController extends Behaviour {
 		decorations = new ArrayList<>();
 		intractables = new ArrayList<>();
 		enemies = new ArrayList<>();
+		blockedAreas = new ArrayList<>();
+
+		generateBlockedAreas();
 
 		generateDoors();
 
@@ -111,6 +117,10 @@ public class RoomController extends Behaviour {
 			 window.getSpriteRenderer().removeElement(enemy);
 			enemy.disable();
 		}
+	}
+
+	private void generateBlockedAreas() {
+
 	}
 
 	private void generateDoors() {
@@ -264,4 +274,7 @@ public class RoomController extends Behaviour {
 		return enemies;
 	}
 
+	public List<BlockedAreaData> getBlockedAreas() {
+		return blockedAreas;
+	}
 }

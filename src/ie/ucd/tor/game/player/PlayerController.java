@@ -2,8 +2,14 @@ package ie.ucd.tor.game.player;
 
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.events.InputEventHandler;
+import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.game.core.DungeonSurvival;
+import ie.ucd.tor.game.room.RoomController;
+import ie.ucd.tor.game.room.RoomManager;
+import ie.ucd.tor.game.room.data.BlockedAreaData;
+
+import java.util.List;
 
 public class PlayerController extends Behaviour {
 
@@ -53,18 +59,36 @@ public class PlayerController extends Behaviour {
 
 	private void attemptMove() {
 
+		Vector2D movement = Vector2D.Zero;
+
 		if (input.isKeyWPressed()) {
-			transform.getPosition().translate(new Vector2D(0, -1).Scale(MOVEMENT_SPEED));
+			movement = movement.add(new Vector2D(0, -1));
 		}
-		else if (input.isKeySPressed()) {
-			transform.getPosition().translate(new Vector2D(0, 1).Scale(MOVEMENT_SPEED));
+
+		if (input.isKeySPressed()) {
+			movement =movement.add(new Vector2D(0, 1));
 		}
 
 		if (input.isKeyDPressed()) {
-			transform.getPosition().translate(new Vector2D(1, 0).Scale(MOVEMENT_SPEED));
+			movement =movement.add(new Vector2D(1, 0));
 		}
-		else if (input.isKeyAPressed()) {
-			transform.getPosition().translate(new Vector2D(-1, 0).Scale(MOVEMENT_SPEED));
+
+		if (input.isKeyAPressed()) {
+			movement = movement.add(new Vector2D(-1, 0));
+		}
+
+		if (movement != Vector2D.Zero) {
+
+			Point2D newPosition = transform.getPosition();
+
+			newPosition.Add(movement.scale(MOVEMENT_SPEED));
+
+			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
+
+			if (!validateMove(newPosition, controller.getBlockedAreas())) {
+				transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
+			}
+
 		}
 
 	}
@@ -78,4 +102,9 @@ public class PlayerController extends Behaviour {
 		this.canAttack = true;
 		this.canMove = true;
 	}
+
+	private static boolean validateMove(Point2D position, List<BlockedAreaData> blockedAreas) {
+		return false;
+	}
+
 }

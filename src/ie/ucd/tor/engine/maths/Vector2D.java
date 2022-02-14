@@ -21,19 +21,19 @@ public class Vector2D {
 		this.setY(y);
 	}
 
-	public Vector2D Add(Vector2D value) {
+	public Vector2D add(Vector2D value) {
 		return new Vector2D(this.getX() + value.getX(), this.getY() + value.getY());
 	}
 
-	public Vector2D Subtract(Vector2D value) {
+	public Vector2D subtract(Vector2D value) {
 		return new Vector2D(this.getX() - value.getX(), this.getY() - value.getY());
 	}
 
-	public Point2D Add(Point2D value) {
+	public Point2D add(Point2D value) {
 		return new Point2D(this.getX() + value.getX(), this.getY() + value.getY());
 	}
 
-	public Vector2D Scale(float scale) {
+	public Vector2D scale(float scale) {
 		return new Vector2D(this.getX() * scale, this.getY() * scale);
 	}
 
@@ -41,12 +41,12 @@ public class Vector2D {
 		return (float) Math.sqrt(getX() * getX() + getY() * getY());
 	}
 
-	public Vector2D Normal() {
+	public Vector2D normal() {
 		float LengthOfTheVector = this.length();
-		return this.Scale(1.0f / LengthOfTheVector);
+		return this.scale(1.0f / LengthOfTheVector);
 	}
 
-	public static Vector3D Normalise(Vector3D value) {
+	public static Vector3D normalise(Vector3D value) {
 		float valueLength = value.length();
 		return value.Scale(1.0f / valueLength);
 	}
