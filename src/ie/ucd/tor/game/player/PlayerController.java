@@ -7,8 +7,6 @@ import ie.ucd.tor.engine.maths.Vector2D;
 public class PlayerController extends Behaviour {
 
 	private final InputEventHandler input;
-	// private final Animation animation;
-	// private final PlayerAnimationStateMachine animationStateMachine;
 
 	private static final float MOVEMENT_SPEED = 2;
 

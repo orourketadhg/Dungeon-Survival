@@ -99,10 +99,10 @@ public class RoomManager extends Behaviour {
 		GameObject player = DungeonSurvival.getInstance().getPlayer();
 
 		switch (entranceDoor) {
-			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, -16));
-			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, 16));
-			case EAST -> player.getTransform().getPosition().translate(new Vector2D(16, 0));
-			case WEST -> player.getTransform().getPosition().translate(new Vector2D(-16, 0));
+			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, -((128 - 16)* ROOM_SCALE.getY())));
+			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, ((128 - 16)* ROOM_SCALE.getY())));
+			case EAST -> player.getTransform().getPosition().translate(new Vector2D(((128 - 16)* ROOM_SCALE.getX()), 0));
+			case WEST -> player.getTransform().getPosition().translate(new Vector2D(-((128 - 16)* ROOM_SCALE.getX()), 0));
 			default -> player.getTransform().setPosition(new Point2D(512, 512));
 		}
 
