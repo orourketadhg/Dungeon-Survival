@@ -7,6 +7,7 @@ import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.game.player.PlayerController;
+import ie.ucd.tor.game.room.data.BlockedAreaData;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
 import ie.ucd.tor.game.room.RoomManager;
@@ -84,6 +85,8 @@ public class DungeonSurvival extends GameController {
 			candle.addPosition(new Point2D(128, 16));
 			candle.addPosition(new Point2D(16, 128));
 			candle.addPosition(new Point2D(128, 128));
+
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
 
 			RoomObjectData flag = new RoomObjectData("res/rooms/decorations/flag.png", true);
 			flag.addPosition(new Point2D(48, 0));

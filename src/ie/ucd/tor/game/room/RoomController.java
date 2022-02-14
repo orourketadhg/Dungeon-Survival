@@ -120,6 +120,17 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateBlockedAreas() {
+		List<BlockedAreaData> roomAreas = roomData.getBlockedLocations();
+
+		for (BlockedAreaData area: roomAreas) {
+			// scale the position an area based on room scale
+			int areaX = (int) (24 + area.getPosition().getX() * RoomManager.ROOM_SCALE.getX());
+			int areaY = (int) (24 + area.getPosition().getY() * RoomManager.ROOM_SCALE.getY());
+			int areaWidth = (int) (area.getWidth() * RoomManager.ROOM_SCALE.getX());
+			int areaHeight= (int) (area.getHeight() * RoomManager.ROOM_SCALE.getY());
+
+			blockedAreas.add(new BlockedAreaData(new Point2D(areaX, areaY), areaWidth, areaHeight));
+		}
 
 	}
 

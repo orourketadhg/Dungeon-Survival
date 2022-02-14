@@ -1,6 +1,7 @@
 package ie.ucd.tor.game.player;
 
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
+import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.maths.Vector2D;
@@ -79,15 +80,16 @@ public class PlayerController extends Behaviour {
 
 		if (movement != Vector2D.Zero) {
 
-			Point2D newPosition = transform.getPosition();
-
-			newPosition.Add(movement.scale(MOVEMENT_SPEED));
-
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
 
-			if (!validateMove(newPosition, controller.getBlockedAreas())) {
-				transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
+			Point2D newPosition = transform.getPosition();
+			newPosition.Add(movement.scale(MOVEMENT_SPEED));
+
+			if (validateMove(newPosition, controller.getBlockedAreas())) {
+				System.out.println("In area");
 			}
+
+			transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
 
 		}
 
@@ -103,7 +105,26 @@ public class PlayerController extends Behaviour {
 		this.canMove = true;
 	}
 
-	private static boolean validateMove(Point2D position, List<BlockedAreaData> blockedAreas) {
+	private boolean validateMove(Point2D position, List<BlockedAreaData> blockedAreas) {
+
+		// get players collision area
+		Collider playerCollider = gameObject.getComponent(Collider.class);
+		int playerWidth = playerCollider.getColliderWidth();
+		int playerHeight = playerCollider.getColliderHeight();
+
+		for (BlockedAreaData area: blockedAreas) {
+
+			boolean isIntersecting = position.getX() < area.getPosition().getX() + area.getWidth() &&
+					position.getX() + playerWidth > area.getPosition().getX() &&
+					position.getY() < area.getPosition().getY() + area.getHeight() &&
+					position.getY() + playerHeight > area.getPosition().getY();
+
+			if (isIntersecting) {
+				return true;
+			}
+
+		}
+
 		return false;
 	}
 
