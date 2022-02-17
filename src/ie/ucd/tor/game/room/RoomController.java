@@ -96,6 +96,11 @@ public class RoomController extends Behaviour {
 				door.getComponent(Animation.class).disable();
 			}
 		}
+
+		for (int i = 0; i < roomData.getDoorLocations().size(); i++) {
+			blockedAreas.remove(blockedAreas.size() - 1);
+		}
+
 	}
 
 	public void destroyRoom() {
@@ -154,10 +159,14 @@ public class RoomController extends Behaviour {
 				case NORTH, SOUTH -> {
 					doorSprite = new Sprite(HORIZONTAL_DOOR, 32, 16, 1);
 					collider = new Collider((int) (32 * RoomManager.ROOM_SCALE.getX()), (int) (16 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero);
+
+					blockedAreas.add(new BlockedAreaData(doorPosition, (int) (32 * RoomManager.ROOM_SCALE.getX()), (int) (16 * RoomManager.ROOM_SCALE.getY())));
 				}
 				case EAST, WEST -> {
 					doorSprite = new Sprite(VERTICAL_DOOR, 16, 32, 1);
 					collider = new Collider((int) (16 * RoomManager.ROOM_SCALE.getX()), (int) (32 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero);
+
+					blockedAreas.add(new BlockedAreaData(doorPosition, (int) (16 * RoomManager.ROOM_SCALE.getX()), (int) (32 * RoomManager.ROOM_SCALE.getY())));
 				}
 				default -> throw new IllegalStateException("Unexpected value: " + doorLocation);
 			}

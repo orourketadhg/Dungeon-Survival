@@ -79,14 +79,29 @@ public class DungeonSurvival extends GameController {
 			/* Room - plus */
 			RoomData room = new RoomData("res/rooms/Room_plus.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 6, 2, 3);
 
+			// blocked areas
+			// top left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 16, 64));
+
+			// top right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 0), 16, 64));
+
+			// bottom left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 96), 16, 64));
+
+			// bottom right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 96), 16, 64));
+
 			// decorations
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
 			candle.addPosition(new Point2D(16, 16));
 			candle.addPosition(new Point2D(128, 16));
 			candle.addPosition(new Point2D(16, 128));
 			candle.addPosition(new Point2D(128, 128));
-
-			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
 
 			RoomObjectData flag = new RoomObjectData("res/rooms/decorations/flag.png", true);
 			flag.addPosition(new Point2D(48, 0));
@@ -114,6 +129,27 @@ public class DungeonSurvival extends GameController {
 			/* Room - plus hall */
 			RoomData room = new RoomData("res/rooms/Room_plus_hall.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH, DoorLocation.EAST, DoorLocation.WEST)), 4, 2, 4);
 
+			// blocked areas
+			// top left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(16, 16), 32, 32));
+
+			// top right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 0), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(112, 16), 32, 32));
+
+			// bottom left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 96), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(16, 112), 32, 32));
+
+			// bottom right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 96), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(112, 112), 32, 32));
+
 			// decorations
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
 			candle.addPosition(new Point2D(72, 72));
@@ -140,6 +176,25 @@ public class DungeonSurvival extends GameController {
 		{
 			/* Room - horizontal */
 			RoomData room = new RoomData("res/rooms/Room_horizontal.png", new ArrayList<>(List.of(DoorLocation.EAST, DoorLocation.WEST)), 6, 0, 6);
+
+			// blocked areas
+			// top left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(64, 0), 32, 16));
+
+			// top right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 0), 16, 64));
+
+			// bottom left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 96), 16, 64));
+
+			// bottom right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 96), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(64, 144), 32, 16));
 
 			// decorations
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
@@ -169,6 +224,23 @@ public class DungeonSurvival extends GameController {
 			/* Room - horizontal hall */
 			RoomData room = new RoomData("res/rooms/Room_horizontal_hall.png", new ArrayList<>(List.of(DoorLocation.EAST, DoorLocation.WEST)), 3, 0, 2);
 
+			// blocked areas
+			// large walls
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 112), 160, 48));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 160, 48));
+
+			// top left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 16, 64));
+
+			// top right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 0), 16, 64));
+
+			// bottom left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 96), 16, 64));
+
+			// bottom right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 96), 16, 64));
+
 			// decorations
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
 			candle.addPosition(new Point2D(32, 72));
@@ -191,6 +263,25 @@ public class DungeonSurvival extends GameController {
 		{
 			/* Room - vertical */
 			RoomData room = new RoomData("res/rooms/Room_vertical.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH)), 8, 4, 0);
+
+			// blocked areas
+			// top left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 16, 64));
+
+			// top right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 0), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 0), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(64, 0), 16, 32));
+
+			// bottom left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 96), 16, 64));
+
+			// bottom right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 144), 64, 16));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 96), 16, 64));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(144, 64), 16, 32));
 
 			// decorations
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
@@ -219,6 +310,23 @@ public class DungeonSurvival extends GameController {
 		{
 			/* Room - vertical hall */
 			RoomData room = new RoomData("res/rooms/Room_vertical_hall.png", new ArrayList<>(List.of(DoorLocation.NORTH, DoorLocation.SOUTH)), 3, 0, 4);
+
+			// blocked areas
+			// large walls
+			room.addBlockedArea(new BlockedAreaData(new Point2D(112, 0), 48, 160));
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 48, 160));
+
+			// top left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 0), 64, 16));
+
+			// top right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 0), 64, 16));
+
+			// bottom left wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(0, 144), 64, 16));
+
+			// bottom right wall
+			room.addBlockedArea(new BlockedAreaData(new Point2D(96, 144), 64, 16));
 
 			// decorations
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);

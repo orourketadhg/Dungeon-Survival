@@ -82,10 +82,12 @@ public class PlayerController extends Behaviour {
 
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
 
-			Point2D newPosition = transform.getPosition();
-			newPosition.Add(movement.scale(MOVEMENT_SPEED));
+			Point2D currentPos = transform.getPosition();
+			Point2D nextPos = currentPos.Add(movement.scale(MOVEMENT_SPEED));
 
-			if (!validateMove(newPosition, controller.getBlockedAreas())) {
+			boolean isValid = validateMove(nextPos, controller.getBlockedAreas());
+
+			if (isValid) {
 				transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
 			}
 
@@ -110,20 +112,21 @@ public class PlayerController extends Behaviour {
 		int playerWidth = playerCollider.getColliderWidth();
 		int playerHeight = playerCollider.getColliderHeight();
 
+		boolean isIntersecting = false;
+
 		for (BlockedAreaData area: blockedAreas) {
 
-			boolean isIntersecting = position.getX() < area.getPosition().getX() + area.getWidth() &&
-				position.getX() + playerWidth > area.getPosition().getX() &&
-				position.getY() < area.getPosition().getY() + area.getHeight() &&
-				position.getY() + playerHeight > area.getPosition().getY();
-
-			if (isIntersecting) {
-				return true;
+			if (!isIntersecting) {
+				isIntersecting =
+							position.getX() < area.getPosition().getX() + area.getWidth() &&
+							position.getX() + playerWidth > area.getPosition().getX() &&
+							position.getY() < area.getPosition().getY() + area.getHeight() &&
+							position.getY() + playerHeight > area.getPosition().getY();
 			}
 
 		}
 
-		return false;
+		return !isIntersecting;
 	}
 
 }
