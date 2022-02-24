@@ -104,20 +104,20 @@ public class RoomManager extends Behaviour {
 
 		switch (entranceDoor) {
 			case NORTH -> {
-				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 96);
-				playerTwoPos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) + 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 96);
+				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 112);
+				playerTwoPos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) + 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 112);
 			}
 			case SOUTH -> {
-				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) + 32, 24 + (144 * RoomManager.ROOM_SCALE.getY()) - 96);
-				playerTwoPos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (144 * RoomManager.ROOM_SCALE.getY()) - 96);
+				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) + 32, 24 + (144 * RoomManager.ROOM_SCALE.getY()) - 112);
+				playerTwoPos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (144 * RoomManager.ROOM_SCALE.getY()) - 112);
 			}
 			case EAST -> {
-				playerOnePos = new Point2D(24 + (144 * RoomManager.ROOM_SCALE.getX()) - 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) + 32);
-				playerTwoPos = new Point2D(24 + (144 * RoomManager.ROOM_SCALE.getX()) - 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) - 32);
+				playerOnePos = new Point2D(24 + (144 * RoomManager.ROOM_SCALE.getX()) - 112, 18 + (80 * RoomManager.ROOM_SCALE.getY()) + 32);
+				playerTwoPos = new Point2D(24 + (144 * RoomManager.ROOM_SCALE.getX()) - 112, 18 + (80 * RoomManager.ROOM_SCALE.getY()) - 32);
 			}
 			case WEST -> {
-				playerOnePos = new Point2D(24 + (0 * RoomManager.ROOM_SCALE.getX()) + 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) - 32);
-				playerTwoPos =  new Point2D(24 + (0 * RoomManager.ROOM_SCALE.getX()) + 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) + 32);
+				playerOnePos = new Point2D(24 + (0 * RoomManager.ROOM_SCALE.getX()) + 112, 18 + (80 * RoomManager.ROOM_SCALE.getY()) - 32);
+				playerTwoPos =  new Point2D(24 + (0 * RoomManager.ROOM_SCALE.getX()) + 112, 18 + (80 * RoomManager.ROOM_SCALE.getY()) + 32);
 			}
 			default -> {
 				playerOnePos = new Point2D(512 - 64, 512);

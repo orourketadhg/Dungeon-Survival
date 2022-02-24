@@ -189,8 +189,6 @@ public class RoomController extends Behaviour {
 
 	private void generateDecorations() {
 
-		// TODO fix random num decorations
-
 		List<RoomObjectData> decorations = roomData.getDecorations();
 		int numDecorations = (int) (Math.random() * roomData.getNumDecorations());
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class PlayerController extends Behaviour {
 
 	private final InputEventHandler input;
-	private KeyLayout keyLayout;
+	private final KeyLayout keyLayout;
 	private static final float MOVEMENT_SPEED = 1;
 	private static final float ATTACK_COOL_DOWN = 50;
 	private static final float HEALTH_COOL_DOWN = 100;
@@ -26,6 +26,7 @@ public class PlayerController extends Behaviour {
 	private Vector2D playerAttackDirection = Vector2D.Zero;
 
 	private boolean isAttacking;
+	private boolean isDead;
 
 	private boolean canMove;
 	private boolean canAttack;
@@ -45,6 +46,11 @@ public class PlayerController extends Behaviour {
 
 	@Override
 	public void execute() {
+
+		if (playerHealth <= 0) {
+			isDead = true;
+			playerFreeze();
+		}
 
 		if (canAttack) {
 			attemptAttack();
@@ -223,13 +229,21 @@ public class PlayerController extends Behaviour {
 
 		return !isIntersecting;
 	}
-	
+
 	public void damagePlayer(int damage) {
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 		if (currentAnimationTime > nextDamageTime) {
 			playerHealth = Math.max(0, playerHealth - damage);
 			nextDamageTime = (long) (currentAnimationTime + HEALTH_COOL_DOWN);
 		}
+	}
+
+	public void addHealth(int health) {
+		this.playerHealth += health;
+	}
+
+	public boolean isDead() {
+		return isDead;
 	}
 
 }
