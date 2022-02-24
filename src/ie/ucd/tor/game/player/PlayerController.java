@@ -16,6 +16,7 @@ import java.util.List;
 public class PlayerController extends Behaviour {
 
 	private final InputEventHandler input;
+	private KeyLayout keyLayout;
 	private static final float MOVEMENT_SPEED = 1;
 	private static final float ATTACK_COOL_DOWN = 50;
 
@@ -29,8 +30,10 @@ public class PlayerController extends Behaviour {
 
 	private long nextAnimationTime;
 
-	public PlayerController() {
+
+	public PlayerController(KeyLayout keyLayout) {
 		input = InputEventHandler.getInstance();
+		this.keyLayout = keyLayout;
 
 		canMove = true;
 		canAttack = true;
@@ -53,6 +56,14 @@ public class PlayerController extends Behaviour {
 
 	private void attemptAttack() {
 
+		boolean attack = false;
+		if (keyLayout == KeyLayout.WASD && input.isKeySpacePressed()) {
+			attack = true;
+		}
+		else if (keyLayout == KeyLayout.ARROWKEYS && input.isKeyEnterPressed()) {
+			attack = true;
+		}
+
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
 		if (isAttacking && currentAnimationTime > nextAnimationTime) {
@@ -60,7 +71,7 @@ public class PlayerController extends Behaviour {
 			canMove = true;
 		}
 
-		if (input.isKeySpacePressed() && !isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
+		if (attack && !isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
 			playerAttackDirection = new Vector2D(playerMovement.getX(), playerMovement.getY());
 
 			nextAnimationTime = currentAnimationTime + 500;
@@ -74,20 +85,41 @@ public class PlayerController extends Behaviour {
 
 		playerMovement = Vector2D.Zero;
 
-		if (input.isKeyWPressed()) {
-			playerMovement = playerMovement.add(new Vector2D(0, -1));
-		}
+		if (keyLayout == KeyLayout.WASD) {
 
-		if (input.isKeySPressed()) {
-			playerMovement = playerMovement.add(new Vector2D(0, 1));
-		}
+			if (input.isKeyWPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(0, -1));
+			}
 
-		if (input.isKeyDPressed()) {
-			playerMovement = playerMovement.add(new Vector2D(1, 0));
-		}
+			if (input.isKeySPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(0, 1));
+			}
 
-		if (input.isKeyAPressed()) {
-			playerMovement = playerMovement.add(new Vector2D(-1, 0));
+			if (input.isKeyDPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(1, 0));
+			}
+
+			if (input.isKeyAPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(-1, 0));
+			}
+
+		}
+		else if (keyLayout == KeyLayout.ARROWKEYS) {
+			if (input.isKeyArrowUpPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(0, -1));
+			}
+
+			if (input.isKeyArrowDownPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(0, 1));
+			}
+
+			if (input.isKeyArrowRightPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(1, 0));
+			}
+
+			if (input.isKeyArrowLeftPressed()) {
+				playerMovement = playerMovement.add(new Vector2D(-1, 0));
+			}
 		}
 
 		if (playerMovement != Vector2D.Zero) {

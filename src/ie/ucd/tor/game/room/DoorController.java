@@ -1,6 +1,5 @@
 package ie.ucd.tor.game.room;
 
-import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
@@ -25,11 +24,12 @@ public class DoorController extends Behaviour {
 			return;
 		}
 
-		Collider playerCollider = DungeonSurvival.getInstance().getPlayer().getComponent(Collider.class);
+		Collider playerOneCollider = DungeonSurvival.getInstance().getPlayerOne().getComponent(Collider.class);
+		Collider playerTwoCollider = DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collider.class);
 
 		for (CollisionData collision : gameObject.getComponent(Collider.class).getCollisions()) {
 
-			if (collision.collisionIncludes(playerCollider)) {
+			if (collision.collisionIncludes(playerOneCollider) || collision.collisionIncludes(playerTwoCollider)) {
 				exitAttempt = true;
 			}
 

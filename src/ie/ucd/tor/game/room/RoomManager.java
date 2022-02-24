@@ -96,15 +96,37 @@ public class RoomManager extends Behaviour {
 		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
 		newRoom.addComponent(new RoomController(newRoomData, window, true));
 
-		GameObject player = DungeonSurvival.getInstance().getPlayer();
+		GameObject playerOne = DungeonSurvival.getInstance().getPlayerOne();
+		GameObject playerTwo = DungeonSurvival.getInstance().getPlayerTwo();
+
+		Point2D playerOnePos;
+		Point2D playerTwoPos;
 
 		switch (entranceDoor) {
-			case NORTH -> player.getTransform().getPosition().translate(new Vector2D(0, -((128 - 16)* ROOM_SCALE.getY())));
-			case SOUTH -> player.getTransform().getPosition().translate(new Vector2D(0, ((128 - 16)* ROOM_SCALE.getY())));
-			case EAST -> player.getTransform().getPosition().translate(new Vector2D(((128 - 16)* ROOM_SCALE.getX()), 0));
-			case WEST -> player.getTransform().getPosition().translate(new Vector2D(-((128 - 16)* ROOM_SCALE.getX()), 0));
-			default -> player.getTransform().setPosition(new Point2D(512, 512));
+			case NORTH -> {
+				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 96);
+				playerTwoPos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) + 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 96);
+			}
+			case SOUTH -> {
+				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) + 32, 24 + (144 * RoomManager.ROOM_SCALE.getY()) - 96);
+				playerTwoPos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (144 * RoomManager.ROOM_SCALE.getY()) - 96);
+			}
+			case EAST -> {
+				playerOnePos = new Point2D(24 + (144 * RoomManager.ROOM_SCALE.getX()) - 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) + 32);
+				playerTwoPos = new Point2D(24 + (144 * RoomManager.ROOM_SCALE.getX()) - 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) - 32);
+			}
+			case WEST -> {
+				playerOnePos = new Point2D(24 + (0 * RoomManager.ROOM_SCALE.getX()) + 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) - 32);
+				playerTwoPos =  new Point2D(24 + (0 * RoomManager.ROOM_SCALE.getX()) + 96, 18 + (80 * RoomManager.ROOM_SCALE.getY()) + 32);
+			}
+			default -> {
+				playerOnePos = new Point2D(512 - 64, 512);
+				playerTwoPos = new Point2D(512 + 64, 512);
+			}
 		}
+
+		playerOne.getTransform().setPosition(playerOnePos);
+		playerTwo.getTransform().setPosition(playerTwoPos);
 
 		activeRoom = newRoom;
 
