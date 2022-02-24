@@ -13,6 +13,9 @@ public class Animation extends Component {
 	private SpriteSheetData currentAnimation;
 	private String currentAnimationName;
 	private SpriteData currentAnimationFrame;
+	private int currentAnimationFrameIndex;
+	
+	private long currentAnimationTime; 
 
 	public Animation() {
 		this(0);
@@ -33,8 +36,13 @@ public class Animation extends Component {
 	}
 
 	public SpriteData calculateNextSprite(long animationTime, double animationSpeed) {
-		int animationFramePosition = (int) ((animationTime / animationSpeed) % getCurrentAnimation().getNumSprites());
-		currentAnimationFrame = currentAnimation.getSpriteSheetData().get(animationFramePosition);
+		int time = (int) (animationTime % animationSpeed);
+		
+		if (time == animationSpeed - 1) {
+			currentAnimationFrameIndex = (currentAnimationFrameIndex + 1) % currentAnimation.getNumSprites();
+		}
+
+		currentAnimationFrame = currentAnimation.getSpriteSheetData().get(currentAnimationFrameIndex);
 		return currentAnimationFrame;
 	}
 
@@ -46,6 +54,8 @@ public class Animation extends Component {
 		if (Objects.equals(currentAnimationName, animationName)) {
 			return true;
 		}
+
+		currentAnimationFrameIndex = 0;
 
 		currentAnimation = animationMap.get(animationName);
 		currentAnimationName = animationName;
