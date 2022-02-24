@@ -16,7 +16,7 @@ import java.util.List;
 public class PlayerController extends Behaviour {
 
 	private final InputEventHandler input;
-	private static final float MOVEMENT_SPEED = 2;
+	private static final float MOVEMENT_SPEED = 1;
 	private static final float ATTACK_COOL_DOWN = 50;
 
 	private Vector2D playerMovement = Vector2D.Zero;
@@ -62,8 +62,8 @@ public class PlayerController extends Behaviour {
 
 		if (input.isKeySpacePressed() && !isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
 			playerAttackDirection = new Vector2D(playerMovement.getX(), playerMovement.getY());
-			
-			nextAnimationTime = currentAnimationTime + 100;
+
+			nextAnimationTime = currentAnimationTime + 500;
 			isAttacking = true;
 			canMove = false;
 		}
@@ -120,10 +120,10 @@ public class PlayerController extends Behaviour {
 				animationName = "knightAttackLeft";
 			}
 			else if (playerAttackDirection.getY() == 1) {
-				animationName = "knightAttackUp";
+				animationName = "knightAttackDown";
 			}
 			else if (playerAttackDirection.getY() == -1) {
-				animationName = "knightAttackDown";
+				animationName = "knightAttackUp";
 			}
 			else {
 				animationName = "knightAttackDown";
