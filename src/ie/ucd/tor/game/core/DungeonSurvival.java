@@ -32,7 +32,6 @@ public class DungeonSurvival extends GameController {
 
 	@Override
 	protected void initialization() {
-
 		player = initialisePlayer(new Point2D(512, 512));
 
 		roomManager = initialiseRoomManager();

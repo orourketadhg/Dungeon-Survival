@@ -35,7 +35,7 @@ public class RoomController extends Behaviour {
 	private static final String VERTICAL_DOOR = "res/rooms/decorations/Door_Vertical.png";
 	private static final String HORIZONTAL_DOOR = "res/rooms/decorations/Door_horizontal.png";
 
-	public RoomController(RoomData roomData, GameWindow window) {
+	public RoomController(RoomData roomData, GameWindow window, boolean doGenerateEnemies) {
 		this.roomData = roomData;
 		this.window = window;
 		this.roomComplete = false;
@@ -54,7 +54,9 @@ public class RoomController extends Behaviour {
 
 		generateIntractables();
 
-		generateEnemies();
+		if (doGenerateEnemies) {
+			generateEnemies();
+		}
 
 	}
 

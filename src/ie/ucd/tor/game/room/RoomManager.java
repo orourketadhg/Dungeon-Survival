@@ -58,7 +58,7 @@ public class RoomManager extends Behaviour {
 		newRoom.getTransform().setPosition(ROOM_POSITION);
 		newRoom.getTransform().setScale(ROOM_SCALE);
 		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
-		newRoom.addComponent(new RoomController(newRoomData, window));
+		newRoom.addComponent(new RoomController(newRoomData, window, false));
 
 		this.activeRoom = newRoom;
 
@@ -94,7 +94,7 @@ public class RoomManager extends Behaviour {
 
 		// add required components to room
 		newRoom.addComponent(new Sprite(newRoomData.getRoomTexture(), ROOM_WIDTH, ROOM_HEIGHT, 0));
-		newRoom.addComponent(new RoomController(newRoomData, window));
+		newRoom.addComponent(new RoomController(newRoomData, window, true));
 
 		GameObject player = DungeonSurvival.getInstance().getPlayer();
 
