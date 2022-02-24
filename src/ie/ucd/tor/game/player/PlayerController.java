@@ -19,9 +19,11 @@ public class PlayerController extends Behaviour {
 	private static final float MOVEMENT_SPEED = 2;
 	private static final float ATTACK_COOL_DOWN = 50;
 
-	private Vector2D playerMovement;
+	private Vector2D playerMovement = Vector2D.Zero;
+	private Vector2D playerAttackDirection = Vector2D.Zero;
 
 	private boolean isAttacking;
+
 	private boolean canMove;
 	private boolean canAttack;
 
@@ -55,11 +57,15 @@ public class PlayerController extends Behaviour {
 
 		if (isAttacking && currentAnimationTime > nextAnimationTime) {
 			isAttacking = false;
+			canMove = true;
 		}
 
 		if (input.isKeySpacePressed() && !isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
+			playerAttackDirection = new Vector2D(playerMovement.getX(), playerMovement.getY());
+			
 			nextAnimationTime = currentAnimationTime + 100;
 			isAttacking = true;
+			canMove = false;
 		}
 
 	}
@@ -104,7 +110,47 @@ public class PlayerController extends Behaviour {
 	private void animatePlayer() {
 		Animation playerAnimator = gameObject.getComponent(Animation.class);
 
-		
+		String animationName = "";
+
+		if (isAttacking) {
+			if (playerAttackDirection.getX() == 1) {
+				animationName = "knightAttackRight";
+			}
+			else if (playerAttackDirection.getX() == -1) {
+				animationName = "knightAttackLeft";
+			}
+			else if (playerAttackDirection.getY() == 1) {
+				animationName = "knightAttackUp";
+			}
+			else if (playerAttackDirection.getY() == -1) {
+				animationName = "knightAttackDown";
+			}
+			else {
+				animationName = "knightAttackDown";
+			}
+		}
+		else if (canMove) {
+			if (playerMovement.getX() == 1) {
+				animationName = "knightWalkRight";
+			}
+			else if (playerMovement.getX() == -1) {
+				animationName = "knightWalkLeft";
+			}
+			else if (playerMovement.getY() == 1) {
+				animationName = "knightWalkDown";
+			}
+			else if (playerMovement.getY() == -1) {
+				animationName = "knightWalkUp";
+			}
+			else {
+				animationName = "knightStatic";
+			}
+		}
+		else {
+			animationName = "knightStatic";
+		}
+
+		playerAnimator.setCurrentAnimation(animationName);
 
 	}
 
