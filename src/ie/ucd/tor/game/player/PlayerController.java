@@ -1,5 +1,6 @@
 package ie.ucd.tor.game.player;
 
+import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.events.InputEventHandler;
@@ -17,6 +18,8 @@ public class PlayerController extends Behaviour {
 	private final InputEventHandler input;
 	private static final float MOVEMENT_SPEED = 2;
 	private static final float ATTACK_COOL_DOWN = 50;
+
+	private Vector2D playerMovement;
 
 	private boolean isAttacking;
 	private boolean canMove;
@@ -42,6 +45,8 @@ public class PlayerController extends Behaviour {
 			attemptMove();
 		}
 
+		animatePlayer();
+
 	}
 
 	private void attemptAttack() {
@@ -56,42 +61,50 @@ public class PlayerController extends Behaviour {
 			nextAnimationTime = currentAnimationTime + 100;
 			isAttacking = true;
 		}
+
 	}
 
 	private void attemptMove() {
 
-		Vector2D movement = Vector2D.Zero;
+		playerMovement = Vector2D.Zero;
 
 		if (input.isKeyWPressed()) {
-			movement = movement.add(new Vector2D(0, -1));
+			playerMovement = playerMovement.add(new Vector2D(0, -1));
 		}
 
 		if (input.isKeySPressed()) {
-			movement =movement.add(new Vector2D(0, 1));
+			playerMovement = playerMovement.add(new Vector2D(0, 1));
 		}
 
 		if (input.isKeyDPressed()) {
-			movement =movement.add(new Vector2D(1, 0));
+			playerMovement = playerMovement.add(new Vector2D(1, 0));
 		}
 
 		if (input.isKeyAPressed()) {
-			movement = movement.add(new Vector2D(-1, 0));
+			playerMovement = playerMovement.add(new Vector2D(-1, 0));
 		}
 
-		if (movement != Vector2D.Zero) {
+		if (playerMovement != Vector2D.Zero) {
 
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
 
 			Point2D currentPos = transform.getPosition();
-			Point2D nextPos = currentPos.Add(movement.scale(MOVEMENT_SPEED));
+			Point2D nextPos = currentPos.Add(playerMovement.scale(MOVEMENT_SPEED));
 
 			boolean isValid = validateMove(nextPos, controller.getBlockedAreas());
 
 			if (isValid) {
-				transform.getPosition().translate(movement.scale(MOVEMENT_SPEED));
+				transform.getPosition().translate(playerMovement.scale(MOVEMENT_SPEED));
 			}
 
 		}
+
+	}
+
+	private void animatePlayer() {
+		Animation playerAnimator = gameObject.getComponent(Animation.class);
+
+		
 
 	}
 
