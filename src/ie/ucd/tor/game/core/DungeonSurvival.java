@@ -34,18 +34,18 @@ public class DungeonSurvival extends GameController {
 
 	@Override
 	protected void initialization() {
-		playerOne = initialisePlayer(new Point2D(512 - 64, 512), KeyLayout.WASD);
-		playerTwo = initialisePlayer(new Point2D(512 + 64, 512), KeyLayout.ARROWKEYS);
+		playerOne = initialisePlayer(1, new Point2D(512 - 64, 512), KeyLayout.WASD);
+		playerTwo = initialisePlayer(2, new Point2D(512 + 64, 512), KeyLayout.ARROWKEYS);
 
 		roomManager = initialiseRoomManager();
 		roomManager.getComponent(RoomManager.class).generateStarterRoom();
 
 	}
 
-	private GameObject initialisePlayer(Point2D startingPosition, KeyLayout playerKeyLayout) {
+	private GameObject initialisePlayer(int playerIndex, Point2D startingPosition, KeyLayout playerKeyLayout) {
 		/* Player Initialisation */
 		GameObject player = new GameObject();
-		player.setName("Player");
+		player.setName("Player " + playerIndex);
 		player.getTransform().setPosition(startingPosition);
 		player.getTransform().setScale(new Point2D(4, 4));
 		// Player Behaviours

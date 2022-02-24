@@ -1,5 +1,6 @@
 package ie.ucd.tor.game.player;
 
+import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import ie.ucd.tor.engine.core.gameobject.components.Collider;
@@ -18,12 +19,15 @@ public class PlayerController extends Behaviour {
 	private final InputEventHandler input;
 	private final KeyLayout keyLayout;
 	private static final float MOVEMENT_SPEED = 1;
-	private static final float ATTACK_COOL_DOWN = 50;
-	private static final float HEALTH_COOL_DOWN = 100;
+	private static final int PLAYER_DAMAGE = 1;
+	private static final int ATTACK_COOL_DOWN = 50;
+	private static final int HEALTH_COOL_DOWN = 100;
 
 	private int playerHealth;
 	private Vector2D playerMovement = Vector2D.Zero;
 	private Vector2D playerAttackDirection = Vector2D.Zero;
+
+	private GameObject playerDamageDealer;
 
 	private boolean isAttacking;
 	private boolean isDead;
@@ -77,12 +81,35 @@ public class PlayerController extends Behaviour {
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
 		if (isAttacking && currentAnimationTime > nextAnimationTime) {
+
+			playerDamageDealer.disable();
+
 			isAttacking = false;
 			canMove = true;
 		}
 
 		if (attack && !isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
 			playerAttackDirection = new Vector2D(playerMovement.getX(), playerMovement.getY());
+
+			Point2D damageLocation = Point2D.Zero;
+
+			if (playerAttackDirection.getX() == 1) {
+				damageLocation = transform.getPosition().Add(new Vector2D((8 * RoomManager.ROOM_SCALE.getX()), 0));
+			}
+			else if (playerAttackDirection.getX() == -1) {
+				damageLocation = transform.getPosition().Add(new Vector2D(-(8 * RoomManager.ROOM_SCALE.getX()), 0));
+			}
+			else if (playerAttackDirection.getY() == 1) {
+				damageLocation = transform.getPosition().Add(new Vector2D(0, (8 * RoomManager.ROOM_SCALE.getX())));
+			}
+			else if (playerAttackDirection.getY() == -1) {
+				damageLocation = transform.getPosition().Add(new Vector2D(0, -(8 * RoomManager.ROOM_SCALE.getX())));
+			}
+
+			playerDamageDealer = new GameObject();
+			playerDamageDealer.getTransform().setPosition(damageLocation);
+			playerDamageDealer.addComponent(new Collider((int) (8 * RoomManager.ROOM_SCALE.getX()), (int) (8 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero));
+			playerDamageDealer.addComponent(new Damage(PLAYER_DAMAGE));
 
 			nextAnimationTime = currentAnimationTime + 500;
 			isAttacking = true;
@@ -235,6 +262,8 @@ public class PlayerController extends Behaviour {
 		if (currentAnimationTime > nextDamageTime) {
 			playerHealth = Math.max(0, playerHealth - damage);
 			nextDamageTime = (long) (currentAnimationTime + HEALTH_COOL_DOWN);
+
+			System.out.println("Player " + gameObject.getName() + " has taken " + damage + " Damage");
 		}
 	}
 
