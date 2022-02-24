@@ -19,7 +19,9 @@ public class PlayerController extends Behaviour {
 	private KeyLayout keyLayout;
 	private static final float MOVEMENT_SPEED = 1;
 	private static final float ATTACK_COOL_DOWN = 50;
+	private static final float HEALTH_COOL_DOWN = 100;
 
+	private int playerHealth;
 	private Vector2D playerMovement = Vector2D.Zero;
 	private Vector2D playerAttackDirection = Vector2D.Zero;
 
@@ -29,11 +31,13 @@ public class PlayerController extends Behaviour {
 	private boolean canAttack;
 
 	private long nextAnimationTime;
-
+	private long nextDamageTime;
 
 	public PlayerController(KeyLayout keyLayout) {
 		input = InputEventHandler.getInstance();
 		this.keyLayout = keyLayout;
+
+		playerHealth = 6;
 
 		canMove = true;
 		canAttack = true;
@@ -218,6 +222,14 @@ public class PlayerController extends Behaviour {
 		}
 
 		return !isIntersecting;
+	}
+	
+	public void damagePlayer(int damage) {
+		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
+		if (currentAnimationTime > nextDamageTime) {
+			playerHealth = Math.max(0, playerHealth - damage);
+			nextDamageTime = (long) (currentAnimationTime + HEALTH_COOL_DOWN);
+		}
 	}
 
 }
