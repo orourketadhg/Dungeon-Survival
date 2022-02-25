@@ -7,10 +7,12 @@ import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.game.core.DungeonSurvival;
 import ie.ucd.tor.game.player.PlayerController;
 
+import java.util.List;
+
 public class EnemyController extends Behaviour {
 
 	private static final float HEALTH_COOL_DOWN = 1000;
-	private static final float ATTACK_COOL_DOWN = 100;
+	private static final float ATTACK_COOL_DOWN = 1000;
 
 	private final int movementSpeed;
 	private final int damage;
@@ -38,6 +40,8 @@ public class EnemyController extends Behaviour {
 		this.movementSpeed = movementSpeed;
 
 		attackDistanceThreshold = 8;
+		canAttack = true;
+		canMove = true;
 	}
 
 	@Override
@@ -64,9 +68,9 @@ public class EnemyController extends Behaviour {
 			canMove = true;
 		}
 
-		if (distanceToTarget > attackDistanceThreshold) {
-			return;
-		}
+//		if (distanceToTarget > attackDistanceThreshold) {
+//			return;
+//		}
 
 		if (!isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
 			attackDirection = new Vector2D(movement.getX(), movement.getY());
@@ -74,7 +78,9 @@ public class EnemyController extends Behaviour {
 			Collider playerOneCollider = DungeonSurvival.getInstance().getPlayerOne().getComponent(Collider.class);
 			Collider playerTwoCollider = DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collider.class);
 
-			for (CollisionData collision : gameObject.getComponent(Collider.class).getCollisions()) {
+			List<CollisionData> collisionEvents = gameObject.getComponent(Collider.class).getCollisions();
+
+			for (CollisionData collision : collisionEvents) {
 				if (collision.collisionIncludes(playerOneCollider)) {
 					playerOneCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
 				}

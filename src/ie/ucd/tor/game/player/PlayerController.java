@@ -21,7 +21,7 @@ public class PlayerController extends Behaviour {
 	private static final float MOVEMENT_SPEED = 1;
 	private static final int PLAYER_DAMAGE = 1;
 	private static final int ATTACK_COOL_DOWN = 50;
-	private static final int HEALTH_COOL_DOWN = 100;
+	private static final int HEALTH_COOL_DOWN = 1000;
 
 	private int playerHealth;
 	private Vector2D playerMovement = Vector2D.Zero;
@@ -271,7 +271,7 @@ public class PlayerController extends Behaviour {
 			playerHealth = Math.max(0, playerHealth - damage);
 			nextDamageTime = (long) (currentAnimationTime + HEALTH_COOL_DOWN);
 
-			System.out.println("Player " + gameObject.getName() + " has taken " + damage + " Damage");
+			System.out.println(gameObject.getName() + " has taken " + damage + " Damage");
 		}
 	}
 

@@ -8,12 +8,12 @@ public class SkullController extends EnemyController {
 
 	@Override
 	public void move() {
-
+		super.move();
 	}
 
 	@Override
 	public void attack() {
-
+		super.attack();
 	}
 
 }
