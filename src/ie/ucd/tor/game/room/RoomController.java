@@ -329,7 +329,7 @@ public class RoomController extends Behaviour {
 
 	private void generateEnemy(EnemyData data, Point2D spawnPosition) {
 		GameObject enemy = new GameObject();
-		enemy.getTransform().setScale(new Point2D(4, 4));
+		enemy.getTransform().setScale(new Point2D(4 * data.getEnemyScale().getX(), 4 * data.getEnemyScale().getY()));
 
 		int randomX = (int) (Math.random() * 8);
 		int randomY = (int) (Math.random() * 8);

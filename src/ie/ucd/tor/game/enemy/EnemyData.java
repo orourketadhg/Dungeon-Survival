@@ -14,16 +14,18 @@ public class EnemyData {
 	private int enemyDamage;
 	private int enemyMovementSpeed;
 	private Point2D enemySize;
+	private Point2D enemyScale;
 
 	private HashMap<String, SpriteSheetData> animations;
 	private List<Point2D> spawnPositions;
 
-	public EnemyData(EnemyType enemyType, int enemyHealth, int enemyDamage, int enemyMovementSpeed, Point2D enemySize) {
+	public EnemyData(EnemyType enemyType, int enemyHealth, int enemyDamage, int enemyMovementSpeed, Point2D enemySize, Point2D enemyScale) {
 		this.enemyType = enemyType;
 		this.enemyHealth = enemyHealth;
 		this.enemyDamage = enemyDamage;
 		this.enemyMovementSpeed = enemyMovementSpeed;
 		this.enemySize = enemySize;
+		this.enemyScale = enemyScale;
 
 		animations = new HashMap<>();
 		spawnPositions = new ArrayList<>();
@@ -55,6 +57,10 @@ public class EnemyData {
 
 	public Point2D getEnemySize() {
 		return enemySize;
+	}
+
+	public Point2D getEnemyScale() {
+		return enemyScale;
 	}
 
 	public HashMap<String, SpriteSheetData> getAnimations() {

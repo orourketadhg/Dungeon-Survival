@@ -24,10 +24,13 @@ public class BehaviourController {
 
 	public void updateBehaviours() {
 		// System.out.println(getBehaviours());
-		for (int i = behaviours.size() - 1; i >= 0; i--) {
 
+		int i = 0;
+		while(i < behaviours.size()) {
 			behaviours.get(i).execute();
+			i++;
 		}
+
 	}
 
 	public List<Behaviour> getBehaviours() {

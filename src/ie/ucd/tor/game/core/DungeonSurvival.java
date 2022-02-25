@@ -6,6 +6,7 @@ import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
+import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.game.enemy.EnemyData;
 import ie.ucd.tor.game.enemy.EnemyType;
 import ie.ucd.tor.game.player.KeyLayout;
@@ -124,14 +125,27 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(plusRoomBox);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16), Point2D.One);
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
-			skullData.addSpawnPosition(new Point2D(48, 48));
 			skullData.addSpawnPosition(new Point2D(96, 48));
 			skullData.addSpawnPosition(new Point2D(48, 96));
-			skullData.addSpawnPosition(new Point2D(96, 96));
+
+			EnemyData slimeData = new EnemyData(EnemyType.Slime, 4, 1, 1, new Point2D(16, 16), new Point2D(0.5, 0.5));
+			slimeData.addAnimation("slimeStatic", new SpriteSheetData("res/enemies/slime/Slime_static.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkUp", new SpriteSheetData("res/enemies/slime/Slime_walk_up.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkDown", new SpriteSheetData("res/enemies/slime/Slime_walk_down.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkLeft", new SpriteSheetData("res/enemies/slime/Slime_walk_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkRight", new SpriteSheetData("res/enemies/slime/Slime_walk_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackLeft", new SpriteSheetData("res/enemies/slime/Slime_attack_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackRight", new SpriteSheetData("res/enemies/slime/Slime_attack_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeDamage", new SpriteSheetData("res/enemies/slime/Slime_damage.png", 4, 32, 32));
+			slimeData.addAnimation("slimeDeath", new SpriteSheetData("res/enemies/slime/SlimeDeathSheet.png", 11, 32, 32));
+			slimeData.addSpawnPosition(new Point2D(48, 48));
+			slimeData.addSpawnPosition(new Point2D(96, 96));
+
 
 			room.addEnemyData(skullData);
+			room.addEnemyData(slimeData);
 
 			manager.addRoomData(room);
 
@@ -181,10 +195,26 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16), Point2D.One);
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
+			skullData.addSpawnPosition(new Point2D(72, 112));
+			skullData.addSpawnPosition(new Point2D(112, 72));
+
+			EnemyData slimeData = new EnemyData(EnemyType.Slime, 4, 1, 1, new Point2D(16, 16), new Point2D(0.5, 0.5));
+			slimeData.addAnimation("slimeStatic", new SpriteSheetData("res/enemies/slime/Slime_static.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkUp", new SpriteSheetData("res/enemies/slime/Slime_walk_up.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkDown", new SpriteSheetData("res/enemies/slime/Slime_walk_down.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkLeft", new SpriteSheetData("res/enemies/slime/Slime_walk_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkRight", new SpriteSheetData("res/enemies/slime/Slime_walk_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackLeft", new SpriteSheetData("res/enemies/slime/Slime_attack_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackRight", new SpriteSheetData("res/enemies/slime/Slime_attack_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeDamage", new SpriteSheetData("res/enemies/slime/Slime_damage.png", 4, 32, 32));
+			slimeData.addAnimation("slimeDeath", new SpriteSheetData("res/enemies/slime/SlimeDeathSheet.png", 11, 32, 32));
+			slimeData.addSpawnPosition(new Point2D(32, 72));
+			slimeData.addSpawnPosition(new Point2D(72, 32));
 
 			room.addEnemyData(skullData);
+			room.addEnemyData(slimeData);
 
 			manager.addRoomData(room);
 		}
@@ -234,10 +264,26 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16), Point2D.One);
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
+			skullData.addSpawnPosition(new Point2D(96, 48));
+			skullData.addSpawnPosition(new Point2D(48, 96));
+
+			EnemyData slimeData = new EnemyData(EnemyType.Slime, 4, 1, 1, new Point2D(16, 16), new Point2D(0.5, 0.5));
+			slimeData.addAnimation("slimeStatic", new SpriteSheetData("res/enemies/slime/Slime_static.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkUp", new SpriteSheetData("res/enemies/slime/Slime_walk_up.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkDown", new SpriteSheetData("res/enemies/slime/Slime_walk_down.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkLeft", new SpriteSheetData("res/enemies/slime/Slime_walk_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkRight", new SpriteSheetData("res/enemies/slime/Slime_walk_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackLeft", new SpriteSheetData("res/enemies/slime/Slime_attack_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackRight", new SpriteSheetData("res/enemies/slime/Slime_attack_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeDamage", new SpriteSheetData("res/enemies/slime/Slime_damage.png", 4, 32, 32));
+			slimeData.addAnimation("slimeDeath", new SpriteSheetData("res/enemies/slime/SlimeDeathSheet.png", 11, 32, 32));
+			slimeData.addSpawnPosition(new Point2D(96, 96));
+			slimeData.addSpawnPosition(new Point2D(48, 48));
 
 			room.addEnemyData(skullData);
+			room.addEnemyData(slimeData);
 
 			manager.addRoomData(room);
 		}
@@ -267,7 +313,7 @@ public class DungeonSurvival extends GameController {
 			RoomObjectData candle = new RoomObjectData("res/rooms/decorations/candlestick.png", true);
 			candle.addPosition(new Point2D(32, 72));
 			candle.addPosition(new Point2D(72, 72));
-			candle.addPosition(new Point2D(32, 72));
+			candle.addPosition(new Point2D(104, 72));
 
 			RoomObjectData flag = new RoomObjectData("res/rooms/decorations/flag.png", true);
 
@@ -280,10 +326,25 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16), Point2D.One);
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
+			skullData.addSpawnPosition(new Point2D(32, 72));
+			skullData.addSpawnPosition(new Point2D(104, 72));
+
+			EnemyData slimeData = new EnemyData(EnemyType.Slime, 4, 1, 1, new Point2D(16, 16), new Point2D(0.5, 0.5));
+			slimeData.addAnimation("slimeStatic", new SpriteSheetData("res/enemies/slime/Slime_static.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkUp", new SpriteSheetData("res/enemies/slime/Slime_walk_up.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkDown", new SpriteSheetData("res/enemies/slime/Slime_walk_down.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkLeft", new SpriteSheetData("res/enemies/slime/Slime_walk_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkRight", new SpriteSheetData("res/enemies/slime/Slime_walk_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackLeft", new SpriteSheetData("res/enemies/slime/Slime_attack_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackRight", new SpriteSheetData("res/enemies/slime/Slime_attack_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeDamage", new SpriteSheetData("res/enemies/slime/Slime_damage.png", 4, 32, 32));
+			slimeData.addAnimation("slimeDeath", new SpriteSheetData("res/enemies/slime/SlimeDeathSheet.png", 11, 32, 32));
+			slimeData.addSpawnPosition(new Point2D(72, 72));
 
 			room.addEnemyData(skullData);
+			room.addEnemyData(slimeData);
 
 			manager.addRoomData(room);
 		}
@@ -333,10 +394,26 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16), Point2D.One);
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
+			skullData.addSpawnPosition(new Point2D(48, 48));
+
+			EnemyData slimeData = new EnemyData(EnemyType.Slime, 4, 1, 1, new Point2D(16, 16), new Point2D(0.5, 0.5));
+			slimeData.addAnimation("slimeStatic", new SpriteSheetData("res/enemies/slime/Slime_static.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkUp", new SpriteSheetData("res/enemies/slime/Slime_walk_up.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkDown", new SpriteSheetData("res/enemies/slime/Slime_walk_down.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkLeft", new SpriteSheetData("res/enemies/slime/Slime_walk_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkRight", new SpriteSheetData("res/enemies/slime/Slime_walk_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackLeft", new SpriteSheetData("res/enemies/slime/Slime_attack_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackRight", new SpriteSheetData("res/enemies/slime/Slime_attack_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeDamage", new SpriteSheetData("res/enemies/slime/Slime_damage.png", 4, 32, 32));
+			slimeData.addAnimation("slimeDeath", new SpriteSheetData("res/enemies/slime/SlimeDeathSheet.png", 11, 32, 32));
+			slimeData.addSpawnPosition(new Point2D(96, 48));
+			slimeData.addSpawnPosition(new Point2D(48, 96));
+			slimeData.addSpawnPosition(new Point2D(96, 96));
 
 			room.addEnemyData(skullData);
+			room.addEnemyData(slimeData);
 
 			manager.addRoomData(room);
 		}
@@ -379,10 +456,25 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16), Point2D.One);
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
+			skullData.addSpawnPosition(new Point2D(72, 72));
+			skullData.addSpawnPosition(new Point2D(72, 104));
+
+			EnemyData slimeData = new EnemyData(EnemyType.Slime, 4, 1, 1, new Point2D(16, 16), new Point2D(0.5, 0.5));
+			slimeData.addAnimation("slimeStatic", new SpriteSheetData("res/enemies/slime/Slime_static.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkUp", new SpriteSheetData("res/enemies/slime/Slime_walk_up.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkDown", new SpriteSheetData("res/enemies/slime/Slime_walk_down.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkLeft", new SpriteSheetData("res/enemies/slime/Slime_walk_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeWalkRight", new SpriteSheetData("res/enemies/slime/Slime_walk_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackLeft", new SpriteSheetData("res/enemies/slime/Slime_attack_left.png", 6, 32, 32));
+			slimeData.addAnimation("slimeAttackRight", new SpriteSheetData("res/enemies/slime/Slime_attack_right.png", 6, 32, 32));
+			slimeData.addAnimation("slimeDamage", new SpriteSheetData("res/enemies/slime/Slime_damage.png", 4, 32, 32));
+			slimeData.addAnimation("slimeDeath", new SpriteSheetData("res/enemies/slime/SlimeDeathSheet.png", 11, 32, 32));
+			slimeData.addSpawnPosition(new Point2D(72, 32));
 
 			room.addEnemyData(skullData);
+			room.addEnemyData(slimeData);
 
 			manager.addRoomData(room);
 		}
