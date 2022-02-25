@@ -91,6 +91,15 @@ public class CollisionController {
 		colliders.remove(collider);
 	}
 
+	/**
+	 * collision detection method
+	 *
+	 * @reference Based off collision AABB collision detection from https://tutorialedge.net/gamedev/aabb-collision-detection-tutorial/
+	 *
+	 * @param a Collider A
+	 * @param b Collider B
+	 * @return have the colliders overlapped
+	 */
 	private Boolean CheckCollision(Collider a, Collider b) {
 		Point2D aPosition = a.getTransform().getPosition();
 		Point2D bPosition = b.getTransform().getPosition();

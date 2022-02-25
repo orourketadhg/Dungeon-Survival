@@ -233,6 +233,14 @@ public class PlayerController extends Behaviour {
 		this.canMove = true;
 	}
 
+	/**
+	 *
+	 * @reference Based off collision AABB collision detection from https://tutorialedge.net/gamedev/aabb-collision-detection-tutorial/
+	 *
+	 * @param position
+	 * @param blockedAreas
+	 * @return
+	 */
 	private boolean validateMove(Point2D position, List<BlockedAreaData> blockedAreas) {
 
 		// get players collision area

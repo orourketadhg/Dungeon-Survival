@@ -1,5 +1,7 @@
 package ie.ucd.tor.game.room.data;
 
+import ie.ucd.tor.game.enemy.EnemyData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class RoomData {
 
 	private final List<RoomObjectData> decorations;
 	private final List<RoomObjectData> collectables;
+	private final List<EnemyData> enemies;
 
 	public RoomData(String roomTexture, List<DoorLocation> doorLocations, int numDecorations, int numInteractibles, int numEnemies) {
 		this.roomTexture = roomTexture;
@@ -27,6 +30,7 @@ public class RoomData {
 
 		decorations = new ArrayList<>();
 		collectables = new ArrayList<>();
+		enemies = new ArrayList<>();
 
 	}
 
@@ -40,6 +44,10 @@ public class RoomData {
 
 	public void addBlockedArea(BlockedAreaData blockedArea) {
 		blockedLocations.add(blockedArea);
+	}
+
+	public void addEnemyData(EnemyData enemyData) {
+		enemies.add(enemyData);
 	}
 
 	public String getRoomTexture() {
@@ -74,4 +82,7 @@ public class RoomData {
 		return collectables;
 	}
 
+	public List<EnemyData> getEnemyData() {
+		return enemies;
+	}
 }

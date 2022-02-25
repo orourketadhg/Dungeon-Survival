@@ -9,6 +9,7 @@ import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
+import ie.ucd.tor.game.enemy.EnemyData;
 import ie.ucd.tor.game.room.data.BlockedAreaData;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
@@ -21,8 +22,8 @@ public class RoomController extends Behaviour {
 
 	private final RoomData roomData;
 	private final GameWindow window;
-	private boolean roomComplete;
-	private boolean roomLock = true;
+	private boolean isRoomComplete;
+	private boolean isRoomLocked = true;
 	private DoorLocation exitedDoor;
 
 	private final List<BlockedAreaData> blockedAreas;
@@ -38,7 +39,7 @@ public class RoomController extends Behaviour {
 	public RoomController(RoomData roomData, GameWindow window, boolean doGenerateEnemies) {
 		this.roomData = roomData;
 		this.window = window;
-		this.roomComplete = false;
+		this.isRoomComplete = false;
 
 		doors = new ArrayList<>();
 		decorations = new ArrayList<>();
@@ -63,17 +64,16 @@ public class RoomController extends Behaviour {
 	@Override
 	public void execute() {
 
-		if (InputEventHandler.getInstance().isKeyFPressed() && !enemies.isEmpty()) {
-			enemies.clear();
+		if (InputEventHandler.getInstance().isKeyFPressed() && isRoomLocked) {
+			unlockRoom();
 		}
 
 		if (!enemies.isEmpty()) {
 			return;
 		}
 
-		if (roomLock) {
+		if (isRoomLocked) {
 			unlockRoom();
-			roomLock = false;
 			return;
 		}
 
@@ -81,7 +81,7 @@ public class RoomController extends Behaviour {
 			DoorController doorController = door.getComponent(DoorController.class);
 			if (doorController.getExitAttempt()) {
 				exitedDoor = doorController.getDoor();
-				roomComplete = true;
+				isRoomComplete = true;
 			}
 		}
 
@@ -103,6 +103,8 @@ public class RoomController extends Behaviour {
 			blockedAreas.remove(blockedAreas.size() - 1);
 		}
 
+		isRoomLocked = false;
+
 	}
 
 	public void destroyRoom() {
@@ -111,19 +113,25 @@ public class RoomController extends Behaviour {
 		}
 
 		for (GameObject decoration : decorations) {
-			 window.getBackgroundRenderer().removeElement(decoration);
+			window.getBackgroundRenderer().removeElement(decoration);
 			decoration.disable();
 		}
 
+		decorations.clear();
+
 		for (GameObject collectible : intractables) {
-			 window.getSpriteRenderer().removeElement(collectible);
+			window.getSpriteRenderer().removeElement(collectible);
 			collectible.disable();
 		}
 
+		intractables.clear();
+
 		for (GameObject enemy : enemies) {
-			 window.getSpriteRenderer().removeElement(enemy);
+			window.getSpriteRenderer().removeElement(enemy);
 			enemy.disable();
 		}
+
+		enemies.clear();
 	}
 
 	private void generateBlockedAreas() {
@@ -277,13 +285,30 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateEnemies() {
-		GameObject testEnemy = new GameObject();
-		enemies.add(testEnemy);
+
+		List<EnemyData> enemyDataList = roomData.getEnemyData();
+		int numEnemies = (int) (Math.random() * roomData.getNumEnemies());
+
+		for (int i = 0; i < numEnemies; i++) {
+			if (enemyDataList.isEmpty()) {
+				continue;
+			}
+
+			int enemyIndex = (int) (Math.random() * enemyDataList.size());
+			EnemyData data = enemyDataList.get(enemyIndex);
+
+			generateEnemy(data);
+
+		}
+
+	}
+
+	private void generateEnemy(EnemyData data) {
 
 	}
 
 	public boolean isRoomComplete() {
-		return roomComplete;
+		return isRoomComplete;
 	}
 
 	public DoorLocation getExitedDoor() {
