@@ -10,10 +10,7 @@ import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
-import ie.ucd.tor.game.enemy.EnemyData;
-import ie.ucd.tor.game.enemy.EnemyType;
-import ie.ucd.tor.game.enemy.SkullController;
-import ie.ucd.tor.game.enemy.SlimeController;
+import ie.ucd.tor.game.enemy.*;
 import ie.ucd.tor.game.room.data.BlockedAreaData;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
@@ -68,6 +65,13 @@ public class RoomController extends Behaviour {
 
 	@Override
 	public void execute() {
+
+		for (int i = enemies.size() - 1; i >= 0; i--) {
+			if (enemies.get(i).getComponent(EnemyController.class).isDead()) {
+				enemies.get(i).disable();
+				enemies.remove(i);
+			}
+		}
 
 		if (InputEventHandler.getInstance().isKeyFPressed() && isRoomLocked) {
 			clearEnemies();
