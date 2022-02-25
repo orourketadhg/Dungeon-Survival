@@ -3,7 +3,9 @@ package ie.ucd.tor.game.enemy;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EnemyData {
 
@@ -14,6 +16,7 @@ public class EnemyData {
 	private Point2D enemySize;
 
 	private HashMap<String, SpriteSheetData> animations;
+	private List<Point2D> spawnPositions;
 
 	public EnemyData(EnemyType enemyType, int enemyHealth, int enemyDamage, int enemyMovementSpeed, Point2D enemySize) {
 		this.enemyType = enemyType;
@@ -23,10 +26,15 @@ public class EnemyData {
 		this.enemySize = enemySize;
 
 		animations = new HashMap<>();
+		spawnPositions = new ArrayList<>();
 	}
 
 	public void addAnimation(String name, SpriteSheetData spriteSheet) {
 		animations.put(name, spriteSheet);
+	}
+
+	public void addSpawnPosition(Point2D position) {
+		spawnPositions.add(position);
 	}
 
 	public EnemyType getEnemyType() {
@@ -53,4 +61,7 @@ public class EnemyData {
 		return animations;
 	}
 
+	public List<Point2D> getSpawnPositions() {
+		return spawnPositions;
+	}
 }

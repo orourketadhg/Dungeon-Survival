@@ -126,6 +126,10 @@ public class DungeonSurvival extends GameController {
 			// Enemies
 			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
 			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
+			skullData.addSpawnPosition(new Point2D(48, 48));
+			skullData.addSpawnPosition(new Point2D(96, 48));
+			skullData.addSpawnPosition(new Point2D(48, 96));
+			skullData.addSpawnPosition(new Point2D(96, 96));
 
 			room.addEnemyData(skullData);
 

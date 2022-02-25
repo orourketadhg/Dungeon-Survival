@@ -25,7 +25,6 @@ public class SpriteSheetData {
 		this.spriteWidth = spriteWidth;
 		this.spriteHeight = spriteHeight;
 
-		// TODO update
 		this.animationDuration = numSprites;
 		this.animationSpeed = numSprites;
 

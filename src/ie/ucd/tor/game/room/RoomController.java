@@ -8,6 +8,7 @@ import ie.ucd.tor.engine.core.gameobject.components.Sprite;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
+import ie.ucd.tor.engine.maths.Vector2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.enemy.EnemyData;
 import ie.ucd.tor.game.enemy.EnemyType;
@@ -67,10 +68,6 @@ public class RoomController extends Behaviour {
 
 	@Override
 	public void execute() {
-
-		if (InputEventHandler.getInstance().isKeyFPressed() && isRoomLocked) {
-			unlockRoom();
-		}
 
 		if (!enemies.isEmpty()) {
 			return;
@@ -206,7 +203,7 @@ public class RoomController extends Behaviour {
 
 		for (int i = 0; i < numDecorations; i++) {
 			if (decorations.isEmpty()) {
-				continue;
+				break;
 			}
 
 			int randomDecorationIndex = (int) (Math.random() * decorations.size());
@@ -250,7 +247,7 @@ public class RoomController extends Behaviour {
 
 		for (int i = 0; i < numIntractables; i++) {
 			if (intractables.isEmpty()) {
-				continue;
+				break;
 			}
 
 			int randomIntractableIndex = (int) (Math.random() * intractables.size());
@@ -289,7 +286,6 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateEnemies() {
-
 		List<EnemyData> enemyDataList = roomData.getEnemyData();
 		int numEnemies = (int) (Math.random() * roomData.getNumEnemies());
 
@@ -301,16 +297,29 @@ public class RoomController extends Behaviour {
 			int enemyIndex = (int) (Math.random() * enemyDataList.size());
 			EnemyData data = enemyDataList.get(enemyIndex);
 
-			generateEnemy(data);
+			if (data.getSpawnPositions().isEmpty()) {
+				continue;
+			}
+
+			int randomPositionIndex = (int) (Math.random() * data.getSpawnPositions().size());
+			Point2D spawnPosition = data.getSpawnPositions().get(randomPositionIndex);
+
+			generateEnemy(data, spawnPosition);
 
 		}
 
 	}
 
-	private void generateEnemy(EnemyData data) {
+	private void generateEnemy(EnemyData data, Point2D spawnPosition) {
 		GameObject enemy = new GameObject();
-		enemy.getTransform().setPosition(new Point2D(512, 512));	// TODO update positing
 		enemy.getTransform().setScale(new Point2D(4, 4));
+
+		int randomX = (int) (Math.random() * 8);
+		int randomY = (int) (Math.random() * 8);
+		int randomDirectionX = (int) ((Math.random() * 2) - 1);
+		int randomDirectionY = (int) ((Math.random() * 2) - 1);
+		Point2D position = spawnPosition.Add(new Vector2D(randomX * randomDirectionX, randomY * randomDirectionY));
+		enemy.getTransform().setPosition(new Point2D(18 + (position.getX() * RoomManager.ROOM_SCALE.getX()), 18 + (position.getY() * RoomManager.ROOM_SCALE.getY())));
 
 		enemy.addComponent(new Collider((int) data.getEnemySize().getX(), (int) data.getEnemySize().getY(), Point2D.Zero));
 
@@ -326,6 +335,7 @@ public class RoomController extends Behaviour {
 			enemy.addComponent(new SlimeController(data.getEnemyDamage(), data.getEnemyHealth(), data.getEnemyMovementSpeed()));
 		}
 
+		enemies.add(enemy);
 		window.getSpriteRenderer().addElement(enemy);
 
 	}
