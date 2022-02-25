@@ -69,6 +69,10 @@ public class RoomController extends Behaviour {
 	@Override
 	public void execute() {
 
+		if (InputEventHandler.getInstance().isKeyFPressed() && isRoomLocked) {
+			clearEnemies();
+		}
+
 		if (!enemies.isEmpty()) {
 			return;
 		}
@@ -108,6 +112,17 @@ public class RoomController extends Behaviour {
 
 	}
 
+	private void clearEnemies() {
+		if (!enemies.isEmpty()) {
+			for (GameObject enemy : enemies) {
+				window.getSpriteRenderer().removeElement(enemy);
+				enemy.disable();
+			}
+
+			enemies.clear();
+		}
+	}
+
 	public void destroyRoom() {
 		for (GameObject door: doors) {
 			door.disable();
@@ -127,12 +142,14 @@ public class RoomController extends Behaviour {
 
 		intractables.clear();
 
-		for (GameObject enemy : enemies) {
-			window.getSpriteRenderer().removeElement(enemy);
-			enemy.disable();
-		}
+		if (!enemies.isEmpty()) {
+			for (GameObject enemy : enemies) {
+				window.getSpriteRenderer().removeElement(enemy);
+				enemy.disable();
+			}
 
-		enemies.clear();
+			enemies.clear();
+		}
 	}
 
 	private void generateBlockedAreas() {

@@ -23,7 +23,9 @@ public class BehaviourController {
 	}
 
 	public void updateBehaviours() {
+		// System.out.println(getBehaviours());
 		for (int i = behaviours.size() - 1; i >= 0; i--) {
+
 			behaviours.get(i).execute();
 		}
 	}

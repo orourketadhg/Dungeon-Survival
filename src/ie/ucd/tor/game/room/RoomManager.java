@@ -72,6 +72,7 @@ public class RoomManager extends Behaviour {
 
 		DoorLocation exitedDoor = activeRoom.getComponent(RoomController.class).getExitedDoor();
 		activeRoom.getComponent(RoomController.class).destroyRoom();
+		activeRoom.disable();
 
 		DoorLocation entranceDoor = DoorLocation.NORTH;
 		switch (exitedDoor) {
