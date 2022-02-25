@@ -124,8 +124,8 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(plusRoomBox);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
-			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
 
 			room.addEnemyData(skullData);
 
@@ -177,8 +177,8 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
-			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
 
 			room.addEnemyData(skullData);
 
@@ -230,8 +230,8 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
-			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
 
 			room.addEnemyData(skullData);
 
@@ -276,8 +276,8 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
-			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
 
 			room.addEnemyData(skullData);
 
@@ -329,8 +329,8 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
-			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
 
 			room.addEnemyData(skullData);
 
@@ -375,8 +375,8 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
-			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
-			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(16, 16));
+			skullData.addAnimation("static", new SpriteSheetData("res/enemies/skull/skull.png", 4, 16, 16));
 
 			room.addEnemyData(skullData);
 

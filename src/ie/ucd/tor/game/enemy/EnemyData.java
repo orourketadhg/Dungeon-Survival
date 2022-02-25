@@ -1,5 +1,6 @@
 package ie.ucd.tor.game.enemy;
 
+import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.maths.Point2D;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class EnemyData {
 	private int enemyMovementSpeed;
 	private Point2D enemySize;
 
-	private HashMap<String, String> animations;
+	private HashMap<String, SpriteSheetData> animations;
 
 	public EnemyData(EnemyType enemyType, int enemyHealth, int enemyDamage, int enemyMovementSpeed, Point2D enemySize) {
 		this.enemyType = enemyType;
@@ -24,8 +25,8 @@ public class EnemyData {
 		animations = new HashMap<>();
 	}
 
-	public void addAnimation(String name, String location) {
-		animations.put(name, location);
+	public void addAnimation(String name, SpriteSheetData spriteSheet) {
+		animations.put(name, spriteSheet);
 	}
 
 	public EnemyType getEnemyType() {
@@ -48,7 +49,7 @@ public class EnemyData {
 		return enemySize;
 	}
 
-	public HashMap<String, String> getAnimations() {
+	public HashMap<String, SpriteSheetData> getAnimations() {
 		return animations;
 	}
 

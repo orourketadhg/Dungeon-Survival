@@ -11,6 +11,8 @@ import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.enemy.EnemyData;
 import ie.ucd.tor.game.enemy.EnemyType;
+import ie.ucd.tor.game.enemy.SkullController;
+import ie.ucd.tor.game.enemy.SlimeController;
 import ie.ucd.tor.game.room.data.BlockedAreaData;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
@@ -18,6 +20,7 @@ import ie.ucd.tor.game.room.data.RoomObjectData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RoomController extends Behaviour {
 
@@ -292,7 +295,7 @@ public class RoomController extends Behaviour {
 
 		for (int i = 0; i < numEnemies; i++) {
 			if (enemyDataList.isEmpty()) {
-				continue;
+				break;
 			}
 
 			int enemyIndex = (int) (Math.random() * enemyDataList.size());
@@ -306,10 +309,24 @@ public class RoomController extends Behaviour {
 
 	private void generateEnemy(EnemyData data) {
 		GameObject enemy = new GameObject();
+		enemy.getTransform().setPosition(new Point2D(512, 512));	// TODO update positing
+		enemy.getTransform().setScale(new Point2D(4, 4));
+
+		enemy.addComponent(new Collider((int) data.getEnemySize().getX(), (int) data.getEnemySize().getY(), Point2D.Zero));
+
+		enemy.addComponent(new Animation(5));
+		for (String animation: data.getAnimations().keySet()) {
+			enemy.getComponent(Animation.class).AddAnimation(animation, data.getAnimations().get(animation));
+		}
 
 		if (data.getEnemyType() == EnemyType.Skull) {
-//			enemy.addComponent();
+			enemy.addComponent(new SkullController(data.getEnemyDamage(), data.getEnemyHealth(), data.getEnemyMovementSpeed()));
 		}
+		else if (data.getEnemyType() == EnemyType.Slime) {
+			enemy.addComponent(new SlimeController(data.getEnemyDamage(), data.getEnemyHealth(), data.getEnemyMovementSpeed()));
+		}
+
+		window.getSpriteRenderer().addElement(enemy);
 
 	}
 
