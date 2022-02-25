@@ -21,7 +21,7 @@ public class Damage extends Behaviour {
 		for (CollisionData collision : damageCollider.getCollisions()) {
 			GameObject other = collision.getOther(damageCollider);
 			if (other.hasComponent(EnemyController.class)) {
-				other.getComponent(EnemyController.class).doDamage(damageValue);
+				other.getComponent(EnemyController.class).takeDamage(damageValue);
 			}
 		}
 	}

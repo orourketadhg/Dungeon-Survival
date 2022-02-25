@@ -6,6 +6,8 @@ import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
+import ie.ucd.tor.game.enemy.EnemyData;
+import ie.ucd.tor.game.enemy.EnemyType;
 import ie.ucd.tor.game.player.KeyLayout;
 import ie.ucd.tor.game.player.PlayerController;
 import ie.ucd.tor.game.room.data.BlockedAreaData;
@@ -122,6 +124,10 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(plusRoomBox);
 
 			// Enemies
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
+			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+
+			room.addEnemyData(skullData);
 
 			manager.addRoomData(room);
 
@@ -171,6 +177,10 @@ public class DungeonSurvival extends GameController {
 			room.addInteractable(box);
 
 			// Enemies
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
+			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+
+			room.addEnemyData(skullData);
 
 			manager.addRoomData(room);
 		}
@@ -219,6 +229,12 @@ public class DungeonSurvival extends GameController {
 
 			room.addInteractable(box);
 
+			// Enemies
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
+			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+
+			room.addEnemyData(skullData);
+
 			manager.addRoomData(room);
 		}
 
@@ -258,6 +274,12 @@ public class DungeonSurvival extends GameController {
 			RoomObjectData box = new RoomObjectData("res/rooms/decorations/Box.png", true);
 
 			room.addInteractable(box);
+
+			// Enemies
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
+			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+
+			room.addEnemyData(skullData);
 
 			manager.addRoomData(room);
 		}
@@ -306,6 +328,12 @@ public class DungeonSurvival extends GameController {
 
 			room.addInteractable(box);
 
+			// Enemies
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
+			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+
+			room.addEnemyData(skullData);
+
 			manager.addRoomData(room);
 		}
 
@@ -345,6 +373,12 @@ public class DungeonSurvival extends GameController {
 			RoomObjectData box = new RoomObjectData("res/rooms/decorations/Box.png", true);
 
 			room.addInteractable(box);
+
+			// Enemies
+			EnemyData skullData = new EnemyData(EnemyType.Skull, 2, 1, 1, new Point2D(4, 4));
+			skullData.addAnimation("static", "res/enemies/skull/skull.png");
+
+			room.addEnemyData(skullData);
 
 			manager.addRoomData(room);
 		}

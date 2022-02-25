@@ -10,6 +10,7 @@ import ie.ucd.tor.engine.events.InputEventHandler;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.rendering.GameWindow;
 import ie.ucd.tor.game.enemy.EnemyData;
+import ie.ucd.tor.game.enemy.EnemyType;
 import ie.ucd.tor.game.room.data.BlockedAreaData;
 import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
@@ -304,6 +305,11 @@ public class RoomController extends Behaviour {
 	}
 
 	private void generateEnemy(EnemyData data) {
+		GameObject enemy = new GameObject();
+
+		if (data.getEnemyType() == EnemyType.Skull) {
+//			enemy.addComponent();
+		}
 
 	}
 

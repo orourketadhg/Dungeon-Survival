@@ -7,14 +7,29 @@ public class EnemyController extends Behaviour {
 
 	private static final float HEALTH_COOL_DOWN = 100;
 
+	private final int movementSpeed;
+
+	private final int damage;
+	private long nextAttackTime;
+
 	private int health;
 	private long nextDamageTime;
 
-	public int getHealth() {
-		return health;
+	public EnemyController(int damage, int health, int movementSpeed) {
+		this.damage = damage;
+		this.health = health;
+		this.movementSpeed = movementSpeed;
 	}
 
-	public void doDamage(int damage) {
+	public void move() {
+
+	}
+
+	public void attack() {
+
+	}
+
+	public void takeDamage(int damage) {
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 		if (currentAnimationTime > nextDamageTime) {
 			health = Math.max(0, health - damage);
@@ -23,4 +38,9 @@ public class EnemyController extends Behaviour {
 			System.out.println("Enemy " + gameObject.getName() + " has taken " + damage + " Damage");
 		}
 	}
+
+	public int getHealth() {
+		return health;
+	}
+
 }
