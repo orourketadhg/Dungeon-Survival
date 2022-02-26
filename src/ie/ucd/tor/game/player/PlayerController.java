@@ -11,6 +11,7 @@ import ie.ucd.tor.game.core.DungeonSurvival;
 import ie.ucd.tor.game.room.RoomController;
 import ie.ucd.tor.game.room.RoomManager;
 import ie.ucd.tor.game.room.data.BlockedAreaData;
+import ie.ucd.tor.game.util.Util;
 
 import java.util.List;
 
@@ -166,7 +167,7 @@ public class PlayerController extends Behaviour {
 			Point2D currentPos = transform.getPosition();
 			Point2D nextPos = currentPos.Add(playerMovement.scale(MOVEMENT_SPEED));
 
-			boolean isValid = validateMove(nextPos, controller.getBlockedAreas());
+			boolean isValid = Util.validateMove(gameObject, nextPos, controller.getBlockedAreas());
 
 			if (isValid) {
 				transform.getPosition().translate(playerMovement.scale(MOVEMENT_SPEED));
@@ -231,38 +232,6 @@ public class PlayerController extends Behaviour {
 	private void playerUnfreeze() {
 		this.canAttack = true;
 		this.canMove = true;
-	}
-
-	/**
-	 *
-	 * @reference Based off collision AABB collision detection from https://tutorialedge.net/gamedev/aabb-collision-detection-tutorial/
-	 *
-	 * @param position
-	 * @param blockedAreas
-	 * @return
-	 */
-	private boolean validateMove(Point2D position, List<BlockedAreaData> blockedAreas) {
-
-		// get players collision area
-		Collider playerCollider = gameObject.getComponent(Collider.class);
-		int playerWidth = playerCollider.getColliderWidth();
-		int playerHeight = playerCollider.getColliderHeight();
-
-		boolean isIntersecting = false;
-
-		for (BlockedAreaData area: blockedAreas) {
-
-			if (!isIntersecting) {
-				isIntersecting =
-							position.getX() < area.getPosition().getX() + area.getWidth() &&
-							position.getX() + playerWidth > area.getPosition().getX() &&
-							position.getY() < area.getPosition().getY() + area.getHeight() &&
-							position.getY() + playerHeight > area.getPosition().getY();
-			}
-
-		}
-
-		return !isIntersecting;
 	}
 
 	public void damagePlayer(int damage) {

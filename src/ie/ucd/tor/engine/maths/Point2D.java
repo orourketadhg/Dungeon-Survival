@@ -39,6 +39,12 @@ public class Point2D {
 		this.y += Additional.getY();
 	}
 
+	public float distance(Point2D other) {
+		float x = (float) Math.pow((this.x - other.x), 2);
+		float y = (float) Math.pow((this.y - other.y), 2);
+		return (float) Math.sqrt(x + y);
+	}
+
 	public double getX() {
 		return x;
 	}

@@ -11,35 +11,32 @@ import java.util.List;
 
 public class EnemyController extends Behaviour {
 
-	private static final float HEALTH_COOL_DOWN = 1000;
-	private static final float ATTACK_COOL_DOWN = 1000;
+	protected static final float HEALTH_COOL_DOWN = 1000;
+	protected static final float ATTACK_COOL_DOWN = 1000;
 
-	private final int movementSpeed;
-	private final int damage;
-	private int health;
+	protected final int movementSpeed;
+	protected final int damage;
+	protected int health;
 
-	private Vector2D movement = Vector2D.Zero;
-	private Vector2D attackDirection = Vector2D.Zero;
+	protected Vector2D movement = Vector2D.Zero;
+	protected Vector2D attackDirection = Vector2D.Zero;
 
-	private long nextAttackTime;
+	protected long nextAttackTime;
 
-	private boolean isAttacking;
-	private boolean isDead;
-	private boolean isDying;
-	private boolean canMove;
-	private boolean canAttack;
+	protected boolean isAttacking;
+	protected boolean isDead;
+	protected boolean isDying;
+	protected boolean canMove;
+	protected boolean canAttack;
 
-	private long nextAnimationTime;
+	protected long nextAnimationTime;
 
-	private float distanceToTarget;
-	private float attackDistanceThreshold;
 
 	public EnemyController(int damage, int health, int movementSpeed) {
 		this.damage = damage;
 		this.health = health;
 		this.movementSpeed = movementSpeed;
 
-		attackDistanceThreshold = 8;
 		canAttack = true;
 		canMove = true;
 	}
@@ -53,6 +50,8 @@ public class EnemyController extends Behaviour {
 		if (canAttack) {
 			attack();
 		}
+
+		animate();
 	}
 
 	public void move() {
@@ -61,38 +60,9 @@ public class EnemyController extends Behaviour {
 
 	public void attack() {
 
-		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
+	}
 
-		if (isAttacking && currentAnimationTime > nextAnimationTime) {
-			isAttacking = false;
-			canMove = true;
-		}
-
-//		if (distanceToTarget > attackDistanceThreshold) {
-//			return;
-//		}
-
-		if (!isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
-			attackDirection = new Vector2D(movement.getX(), movement.getY());
-
-			Collider playerOneCollider = DungeonSurvival.getInstance().getPlayerOne().getComponent(Collider.class);
-			Collider playerTwoCollider = DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collider.class);
-
-			List<CollisionData> collisionEvents = gameObject.getComponent(Collider.class).getCollisions();
-
-			for (CollisionData collision : collisionEvents) {
-				if (collision.collisionIncludes(playerOneCollider)) {
-					playerOneCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
-				}
-				else if (collision.collisionIncludes(playerTwoCollider)) {
-					playerTwoCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
-				}
-			}
-
-			nextAnimationTime = currentAnimationTime + 500;
-			isAttacking = true;
-			canMove = false;
-		}
+	public void animate() {
 
 	}
 

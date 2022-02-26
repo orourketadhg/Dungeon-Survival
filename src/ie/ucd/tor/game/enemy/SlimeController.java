@@ -8,12 +8,16 @@ public class SlimeController extends EnemyController {
 
 	@Override
 	public void move() {
-
+		super.move();
 	}
 
 	@Override
 	public void attack() {
-
+		super.attack();
 	}
 
+	@Override
+	public void animate() {
+		super.animate();
+	}
 }
