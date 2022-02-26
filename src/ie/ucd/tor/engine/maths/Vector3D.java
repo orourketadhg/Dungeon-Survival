@@ -27,19 +27,19 @@ public class Vector3D {
 		this.setZ(z);
 	}
 
-	public Vector3D Add(Vector3D value) {
+	public Vector3D add(Vector3D value) {
 		return new Vector3D(this.getX() + value.getX(), this.getY() + value.getY(), this.getZ() + value.getZ());
 	}
 
-	public Vector3D Subtract(Vector3D value) {
-		return new Vector3D(this.getX() - value.getX(), this.getY() - value.getY(), this.getZ() - value.getZ());
-	}
-
-	public Point3D Add(Point3D value) {
+	public Point3D add(Point3D value) {
 		return new Point3D(this.getX() + value.getX(), this.getY() + value.getY(), this.getZ() + value.getZ());
 	}
 
-	public Vector3D Scale(float scale) {
+	public Vector3D subtract(Vector3D value) {
+		return new Vector3D(this.getX() - value.getX(), this.getY() - value.getY(), this.getZ() - value.getZ());
+	}
+
+	public Vector3D scale(float scale) {
 		return new Vector3D(this.getX() * scale, this.getY() * scale, this.getZ() * scale);
 	}
 
@@ -47,14 +47,14 @@ public class Vector3D {
 		return (float) Math.sqrt(getX() * getX() + getY() * getY() + getZ() * getZ());
 	}
 
-	public Vector3D Normal() {
+	public Vector3D normal() {
 		float LengthOfTheVector = this.length();
-		return this.Scale(1.0f / LengthOfTheVector);
+		return this.scale(1.0f / LengthOfTheVector);
 	}
 
-	public static Vector3D Normalise(Vector3D value) {
+	public static Vector3D normalise(Vector3D value) {
 		float valueLength = value.length();
-		return value.Scale(1.0f / valueLength);
+		return value.scale(1.0f / valueLength);
 	}
 
 	public double dot(Vector3D v) {

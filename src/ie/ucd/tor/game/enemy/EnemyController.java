@@ -14,14 +14,12 @@ public class EnemyController extends Behaviour {
 	protected static final float HEALTH_COOL_DOWN = 1000;
 	protected static final float ATTACK_COOL_DOWN = 1000;
 
-	protected final int movementSpeed;
+	protected final float movementSpeed;
 	protected final int damage;
 	protected int health;
 
 	protected Vector2D movement = Vector2D.Zero;
 	protected Vector2D attackDirection = Vector2D.Zero;
-
-	protected long nextAttackTime;
 
 	protected boolean isAttacking;
 	protected boolean isDead;
@@ -29,8 +27,9 @@ public class EnemyController extends Behaviour {
 	protected boolean canMove;
 	protected boolean canAttack;
 
+	protected long nextAttackTime;
 	protected long nextAnimationTime;
-
+	protected long nextMovementTime;
 
 	public EnemyController(int damage, int health, int movementSpeed) {
 		this.damage = damage;

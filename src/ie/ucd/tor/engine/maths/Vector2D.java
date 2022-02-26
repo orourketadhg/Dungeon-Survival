@@ -46,9 +46,15 @@ public class Vector2D {
 		return this.scale(1.0f / LengthOfTheVector);
 	}
 
-	public static Vector3D normalise(Vector3D value) {
+	public static Vector2D normalise(Vector2D value) {
 		float valueLength = value.length();
-		return value.Scale(1.0f / valueLength);
+		return value.scale(1.0f / valueLength);
+	}
+
+	public static Vector2D round(Vector2D value) {
+		int roundedX = (int) Math.round(value.getX());
+		int roundedY = (int) Math.round(value.getY());
+		return new Vector2D(roundedX, roundedY);
 	}
 
 	public double dot(Vector3D v) {

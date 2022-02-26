@@ -18,10 +18,6 @@ public class Point2D {
 		this.setY(y);
 	}
 
-	public String toString() {
-		return ("(" + getX() + ", " + getY() + ")");
-	}
-
 	public Point2D Add(Vector2D Additional) {
 		return new Point2D(this.getX() + Additional.getX(), this.getY() + Additional.getY());
 	}
@@ -45,6 +41,10 @@ public class Point2D {
 		return (float) Math.sqrt(x + y);
 	}
 
+	public Vector2D toVector2D() {
+		return new Vector2D(this.x, this.y);
+	}
+
 	public double getX() {
 		return x;
 	}
@@ -59,6 +59,10 @@ public class Point2D {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+
+	public String toString() {
+		return ("(" + getX() + ", " + getY() + ")");
 	}
 
 }

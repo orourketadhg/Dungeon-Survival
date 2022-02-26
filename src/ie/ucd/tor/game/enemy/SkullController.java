@@ -16,40 +16,54 @@ import java.util.Random;
 
 public class SkullController extends EnemyController {
 
+	protected static final float MOVEMENT_COOL_DOWN = 10;
+	protected static final float ATTACK_COOL_DOWN = 500;
+
 	private GameObject target;
 
 	private float distanceToTarget;
+	private Vector2D directionToTarget;
 
 	private float wanderThreshold;
-	private float arriveDistance;
 
 	public SkullController(int damage, int health, int movementSpeed) {
 		super(damage, health, movementSpeed);
+
+		wanderThreshold = 300;
+		nextMovementTime = 0;
 	}
 
 	@Override
 	public void move() {
-
-		movement = Vector2D.Zero;
 
 		if (target == null) {
 			double random = Math.random();
 			target = random < 0.5 ? DungeonSurvival.getInstance().getPlayerOne() : DungeonSurvival.getInstance().getPlayerTwo();
 		}
 
-		distanceToTarget = transform.getPosition().distance(target.getTransform().getPosition());
+		long currentTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
-		if (distanceToTarget > wanderThreshold) {
+		if (nextMovementTime <= currentTime) {
+			movement = Vector2D.Zero;
 
-		}
-		else if (distanceToTarget < wanderThreshold && distanceToTarget > arriveDistance) {
+			distanceToTarget = transform.getPosition().distance(target.getTransform().getPosition());
+			directionToTarget = Vector2D.normalise(target.getTransform().getPosition().Subtract(transform.getPosition().toVector2D()).toVector2D());
+			directionToTarget = Vector2D.round(directionToTarget);
 
-		}
-		else if (distanceToTarget < arriveDistance) {
+			if (distanceToTarget > wanderThreshold) {
+				float randomX = ((float) Math.random() * 2) - 1;
+				float randomY = ((float) Math.random() * 2) - 1;
 
+				movement = Vector2D.round(new Vector2D(randomX, randomY));
+
+			}
+			else {
+				movement = directionToTarget;
+			}
 		}
 
 		if (movement != Vector2D.Zero) {
+
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
 
 			Point2D currentPos = transform.getPosition();
@@ -59,6 +73,8 @@ public class SkullController extends EnemyController {
 
 			if (isValid) {
 				transform.getPosition().translate(movement.scale(movementSpeed));
+
+				nextMovementTime = (long) (currentTime + MOVEMENT_COOL_DOWN);
 			}
 		}
 
@@ -90,7 +106,7 @@ public class SkullController extends EnemyController {
 				}
 			}
 
-			nextAnimationTime = currentAnimationTime + 500;
+			nextAnimationTime = (long) (currentAnimationTime + ATTACK_COOL_DOWN);
 			isAttacking = true;
 			canMove = false;
 		}
@@ -101,4 +117,12 @@ public class SkullController extends EnemyController {
 		super.animate();
 	}
 
+	@Override
+	public void takeDamage(int damage) {
+		super.takeDamage(damage);
+
+		if (health <= 0) {
+			isDead = true;
+		}
+	}
 }
