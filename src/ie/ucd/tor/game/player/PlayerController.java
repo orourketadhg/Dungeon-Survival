@@ -95,24 +95,24 @@ public class PlayerController extends Behaviour {
 			Point2D damageLocation = Point2D.Zero;
 
 			if (playerAttackDirection.getX() == 1) {
-				damageLocation = transform.getPosition().Add(new Vector2D((8 * RoomManager.ROOM_SCALE.getX()), 0));
+				damageLocation = transform.getPosition().Add(new Vector2D((16 * RoomManager.ROOM_SCALE.getX()), 0));
 			}
 			else if (playerAttackDirection.getX() == -1) {
-				damageLocation = transform.getPosition().Add(new Vector2D(-(8 * RoomManager.ROOM_SCALE.getX()), 0));
+				damageLocation = transform.getPosition().Add(new Vector2D(-(16 * RoomManager.ROOM_SCALE.getX()), 0));
 			}
 			else if (playerAttackDirection.getY() == 1) {
-				damageLocation = transform.getPosition().Add(new Vector2D(0, (8 * RoomManager.ROOM_SCALE.getX())));
+				damageLocation = transform.getPosition().Add(new Vector2D(0, (16 * RoomManager.ROOM_SCALE.getX())));
 			}
 			else if (playerAttackDirection.getY() == -1) {
-				damageLocation = transform.getPosition().Add(new Vector2D(0, -(8 * RoomManager.ROOM_SCALE.getX())));
+				damageLocation = transform.getPosition().Add(new Vector2D(0, -(16 * RoomManager.ROOM_SCALE.getX())));
 			}
 
 			playerDamageDealer = new GameObject();
 			playerDamageDealer.getTransform().setPosition(damageLocation);
-			playerDamageDealer.addComponent(new Collider((int) (8 * RoomManager.ROOM_SCALE.getX()), (int) (8 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero));
+			playerDamageDealer.addComponent(new Collider((int) (16 * RoomManager.ROOM_SCALE.getX()), (int) (16 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero));
 			playerDamageDealer.addComponent(new Damage(PLAYER_DAMAGE));
 
-			nextAnimationTime = currentAnimationTime + 500;
+			nextAnimationTime = currentAnimationTime + 600;
 			isAttacking = true;
 			canMove = false;
 		}

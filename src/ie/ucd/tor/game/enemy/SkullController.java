@@ -17,7 +17,6 @@ import java.util.Random;
 public class SkullController extends EnemyController {
 
 	protected static final float MOVEMENT_COOL_DOWN = 10;
-	protected static final float ATTACK_COOL_DOWN = 500;
 
 	private GameObject target;
 
@@ -82,34 +81,7 @@ public class SkullController extends EnemyController {
 
 	@Override
 	public void attack() {
-		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
-
-		if (isAttacking && currentAnimationTime > nextAnimationTime) {
-			isAttacking = false;
-			canMove = true;
-		}
-
-		if (!isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
-			attackDirection = new Vector2D(movement.getX(), movement.getY());
-
-			Collider playerOneCollider = DungeonSurvival.getInstance().getPlayerOne().getComponent(Collider.class);
-			Collider playerTwoCollider = DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collider.class);
-
-			List<CollisionData> collisionEvents = gameObject.getComponent(Collider.class).getCollisions();
-
-			for (CollisionData collision : collisionEvents) {
-				if (collision.collisionIncludes(playerOneCollider)) {
-					playerOneCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
-				}
-				else if (collision.collisionIncludes(playerTwoCollider)) {
-					playerTwoCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
-				}
-			}
-
-			nextAnimationTime = (long) (currentAnimationTime + ATTACK_COOL_DOWN);
-			isAttacking = true;
-			canMove = false;
-		}
+		super.attack();
 	}
 
 	@Override
@@ -120,9 +92,6 @@ public class SkullController extends EnemyController {
 	@Override
 	public void takeDamage(int damage) {
 		super.takeDamage(damage);
-
-		if (health <= 0) {
-			isDead = true;
-		}
 	}
+
 }

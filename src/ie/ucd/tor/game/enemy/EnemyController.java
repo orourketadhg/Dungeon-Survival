@@ -23,7 +23,6 @@ public class EnemyController extends Behaviour {
 
 	protected boolean isAttacking;
 	protected boolean isDead;
-	protected boolean isDying;
 	protected boolean canMove;
 	protected boolean canAttack;
 
@@ -58,7 +57,34 @@ public class EnemyController extends Behaviour {
 	}
 
 	public void attack() {
+		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
+		if (isAttacking && currentAnimationTime > nextAnimationTime) {
+			isAttacking = false;
+			canMove = true;
+		}
+
+		if (!isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
+			attackDirection = new Vector2D(movement.getX(), movement.getY());
+
+			Collider playerOneCollider = DungeonSurvival.getInstance().getPlayerOne().getComponent(Collider.class);
+			Collider playerTwoCollider = DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collider.class);
+
+			List<CollisionData> collisionEvents = gameObject.getComponent(Collider.class).getCollisions();
+
+			for (CollisionData collision : collisionEvents) {
+				if (collision.collisionIncludes(playerOneCollider)) {
+					playerOneCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
+				}
+				else if (collision.collisionIncludes(playerTwoCollider)) {
+					playerTwoCollider.getGameObject().getComponent(PlayerController.class).damagePlayer(damage);
+				}
+			}
+
+			nextAnimationTime = (long) (currentAnimationTime + ATTACK_COOL_DOWN);
+			isAttacking = true;
+			canMove = false;
+		}
 	}
 
 	public void animate() {
@@ -75,17 +101,17 @@ public class EnemyController extends Behaviour {
 		}
 
 		if (health <= 0) {
-			isDying = true;
+			isDead = true;
 		}
 
 	}
 
-	private void freeze() {
+	protected void freeze() {
 		this.canAttack = false;
 		this.canMove = false;
 	}
 
-	private void unfreeze() {
+	protected void unfreeze() {
 		this.canAttack = true;
 		this.canMove = true;
 	}
