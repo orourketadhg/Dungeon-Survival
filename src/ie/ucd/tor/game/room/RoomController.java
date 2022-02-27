@@ -18,7 +18,6 @@ import ie.ucd.tor.game.room.data.RoomObjectData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RoomController extends Behaviour {
 
@@ -124,6 +123,18 @@ public class RoomController extends Behaviour {
 			}
 
 			enemies.clear();
+		}
+	}
+
+	public void freezeEnemies() {
+		for (GameObject enemy: enemies) {
+			enemy.getComponent(EnemyController.class).freeze();
+		}
+	}
+
+	public void unfreezeEnemies() {
+		for (GameObject enemy: enemies) {
+			enemy.getComponent(EnemyController.class).unfreeze();
 		}
 	}
 

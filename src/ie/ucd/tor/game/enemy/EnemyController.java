@@ -106,12 +106,12 @@ public class EnemyController extends Behaviour {
 
 	}
 
-	protected void freeze() {
+	public void freeze() {
 		this.canAttack = false;
 		this.canMove = false;
 	}
 
-	protected void unfreeze() {
+	public void unfreeze() {
 		this.canAttack = true;
 		this.canMove = true;
 	}

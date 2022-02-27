@@ -16,6 +16,7 @@ import ie.ucd.tor.game.room.data.DoorLocation;
 import ie.ucd.tor.game.room.data.RoomData;
 import ie.ucd.tor.game.room.RoomManager;
 import ie.ucd.tor.game.room.data.RoomObjectData;
+import ie.ucd.tor.game.ui.UIController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class DungeonSurvival extends GameController {
 	private GameObject playerOne;
 	private GameObject playerTwo;
 	private GameObject roomManager;
+
+	private GameObject UI;
 
 	private static DungeonSurvival instance;
 
@@ -42,6 +45,8 @@ public class DungeonSurvival extends GameController {
 
 		roomManager = initialiseRoomManager();
 		roomManager.getComponent(RoomManager.class).generateStarterRoom();
+
+		UI = initialiseUI();
 
 	}
 
@@ -72,6 +77,15 @@ public class DungeonSurvival extends GameController {
 
 		return player;
 
+	}
+
+	private GameObject initialiseUI() {
+
+		GameObject UI = new GameObject();
+
+		UI.addComponent(new UIController());
+
+		return UI;
 	}
 
 	private GameObject initialiseRoomManager() {
@@ -494,6 +508,22 @@ public class DungeonSurvival extends GameController {
 
 	public GameObject getRoomManager() {
 		return roomManager;
+	}
+
+	public void pauseGame() {
+		DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).playerFreeze();
+		DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).playerFreeze();
+		DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom().freezeEnemies();
+	}
+
+	public void unpauseGame() {
+		DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).playerUnfreeze();
+		DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).playerUnfreeze();
+		DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom().unfreezeEnemies();
+	}
+
+	public GameObject getUI() {
+		return UI;
 	}
 
 	public long getSpriteAnimationTime() {

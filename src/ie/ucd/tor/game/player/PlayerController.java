@@ -224,12 +224,12 @@ public class PlayerController extends Behaviour {
 
 	}
 
-	private void playerFreeze() {
+	public void playerFreeze() {
 		this.canAttack = false;
 		this.canMove = false;
 	}
 
-	private void playerUnfreeze() {
+	public void playerUnfreeze() {
 		this.canAttack = true;
 		this.canMove = true;
 	}
@@ -252,4 +252,7 @@ public class PlayerController extends Behaviour {
 		return isDead;
 	}
 
+	public int getPlayerHealth() {
+		return playerHealth;
+	}
 }
