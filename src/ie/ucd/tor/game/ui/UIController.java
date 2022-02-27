@@ -15,7 +15,7 @@ import ie.ucd.tor.game.room.RoomManager;
 public class UIController extends Behaviour {
 
 	private final GameObject tutorial;
-	private GameObject gameover;
+	private final GameObject gameover;
 
 	private final GameObject playerOneHealth;
 	private final GameObject playerTwoHealth;
