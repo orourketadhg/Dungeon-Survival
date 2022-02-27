@@ -70,7 +70,13 @@ public class UIController extends Behaviour {
 	public void execute() {
 
 		if (isGameOver) {
-			return;
+			long time = DungeonSurvival.getInstance().getSpriteAnimationTime();
+			if (time > delay) {
+				DungeonSurvival.getInstance().restartGame();
+			}
+			else {
+				return;
+			}
 		}
 		else {
 			checkGameOver();
@@ -96,6 +102,8 @@ public class UIController extends Behaviour {
 
 			GameWindow.getInstance().getUiRenderer().addElement(gameover);
 			GameWindow.getInstance().getUiRenderer().addText(String.valueOf(numClearedRooms), 512, 748);
+
+			delay = DungeonSurvival.getInstance().getSpriteAnimationTime() + 5000;
 		}
 	}
 

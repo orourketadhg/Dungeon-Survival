@@ -126,6 +126,8 @@ public class GamePanel extends JPanel {
 	public void clearElements() {
 		elements.clear();
 		text.clear();
+		
+		this.removeAll();
 
 	}
 
