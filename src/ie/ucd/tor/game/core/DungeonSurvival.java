@@ -4,6 +4,8 @@ import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.core.gameobject.components.Animation;
 import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.SpriteSheetData;
+import ie.ucd.tor.engine.core.systems.BehaviourController;
+import ie.ucd.tor.engine.core.systems.CollisionController;
 import ie.ucd.tor.engine.core.systems.GameController;
 import ie.ucd.tor.engine.maths.Point2D;
 import ie.ucd.tor.engine.maths.Vector2D;
@@ -47,6 +49,19 @@ public class DungeonSurvival extends GameController {
 		roomManager.getComponent(RoomManager.class).generateStarterRoom();
 
 		UI = initialiseUI();
+
+	}
+
+	public void restartGame() {
+
+		BehaviourController.getInstance().clearBehaviours();
+		CollisionController.getInstance().clearColliders();
+
+		gameWindow.getUiRenderer().clearElements();
+		gameWindow.getBackgroundRenderer().clearElements();
+		gameWindow.getSpriteRenderer().clearElements();
+
+		initialization();
 
 	}
 

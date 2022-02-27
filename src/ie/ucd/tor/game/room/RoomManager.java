@@ -25,10 +25,14 @@ public class RoomManager extends Behaviour {
 
 	private GameObject activeRoom;
 
+	private int clearedRooms;
+
 	public RoomManager(GameWindow window) {
 		this.window = window;
 
 		rooms = new ArrayList<>();
+
+		clearedRooms = 0;
 
 	}
 
@@ -67,6 +71,8 @@ public class RoomManager extends Behaviour {
 	}
 
 	public void generateNewRoom() {
+
+		clearedRooms += 1;
 
 		window.getBackgroundRenderer().removeElement(activeRoom);
 
@@ -135,4 +141,7 @@ public class RoomManager extends Behaviour {
 
 	}
 
+	public int getClearedRooms() {
+		return clearedRooms;
+	}
 }

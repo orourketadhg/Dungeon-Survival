@@ -91,6 +91,10 @@ public class CollisionController {
 		colliders.remove(collider);
 	}
 
+	public void clearColliders() {
+		colliders.clear();
+	}
+
 	/**
 	 * collision detection method
 	 *

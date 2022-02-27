@@ -18,6 +18,8 @@ public class GamePanel extends JPanel {
 	private static final double ANIMATION_SPEED = 100;
 
 	private final CopyOnWriteArrayList<GameObject> elements;
+	private final CopyOnWriteArrayList<JLabel> text;
+
 	private long animationTime;
 
 	public GamePanel() {
@@ -27,14 +29,18 @@ public class GamePanel extends JPanel {
 	public GamePanel(int width, int height) {
 		this.setBounds(0, 0, width, height);
 		this.setOpaque(false);
+		this.setLayout(null);
 		this.animationTime = 0;
+
 		elements = new CopyOnWriteArrayList<>();
+		text = new CopyOnWriteArrayList<>();
 
 	}
 
 	public GamePanel(int x, int y, int width, int height) {
 		this.setBounds(x, y, width, height);
 		elements = new CopyOnWriteArrayList<>();
+		text = new CopyOnWriteArrayList<>();
 		this.animationTime = 0;
 	}
 
@@ -105,8 +111,22 @@ public class GamePanel extends JPanel {
 		sortElements();
 	}
 
+	public void addText(String text, int x, int y) {
+		JLabel label = new JLabel(text);
+		label.setBounds(x, y, 150, 100);
+		label.setFont(new Font("Calibri", Font.PLAIN, 64));
+		label.setForeground(Color.white);
+		this.add(label);
+	}
+
 	public void removeElement(GameObject element) {
 		elements.remove(element);
+	}
+
+	public void clearElements() {
+		elements.clear();
+		text.clear();
+
 	}
 
 	private void sortElements() {

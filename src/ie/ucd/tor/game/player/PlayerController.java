@@ -52,6 +52,10 @@ public class PlayerController extends Behaviour {
 	@Override
 	public void execute() {
 
+		if (InputEventHandler.getInstance().isKeyKPressed()) {
+			playerHealth = 0;
+		}
+
 		if (playerHealth <= 0) {
 			isDead = true;
 			playerFreeze();

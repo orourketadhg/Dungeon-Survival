@@ -14,13 +14,14 @@ import ie.ucd.tor.game.room.RoomManager;
 
 public class UIController extends Behaviour {
 
-	private GameObject tutorial;
+	private final GameObject tutorial;
 	private GameObject gameover;
 
-	private GameObject playerOneHealth;
-	private GameObject playerTwoHealth;
+	private final GameObject playerOneHealth;
+	private final GameObject playerTwoHealth;
 
 	private boolean isPaused;
+	private boolean isGameOver = false;
 
 	private long delay;
 
@@ -58,18 +59,44 @@ public class UIController extends Behaviour {
 
 		GameWindow.getInstance().getUiRenderer().addElement(playerOneHealth);
 		GameWindow.getInstance().getUiRenderer().addElement(playerTwoHealth);
+
+		gameover = new GameObject();
+		gameover.getTransform().setPosition(new Point2D(24, 24));
+		gameover.addComponent(new Sprite("res/UI/GAMEOVER.png", 960, 960, 20));
+
 	}
 
 	@Override
 	public void execute() {
 
-		if (InputEventHandler.getInstance().isKeyEscPressed()) {
+		if (isGameOver) {
+			return;
+		}
+		else {
+			checkGameOver();
+		}
+
+		if (InputEventHandler.getInstance().isKeyEscPressed() && !isGameOver) {
 			toggleTutorial();
 		}
 
 		updatePlayerOneHealthUI();
 		updatePlayerTwoHealthUI();
 
+	}
+
+	private void checkGameOver() {
+		int playerOneHealth = DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).getPlayerHealth();
+		int playerTwoHealth = DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).getPlayerHealth();
+
+		if (playerOneHealth <= 0 || playerTwoHealth <= 0) {
+			isGameOver = true;
+			DungeonSurvival.getInstance().pauseGame();
+			int numClearedRooms = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getClearedRooms();
+
+			GameWindow.getInstance().getUiRenderer().addElement(gameover);
+			GameWindow.getInstance().getUiRenderer().addText(String.valueOf(numClearedRooms), 512, 748);
+		}
 	}
 
 	public void toggleTutorial() {
@@ -105,4 +132,11 @@ public class UIController extends Behaviour {
 		playerTwoHealth.getComponent(Animation.class).setCurrentAnimation(String.valueOf(health));
 	}
 
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		isGameOver = gameOver;
+	}
 }

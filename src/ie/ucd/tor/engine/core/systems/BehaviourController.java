@@ -44,4 +44,8 @@ public class BehaviourController {
 	public void removeBehaviourToSystem(Behaviour behaviour) {
 		behaviours.remove(behaviour);
 	}
+
+	public void clearBehaviours() {
+		behaviours.clear();
+	}
 }
