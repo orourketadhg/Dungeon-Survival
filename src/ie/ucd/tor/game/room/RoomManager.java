@@ -13,6 +13,9 @@ import ie.ucd.tor.game.room.data.RoomData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Behaviour to control the rooms
+ */
 public class RoomManager extends Behaviour {
 
 	public static final int ROOM_WIDTH = 160;
@@ -45,14 +48,9 @@ public class RoomManager extends Behaviour {
 
 	}
 
-	public void addRoomData(RoomData data) {
-		rooms.add(data);
-	}
-
-	public RoomController getActiveRoom() {
-		return this.activeRoom.getComponent(RoomController.class);
-	}
-
+	/**
+	 * Generate an empty start room with the PLUS ROOM texture
+	 */
 	public void generateStarterRoom() {
 
 		RoomData newRoomData = rooms.get(0);
@@ -70,6 +68,9 @@ public class RoomManager extends Behaviour {
 
 	}
 
+	/**
+	 * Generate a random new room
+	 */
 	public void generateNewRoom() {
 
 		clearedRooms += 1;
@@ -109,6 +110,7 @@ public class RoomManager extends Behaviour {
 		Point2D playerOnePos;
 		Point2D playerTwoPos;
 
+		// move the players to the other side of the room as the entrance
 		switch (entranceDoor) {
 			case NORTH -> {
 				playerOnePos = new Point2D(18 + (80 * RoomManager.ROOM_SCALE.getX()) - 32, 24 + (0 * RoomManager.ROOM_SCALE.getY()) + 112);
@@ -141,7 +143,18 @@ public class RoomManager extends Behaviour {
 
 	}
 
+	// ACCESSORS
+
 	public int getClearedRooms() {
 		return clearedRooms;
 	}
+
+	public void addRoomData(RoomData data) {
+		rooms.add(data);
+	}
+
+	public RoomController getActiveRoom() {
+		return this.activeRoom.getComponent(RoomController.class);
+	}
+
 }

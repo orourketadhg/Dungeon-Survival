@@ -5,6 +5,9 @@ import ie.ucd.tor.engine.maths.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data about a object in the room
+ */
 public class RoomObjectData {
 
 	private final String spriteLocation;

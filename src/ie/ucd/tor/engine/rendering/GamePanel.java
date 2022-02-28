@@ -105,7 +105,7 @@ public class GamePanel extends JPanel {
 		Point2D position = animation.getTransform().getPosition();
 		Point2D scale = animation.getTransform().getScale();
 
-		// calcualte the sprite frame to draw in the animation
+		// calculate the sprite frame to draw in the animation
 		SpriteData data = animation.calculateNextSprite(animationTime, ANIMATION_SPEED);
 		BufferedImage spriteImage = data.getSprite();
 
@@ -113,24 +113,42 @@ public class GamePanel extends JPanel {
 		g2.drawImage(spriteImage, (int) position.getX(), (int) position.getY(), (int) (data.getSpriteWidth() * scale.getX()), (int) (data.getSpriteHeight() * scale.getY()), null);
 	}
 
+	/**
+	 * Draw a sprite element to the panel
+	 * @param sprite, the sprite data
+	 * @param graphics, the graphics instance
+	 */
 	private void drawElement(Sprite sprite, Graphics graphics) {
 		Graphics2D g2 = (Graphics2D) graphics.create();
 
+		// get the position and scale
 		Point2D position = sprite.getTransform().getPosition();
 		Point2D scale = sprite.getTransform().getScale();
 		SpriteData data = sprite.getSpriteData();
 
+		// get the sprite
 		BufferedImage spriteImage = data.getSprite();
 
+		// draw the image
 		g2.drawImage(spriteImage, (int) position.getX(), (int) position.getY(), (int) (data.getSpriteWidth() * scale.getX()), (int) (data.getSpriteHeight() * scale.getY()), null);
 
 	}
 
+	/**
+	 * register a new gameObject to the panel
+	 * @param element, the new gameObject element
+	 */
 	public void addElement(GameObject element) {
 		elements.add(element);
 		sortElements();
 	}
 
+	/**
+	 * Add a text element to the panel
+	 * @param text, the text to be drawn
+	 * @param x, the x position
+	 * @param y, the y position
+	 */
 	public void addText(String text, int x, int y) {
 		JLabel label = new JLabel(text);
 		label.setBounds(x, y, 150, 100);
@@ -139,12 +157,16 @@ public class GamePanel extends JPanel {
 		this.add(label);
 	}
 
+	/**
+	 * remove a specific element from the panel
+	 * @param element, the element to be removed
+	 */
 	public void removeElement(GameObject element) {
 		elements.remove(element);
 	}
 
 	/**
-	 * 
+	 * clear the panel of all elements from the panel
 	 */
 	public void clearElements() {
 		elements.clear();

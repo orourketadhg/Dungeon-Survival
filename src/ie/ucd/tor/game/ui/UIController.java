@@ -60,6 +60,7 @@ public class UIController extends Behaviour {
 		GameWindow.getInstance().getUiRenderer().addElement(playerOneHealth);
 		GameWindow.getInstance().getUiRenderer().addElement(playerTwoHealth);
 
+		// gameOver
 		gameover = new GameObject();
 		gameover.getTransform().setPosition(new Point2D(24, 24));
 		gameover.addComponent(new Sprite("res/UI/GAMEOVER.png", 960, 960, 20));
@@ -68,6 +69,8 @@ public class UIController extends Behaviour {
 
 	@Override
 	public void execute() {
+
+		// change the active UIs based on active state
 
 		if (isGameOver) {
 			long time = DungeonSurvival.getInstance().getSpriteAnimationTime();

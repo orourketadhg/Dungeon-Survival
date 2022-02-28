@@ -15,6 +15,9 @@ import ie.ucd.tor.game.util.Util;
 
 import java.util.List;
 
+/**
+ * Player controller behaviour
+ */
 public class PlayerController extends Behaviour {
 
 	private final InputEventHandler input;
@@ -52,29 +55,38 @@ public class PlayerController extends Behaviour {
 	@Override
 	public void execute() {
 
+		// debug kill player
 		if (InputEventHandler.getInstance().isKeyKPressed()) {
 			playerHealth = 0;
 		}
 
+		// check player health
 		if (playerHealth <= 0) {
 			isDead = true;
 			playerFreeze();
 		}
 
+		// attack if available
 		if (canAttack) {
 			attemptAttack();
 		}
 
+		// attempt move if possible
 		if (canMove) {
 			attemptMove();
 		}
 
+		// animate the player
 		animatePlayer();
 
 	}
 
+	/**
+	 * Attempt to attack
+	 */
 	private void attemptAttack() {
 
+		// if attack input
 		boolean attack = false;
 		if (keyLayout == KeyLayout.WASD && input.isKeySpacePressed()) {
 			attack = true;
@@ -85,6 +97,7 @@ public class PlayerController extends Behaviour {
 
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
+		// check if attack is ending
 		if (isAttacking && currentAnimationTime > nextAnimationTime) {
 
 			playerDamageDealer.disable();
@@ -93,11 +106,13 @@ public class PlayerController extends Behaviour {
 			canMove = true;
 		}
 
+		// spawn attacking gameObject if the player is starting to attack
 		if (attack && !isAttacking && currentAnimationTime > nextAnimationTime + ATTACK_COOL_DOWN) {
 			playerAttackDirection = new Vector2D(playerMovement.getX(), playerMovement.getY());
 
 			Point2D damageLocation = Point2D.Zero;
 
+			// calcualte position of damage gameObject
 			if (playerAttackDirection.getX() == 1) {
 				damageLocation = transform.getPosition().Add(new Vector2D((16 * RoomManager.ROOM_SCALE.getX()), 0));
 			}
@@ -111,6 +126,7 @@ public class PlayerController extends Behaviour {
 				damageLocation = transform.getPosition().Add(new Vector2D(0, -(16 * RoomManager.ROOM_SCALE.getX())));
 			}
 
+			// create damage gameObject
 			playerDamageDealer = new GameObject();
 			playerDamageDealer.getTransform().setPosition(damageLocation);
 			playerDamageDealer.addComponent(new Collider((int) (16 * RoomManager.ROOM_SCALE.getX()), (int) (16 * RoomManager.ROOM_SCALE.getY()), Point2D.Zero));
@@ -123,10 +139,14 @@ public class PlayerController extends Behaviour {
 
 	}
 
+	/**
+	 * Attempt to move the player
+	 */
 	private void attemptMove() {
 
 		playerMovement = Vector2D.Zero;
 
+		// get movement based on input type
 		if (keyLayout == KeyLayout.WASD) {
 
 			if (input.isKeyWPressed()) {
@@ -164,6 +184,7 @@ public class PlayerController extends Behaviour {
 			}
 		}
 
+		// apply movement to player
 		if (playerMovement != Vector2D.Zero) {
 
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
@@ -181,6 +202,9 @@ public class PlayerController extends Behaviour {
 
 	}
 
+	/**
+	 * Animate the player based on state
+	 */
 	private void animatePlayer() {
 		Animation playerAnimator = gameObject.getComponent(Animation.class);
 
@@ -228,16 +252,26 @@ public class PlayerController extends Behaviour {
 
 	}
 
+	/**
+	 * Freeze the player
+	 */
 	public void playerFreeze() {
 		this.canAttack = false;
 		this.canMove = false;
 	}
 
+	/**
+	 * Unfreeze the player
+	 */
 	public void playerUnfreeze() {
 		this.canAttack = true;
 		this.canMove = true;
 	}
 
+	/**
+	 * Damage the player
+	 * @param damage, the damage being applied
+	 */
 	public void damagePlayer(int damage) {
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 		if (currentAnimationTime > nextDamageTime) {
@@ -247,6 +281,8 @@ public class PlayerController extends Behaviour {
 			System.out.println(gameObject.getName() + " has taken " + damage + " Damage");
 		}
 	}
+
+	// ACCESSORS
 
 	public void addHealth(int health) {
 		this.playerHealth += health;

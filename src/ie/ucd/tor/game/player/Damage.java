@@ -6,6 +6,9 @@ import ie.ucd.tor.engine.core.gameobject.components.Collider;
 import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.game.enemy.EnemyController;
 
+/**
+ * Damage area controller
+ */
 public class Damage extends Behaviour {
 
 	private int damageValue = 1;
@@ -18,6 +21,7 @@ public class Damage extends Behaviour {
 	public void execute() {
 		Collider damageCollider = gameObject.getComponent(Collider.class);
 
+		// damage an enemy if colliding
 		for (CollisionData collision : damageCollider.getCollisions()) {
 			GameObject other = collision.getOther(damageCollider);
 			if (other.hasComponent(EnemyController.class)) {

@@ -6,6 +6,9 @@ import ie.ucd.tor.engine.core.gameobject.components.data.CollisionData;
 import ie.ucd.tor.game.core.DungeonSurvival;
 import ie.ucd.tor.game.room.data.DoorLocation;
 
+/**
+ * Controller behaviour for a door
+ */
 public class DoorController extends Behaviour {
 
 	private final DoorLocation door;
@@ -24,6 +27,7 @@ public class DoorController extends Behaviour {
 			return;
 		}
 
+		// if the door is unlocked and a player collides with it there is an exit attempt
 		Collider playerOneCollider = DungeonSurvival.getInstance().getPlayerOne().getComponent(Collider.class);
 		Collider playerTwoCollider = DungeonSurvival.getInstance().getPlayerTwo().getComponent(Collider.class);
 
@@ -36,6 +40,8 @@ public class DoorController extends Behaviour {
 		}
 
 	}
+
+	// ACCESSORS
 
 	public DoorLocation getDoor() {
 		return door;

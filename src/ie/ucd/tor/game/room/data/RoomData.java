@@ -5,6 +5,9 @@ import ie.ucd.tor.game.enemy.EnemyData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data about a room in the game
+ */
 public class RoomData {
 
 	private final String roomTexture;
@@ -33,6 +36,8 @@ public class RoomData {
 		enemies = new ArrayList<>();
 
 	}
+
+	// ACCESSORS
 
 	public void addDecoration(RoomObjectData decoration) {
 		decorations.add(decoration);

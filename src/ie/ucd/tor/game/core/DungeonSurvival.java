@@ -23,10 +23,13 @@ import ie.ucd.tor.game.ui.UIController;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game Controller for the Dungeon Survival game
+ */
 public class DungeonSurvival extends GameController {
 
-	private GameObject playerOne;
-	private GameObject playerTwo;
+	private GameObject playerOne;	// player 1 gameObject
+	private GameObject playerTwo;	//
 	private GameObject roomManager;
 
 	private GameObject UI;
@@ -40,6 +43,9 @@ public class DungeonSurvival extends GameController {
 		return instance;
 	}
 
+	/**
+	 * Initialise the players, the UI, and the room manager
+	 */
 	@Override
 	protected void initialization() {
 		playerOne = initialisePlayer(1, new Point2D(512 - 64, 512), KeyLayout.WASD);
@@ -52,19 +58,32 @@ public class DungeonSurvival extends GameController {
 
 	}
 
+	/**
+	 * Restart the game
+	 */
 	public void restartGame() {
 
+		// clear all collision data and behaviours
 		BehaviourController.getInstance().clearBehaviours();
 		CollisionController.getInstance().clearColliders();
 
+		// clear the Ui and game panels
 		gameWindow.getUiRenderer().clearElements();
 		gameWindow.getBackgroundRenderer().clearElements();
 		gameWindow.getSpriteRenderer().clearElements();
 
+		// reinitialise the game
 		initialization();
 
 	}
 
+	/**
+	 * Initialise a player gameObject and its components
+	 * @param playerIndex, the players number
+	 * @param startingPosition, the spawn position of the player
+	 * @param playerKeyLayout, the controls the player will use
+	 * @return a constructed player gameObject
+	 */
 	private GameObject initialisePlayer(int playerIndex, Point2D startingPosition, KeyLayout playerKeyLayout) {
 		/* Player Initialisation */
 		GameObject player = new GameObject();
@@ -94,20 +113,29 @@ public class DungeonSurvival extends GameController {
 
 	}
 
+	/**
+	 * Setup the UI for the game
+	 * @return the UI controller gameObject
+	 */
 	private GameObject initialiseUI() {
 
 		GameObject UI = new GameObject();
-
 		UI.addComponent(new UIController());
 
 		return UI;
 	}
 
+	/**
+	 * Initialize the room manager gameObject and populate the room data
+	 * @return
+	 */
 	private GameObject initialiseRoomManager() {
 		GameObject roomManager = new GameObject();
 		roomManager.setName("Room Manager");
 
 		RoomManager manager = new RoomManager(gameWindow);
+
+		/* setup the rooms and their respective data */
 
 		{
 			/* Room - plus */
@@ -513,6 +541,29 @@ public class DungeonSurvival extends GameController {
 		return roomManager;
 	}
 
+
+	/**
+	 * Pause the game
+	 */
+	public void pauseGame() {
+		// freeze the players and all enemies
+		DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).playerFreeze();
+		DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).playerFreeze();
+		DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom().freezeEnemies();
+	}
+
+	/**
+	 * Unpause the game
+	 */
+	public void unpauseGame() {
+		// unfreeze the players and all enemies
+		DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).playerUnfreeze();
+		DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).playerUnfreeze();
+		DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom().unfreezeEnemies();
+	}
+
+	// ACCESSORS
+
 	public GameObject getPlayerOne() {
 		return playerOne;
 	}
@@ -523,18 +574,6 @@ public class DungeonSurvival extends GameController {
 
 	public GameObject getRoomManager() {
 		return roomManager;
-	}
-
-	public void pauseGame() {
-		DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).playerFreeze();
-		DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).playerFreeze();
-		DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom().freezeEnemies();
-	}
-
-	public void unpauseGame() {
-		DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).playerUnfreeze();
-		DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).playerUnfreeze();
-		DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom().unfreezeEnemies();
 	}
 
 	public GameObject getUI() {

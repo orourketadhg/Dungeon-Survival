@@ -24,13 +24,20 @@ public class GameController {
 		this.collisionController = CollisionController.getInstance();
 		this.behaviourController = BehaviourController.getInstance();
 
+		// populate the game
 		initialization();
 	}
 
+	/**
+	 * Place to initialize the core components of the game
+	 */
 	protected void initialization() {
 		// panelTest();
 	}
 
+	/**
+	 * main gameloop of the game
+	 */
 	protected void gameLoop() {
 
 		// update the collisions in the game

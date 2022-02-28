@@ -19,6 +19,9 @@ import ie.ucd.tor.game.room.data.RoomObjectData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller behaviour for a room
+ */
 public class RoomController extends Behaviour {
 
 	private final RoomData roomData;
@@ -48,6 +51,8 @@ public class RoomController extends Behaviour {
 		enemies = new ArrayList<>();
 		blockedAreas = new ArrayList<>();
 
+		// generate the content of a room
+
 		generateBlockedAreas();
 
 		generateDoors();
@@ -65,6 +70,7 @@ public class RoomController extends Behaviour {
 	@Override
 	public void execute() {
 
+		// remove dead enemies from the room
 		for (int i = enemies.size() - 1; i >= 0; i--) {
 			if (enemies.get(i).getComponent(EnemyController.class).isDead()) {
 				enemies.get(i).disable();
@@ -72,19 +78,23 @@ public class RoomController extends Behaviour {
 			}
 		}
 
+		// debug clear the room of enemies
 		if (InputEventHandler.getInstance().isKeyFPressed() && isRoomLocked) {
 			clearEnemies();
 		}
 
+		// wait until all enemies are dead
 		if (!enemies.isEmpty()) {
 			return;
 		}
 
+		// unlock the room when all enemies are dead
 		if (isRoomLocked) {
 			unlockRoom();
 			return;
 		}
 
+		// if there is an exit attempt the room is complete
 		for (GameObject door : doors) {
 			DoorController doorController = door.getComponent(DoorController.class);
 			if (doorController.getExitAttempt()) {
@@ -95,10 +105,14 @@ public class RoomController extends Behaviour {
 
 	}
 
+	/**
+	 * Unlock all the doors when all the enemies are dead
+	 */
 	private void unlockRoom() {
 		for (GameObject door: doors) {
 			door.getComponent(DoorController.class).unlockDoor();
 
+			// disable the texture on the doors
 			if (door.hasComponent(Sprite.class)) {
 				door.getComponent(Sprite.class).disable();
 			}
@@ -107,6 +121,7 @@ public class RoomController extends Behaviour {
 			}
 		}
 
+		// remove the blocked areas of the doors
 		for (int i = 0; i < roomData.getDoorLocations().size(); i++) {
 			blockedAreas.remove(blockedAreas.size() - 1);
 		}
@@ -115,6 +130,9 @@ public class RoomController extends Behaviour {
 
 	}
 
+	/**
+	 * debug clear the room of enemies
+	 */
 	private void clearEnemies() {
 		if (!enemies.isEmpty()) {
 			for (GameObject enemy : enemies) {
@@ -126,23 +144,33 @@ public class RoomController extends Behaviour {
 		}
 	}
 
+	/**
+	 * Freeze all the enemies in the room
+	 */
 	public void freezeEnemies() {
 		for (GameObject enemy: enemies) {
 			enemy.getComponent(EnemyController.class).freeze();
 		}
 	}
 
+	/**
+	 * Unfreeze all the enemies in the room
+	 */
 	public void unfreezeEnemies() {
 		for (GameObject enemy: enemies) {
 			enemy.getComponent(EnemyController.class).unfreeze();
 		}
 	}
 
+	/**
+	 * Destroy/ free in memory the content
+	 */
 	public void destroyRoom() {
 		for (GameObject door: doors) {
 			door.disable();
 		}
 
+		// destroy the decorations
 		for (GameObject decoration : decorations) {
 			window.getBackgroundRenderer().removeElement(decoration);
 			decoration.disable();
@@ -150,6 +178,7 @@ public class RoomController extends Behaviour {
 
 		decorations.clear();
 
+		// destroy the interactables
 		for (GameObject collectible : intractables) {
 			window.getSpriteRenderer().removeElement(collectible);
 			collectible.disable();
@@ -157,6 +186,7 @@ public class RoomController extends Behaviour {
 
 		intractables.clear();
 
+		// destroy all the enemies
 		if (!enemies.isEmpty()) {
 			for (GameObject enemy : enemies) {
 				window.getSpriteRenderer().removeElement(enemy);
@@ -167,6 +197,9 @@ public class RoomController extends Behaviour {
 		}
 	}
 
+	/**
+	 * generate all the blocked areas in the room
+	 */
 	private void generateBlockedAreas() {
 		List<BlockedAreaData> roomAreas = roomData.getBlockedLocations();
 
@@ -182,6 +215,9 @@ public class RoomController extends Behaviour {
 
 	}
 
+	/**
+	 * Generate the doors in the room
+	 */
 	private void generateDoors() {
 
 		for (DoorLocation doorLocation: roomData.getDoorLocations()) {
@@ -190,6 +226,7 @@ public class RoomController extends Behaviour {
 			Sprite doorSprite;
 			Collider collider;
 
+			// calculate the location of a door
 			switch (doorLocation) {
 				case NORTH -> doorPosition = new Point2D(18 + (64 * RoomManager.ROOM_SCALE.getX()), 24 + (0 * RoomManager.ROOM_SCALE.getY()));
 				case SOUTH -> doorPosition = new Point2D(18 + (64 * RoomManager.ROOM_SCALE.getX()), 24 + (144 * RoomManager.ROOM_SCALE.getY()));
@@ -198,6 +235,7 @@ public class RoomController extends Behaviour {
 				default -> throw new IllegalStateException("Unexpected value: " + doorLocation);
 			}
 
+			// calcualte the texture and collider for the new door
 			switch (doorLocation) {
 				case NORTH, SOUTH -> {
 					doorSprite = new Sprite(HORIZONTAL_DOOR, 32, 16, 1);
@@ -214,6 +252,7 @@ public class RoomController extends Behaviour {
 				default -> throw new IllegalStateException("Unexpected value: " + doorLocation);
 			}
 
+			// generate the door gameObject
 			GameObject door = new GameObject();
 			door.getTransform().setPosition(doorPosition);
 			door.getTransform().setScale(RoomManager.ROOM_SCALE);
@@ -221,6 +260,7 @@ public class RoomController extends Behaviour {
 			door.addComponent(collider);
 			door.addComponent(new DoorController(doorLocation));
 
+			// add to the rendering
 			doors.add(door);
 			window.getBackgroundRenderer().addElement(door);
 
@@ -228,6 +268,9 @@ public class RoomController extends Behaviour {
 
 	}
 
+	/**
+	 * generate all the decorations in the room
+	 */
 	private void generateDecorations() {
 
 		List<RoomObjectData> decorations = roomData.getDecorations();
@@ -254,6 +297,12 @@ public class RoomController extends Behaviour {
 
 	}
 
+	/**
+	 * Generate the decoration gameObject
+	 * @param decorationSpriteLocation, the decoration location
+	 * @param spawnPosition, the spawn position
+	 * @param isAnimatedDecoration, is the sprite animated
+	 */
 	private void generateDecoration(String decorationSpriteLocation, Point2D spawnPosition, boolean isAnimatedDecoration) {
 		GameObject decoration = new GameObject();
 
@@ -273,6 +322,9 @@ public class RoomController extends Behaviour {
 		window.getBackgroundRenderer().addElement(decoration);
 	}
 
+	/**
+	 * Generate the Interactables in the room
+	 */
 	private void generateIntractables() {
 		List<RoomObjectData> intractables = roomData.getIntractables();
 		int numIntractables = (int) (Math.random() * roomData.getNumIntractables());
@@ -297,6 +349,12 @@ public class RoomController extends Behaviour {
 		}
 	}
 
+	/**
+	 * Generate the Interactable gameObject
+	 * @param interactableSpriteLocation, the Interactable sprite
+	 * @param spawnPosition, the spawn location
+	 * @param isAnimatedDecoration, is the interactable animated
+	 */
 	private void generateInteractable(String interactableSpriteLocation, Point2D spawnPosition, boolean isAnimatedDecoration) {
 
 		GameObject interactable = new GameObject();
@@ -317,6 +375,9 @@ public class RoomController extends Behaviour {
 		window.getSpriteRenderer().addElement(interactable);
 	}
 
+	/**
+	 * Generate all the enemies in the room
+	 */
 	private void generateEnemies() {
 		List<EnemyData> enemyDataList = roomData.getEnemyData();
 		int numEnemies = (int) (Math.random() * roomData.getNumEnemies());
@@ -342,10 +403,16 @@ public class RoomController extends Behaviour {
 
 	}
 
+	/**
+	 * Generate an enemy GameObject
+	 * @param data, the data about the enemy
+	 * @param spawnPosition, the base position of the enemy
+	 */
 	private void generateEnemy(EnemyData data, Point2D spawnPosition) {
 		GameObject enemy = new GameObject();
 		enemy.getTransform().setScale(new Point2D(4 * data.getEnemyScale().getX(), 4 * data.getEnemyScale().getY()));
 
+		// randomize the location
 		int randomX = (int) (Math.random() * 8);
 		int randomY = (int) (Math.random() * 8);
 		int randomDirectionX = (int) ((Math.random() * 2) - 1);
@@ -355,11 +422,13 @@ public class RoomController extends Behaviour {
 
 		enemy.addComponent(new Collider((int) data.getEnemySize().getX(), (int) data.getEnemySize().getY(), Point2D.Zero));
 
+		// add the components
 		enemy.addComponent(new Animation(5));
 		for (String animation: data.getAnimations().keySet()) {
 			enemy.getComponent(Animation.class).AddAnimation(animation, data.getAnimations().get(animation));
 		}
 
+		// add the controller based on enemy type
 		if (data.getEnemyType() == EnemyType.Skull) {
 			enemy.addComponent(new SkullController(data.getEnemyDamage(), data.getEnemyHealth(), data.getEnemyMovementSpeed()));
 		}
@@ -371,6 +440,8 @@ public class RoomController extends Behaviour {
 		window.getSpriteRenderer().addElement(enemy);
 
 	}
+
+	// ACCESSORS
 
 	public boolean isRoomComplete() {
 		return isRoomComplete;

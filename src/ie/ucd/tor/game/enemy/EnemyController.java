@@ -9,7 +9,10 @@ import ie.ucd.tor.game.player.PlayerController;
 
 import java.util.List;
 
-public class EnemyController extends Behaviour {
+/**
+ * base controller class for all enemy controllers
+ */
+public abstract class EnemyController extends Behaviour {
 
 	protected static final float HEALTH_COOL_DOWN = 1000;
 	protected static final float ATTACK_COOL_DOWN = 1000;
@@ -41,21 +44,31 @@ public class EnemyController extends Behaviour {
 
 	@Override
 	public void execute() {
+
+		// move the enemy if enabled
 		if (canMove) {
 			move();
 		}
 
+		// attack if eneabled
 		if (canAttack) {
 			attack();
 		}
 
+		// animate the enemy
 		animate();
 	}
 
+	/**
+	 * base method to move the enemy
+	 */
 	public void move() {
 
 	}
 
+	/**
+	 * base method for the enemy to attack a player
+	 */
 	public void attack() {
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
@@ -87,11 +100,19 @@ public class EnemyController extends Behaviour {
 		}
 	}
 
+	/**
+	 * base method to animate the enemy
+	 */
 	public void animate() {
 
 	}
 
+	/**
+	 * Damage the enemy
+	 * @param damage, the amount of damage the enemy will take
+	 */
 	public void takeDamage(int damage) {
+		// delay time between when the enemy can take damage
 		long currentAnimationTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 		if (currentAnimationTime > nextAttackTime) {
 			health = Math.max(0, health - damage);
@@ -106,15 +127,23 @@ public class EnemyController extends Behaviour {
 
 	}
 
+	/**
+	 * Freeze the enemy
+	 */
 	public void freeze() {
 		this.canAttack = false;
 		this.canMove = false;
 	}
 
+	/**
+	 * Unfreeze the enemy
+	 */
 	public void unfreeze() {
 		this.canAttack = true;
 		this.canMove = true;
 	}
+
+	// ACCESSORS
 
 	public boolean isDead() {
 		return isDead;

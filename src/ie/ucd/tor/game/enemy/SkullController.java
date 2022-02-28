@@ -14,6 +14,9 @@ import ie.ucd.tor.game.util.Util;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Controller for the skull enemy
+ */
 public class SkullController extends EnemyController {
 
 	protected static final float MOVEMENT_COOL_DOWN = 10;
@@ -35,6 +38,7 @@ public class SkullController extends EnemyController {
 	@Override
 	public void move() {
 
+		// find an enemy to target
 		if (target == null) {
 			double random = Math.random();
 			target = random < 0.5 ? DungeonSurvival.getInstance().getPlayerOne() : DungeonSurvival.getInstance().getPlayerTwo();
@@ -42,6 +46,7 @@ public class SkullController extends EnemyController {
 
 		long currentTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
 
+		// calculate the direction to the target after a certain amount of time
 		if (nextMovementTime <= currentTime) {
 			movement = Vector2D.Zero;
 
@@ -49,6 +54,7 @@ public class SkullController extends EnemyController {
 			directionToTarget = Vector2D.normalise(target.getTransform().getPosition().Subtract(transform.getPosition().toVector2D()).toVector2D());
 			directionToTarget = Vector2D.round(directionToTarget);
 
+			// if the target is too far away, wander, otherwise move towards the target
 			if (distanceToTarget > wanderThreshold) {
 				float randomX = ((float) Math.random() * 2) - 1;
 				float randomY = ((float) Math.random() * 2) - 1;
@@ -61,6 +67,7 @@ public class SkullController extends EnemyController {
 			}
 		}
 
+		// attempt to move towards the target
 		if (movement != Vector2D.Zero) {
 
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();

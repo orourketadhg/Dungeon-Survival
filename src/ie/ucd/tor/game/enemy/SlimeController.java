@@ -9,6 +9,9 @@ import ie.ucd.tor.game.room.RoomController;
 import ie.ucd.tor.game.room.RoomManager;
 import ie.ucd.tor.game.util.Util;
 
+/**
+ * Controller for the slime enemy
+ */
 public class SlimeController extends EnemyController {
 
 	protected static final float MOVEMENT_COOL_DOWN = 10;
@@ -42,16 +45,19 @@ public class SlimeController extends EnemyController {
 
 		movement = Vector2D.Zero;
 
+		// get the direction to the target
 		if (nextMovementTime <= currentTime) {
 
 			distanceToTarget = transform.getPosition().distance(target.getTransform().getPosition());
 
+			// calculate normalized rounded direction to the target
 			directionToTarget = Vector2D.normalise(target.getTransform().getPosition().Subtract(transform.getPosition().toVector2D()).toVector2D());
 			directionToTarget = Vector2D.round(directionToTarget);
 
 			movement = directionToTarget;
 		}
 
+		// attempt to move towards the target
 		if (movement != Vector2D.Zero) {
 
 			RoomController controller = DungeonSurvival.getInstance().getRoomManager().getComponent(RoomManager.class).getActiveRoom();
@@ -71,6 +77,7 @@ public class SlimeController extends EnemyController {
 
 	@Override
 	public void attack() {
+		// only attack if to the side of the player
 		if (directionToTarget.getX() == 0) {
 			return;
 		}
@@ -90,6 +97,7 @@ public class SlimeController extends EnemyController {
 
 		String animationName = "";
 
+		// change animation based on state
 		if (isDying) {
 			animationName = "slimeDeath";
 
@@ -147,6 +155,7 @@ public class SlimeController extends EnemyController {
 			System.out.println("Enemy has taken " + damage + " Damage");
 		}
 
+		// change to dying for aniamtion reasons
 		if (health <= 0) {
 			isDying = true;
 
@@ -160,6 +169,8 @@ public class SlimeController extends EnemyController {
 		}
 
 	}
+
+	// accessors
 
 	@Override
 	public boolean isDead() {

@@ -2,6 +2,9 @@ package ie.ucd.tor.game.room.data;
 
 import ie.ucd.tor.engine.maths.Point2D;
 
+/**
+ * Data about a blocked area of the map
+ */
 public class BlockedAreaData {
 
 	private Point2D position;
@@ -13,6 +16,8 @@ public class BlockedAreaData {
 		this.width = width;
 		this.height = height;
 	}
+
+	// ACCESSORS
 
 	public Point2D getPosition() {
 		return position;

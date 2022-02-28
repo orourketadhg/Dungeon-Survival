@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Data about an enemy
+ */
 public class EnemyData {
 
 	private EnemyType enemyType;
@@ -30,6 +33,8 @@ public class EnemyData {
 		animations = new HashMap<>();
 		spawnPositions = new ArrayList<>();
 	}
+
+	// ACCESSORS
 
 	public void addAnimation(String name, SpriteSheetData spriteSheet) {
 		animations.put(name, spriteSheet);
