@@ -5,6 +5,9 @@ import ie.ucd.tor.engine.core.gameobject.components.Behaviour;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to execute all register custom behaviours in the system
+ */
 public class BehaviourController {
 
 	private final List<Behaviour> behaviours;
@@ -22,8 +25,10 @@ public class BehaviourController {
 		behaviours = new ArrayList<>();
 	}
 
+	/**
+	 * Loop over all executed behaviours updating their behaviours
+	 */
 	public void updateBehaviours() {
-		// System.out.println(getBehaviours());
 
 		int i = 0;
 		while(i < behaviours.size()) {

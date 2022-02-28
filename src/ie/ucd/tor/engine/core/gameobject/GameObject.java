@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Class to hold the data about an object in the game
+ */
 public class GameObject {
 	private static int ID_COUNT = 0;
 
@@ -37,10 +40,15 @@ public class GameObject {
 		return gameObjectID;
 	}
 
+	/**
+	 * Add a new component to the gameObject
+	 * @param component, the component being added
+	 */
 	public void addComponent(Component component) {
 		component.registerParent(this, transform);
 		attachedComponents.add(component);
 
+		// if the component is a collider or behaviour, register the component with their respected execution system
 		if (component instanceof Collider) {
 			CollisionController.getInstance().addColliderToSystem((Collider) component);
 		}
@@ -50,6 +58,12 @@ public class GameObject {
 
 	}
 
+	/**
+	 * Remove a component from the gameObject
+	 * @param cls, the class type of the component being removed
+	 * @param <T>, the class type of the component being removed
+	 * @return true if successfully removed, false otherwise
+	 */
 	public <T extends Component> boolean removeComponent(Class<T> cls) {
 		for (Component component : attachedComponents) {
 			if (cls.isInstance(component)) {
@@ -59,6 +73,12 @@ public class GameObject {
 		return false;
 	}
 
+	/**
+	 * Check if this gameObject has this type of gameObject
+	 * @param cls, the class type of the component being checked
+	 * @param <T>, the class type of the component being checked
+	 * @return true if the gameObject has the type of component, false otherwise
+	 */
 	public <T extends Component> boolean hasComponent(Class<T> cls) {
 		for (Component component : attachedComponents) {
 			if (cls.isInstance(component)) {
@@ -68,6 +88,12 @@ public class GameObject {
 		return false;
 	}
 
+	/**
+	 * Get the first instance of a type of component
+	 * @param cls, the class type of the component being searched for
+	 * @param <T>, the class type of the component being searched for
+	 * @return the first instance of the component
+	 */
 	public <T extends Component> T getComponent(Class<T> cls) {
 		for (Component component : attachedComponents) {
 			if (cls.isInstance(component)) {
@@ -77,6 +103,12 @@ public class GameObject {
 		return null;
 	}
 
+	/**
+	 * Get the all instances of a type of component
+	 * @param cls, the class type of the component being searched for
+	 * @param <T>, the class type of the component being searched for
+	 * @return the first instance of the component
+	 */
 	public <T extends Component> List<T> getComponents(Class<T> cls) {
 		List<T> components = new ArrayList<>();
 		for (Component component : attachedComponents) {
@@ -87,21 +119,7 @@ public class GameObject {
 		return components;
 	}
 
-	public List<Component> getComponents() {
-		return attachedComponents.stream().toList();
-	}
-
-	public Transform getTransform() {
-		return transform;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	/* Methods to enable/disable a gameobject */
 
 	public boolean isEnabled() {
 		return isEnabled;
@@ -123,6 +141,26 @@ public class GameObject {
 		GameWindow.getInstance().getSpriteRenderer().removeElement(this);
 
 	}
+
+	// ACCESSORS
+
+	public List<Component> getComponents() {
+		return attachedComponents.stream().toList();
+	}
+
+	public Transform getTransform() {
+		return transform;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	@Override
 	public String toString() {

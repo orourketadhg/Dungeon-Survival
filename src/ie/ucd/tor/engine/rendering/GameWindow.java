@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 
+/**
+ * Main window to draw the game in
+ */
 public class GameWindow {
 
 	public static final int WIDTH = 1028;
@@ -28,6 +31,9 @@ public class GameWindow {
 		return instance;
 	}
 
+	/**
+	 * Main game frame and windows
+	 */
 	public GameWindow() {
 
 		input = InputEventHandler.getInstance();
@@ -65,6 +71,9 @@ public class GameWindow {
 
 	}
 
+	/**
+	 * update the rendering on each layer in the gameWindow
+ 	 */
 	public void updateRendering() {
 		backgroundRenderer.update();
 		spriteRenderer.update();
@@ -78,6 +87,8 @@ public class GameWindow {
 			System.out.println("Frame was late by  " + (TargetTime - DeliveredTime) + " ms");
 		}
 	}
+
+	// ACCESSORS
 
 	public GamePanel getSpriteRenderer() {
 		return spriteRenderer;

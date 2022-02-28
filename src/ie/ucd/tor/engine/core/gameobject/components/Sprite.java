@@ -5,6 +5,9 @@ import ie.ucd.tor.engine.util.ImagesUtil;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Component to draw a non-animated sprite
+ */
 public class Sprite extends Component {
 
 	private static final String blankTexture = "res/blankSprite.png";

@@ -10,6 +10,9 @@ import ie.ucd.tor.engine.rendering.GameWindow;
 
 import static ie.ucd.tor.engine.rendering.GameWindow.TARGET_FPS;
 
+/**
+ * Core engine controller to execute the game loop
+ */
 public class GameController {
 
 	protected final GameWindow gameWindow;
@@ -29,12 +32,21 @@ public class GameController {
 	}
 
 	protected void gameLoop() {
+
+		// update the collisions in the game
 		updateCollisions();
 
+		// update the behaviours in the game
 		updateBehaviours();
+
+		// update the rendering in the game
+		gameWindow.updateRendering();
 
 	}
 
+	/**
+	 * Start the main game loop
+	 */
 	public void play() {
 		while (true) {
 			int timeBetweenFrames = 1000 / TARGET_FPS;
@@ -46,13 +58,14 @@ public class GameController {
 
 			gameLoop();
 
-			gameWindow.updateRendering();
-
 			GameWindow.checkFrameRate(System.currentTimeMillis(), frameCheck);
 
 		}
 	}
 
+	/**
+	 * Debug method to test the rendering in the game
+	 */
 	private void panelTest() {
 		GameObject backgroundTest = new GameObject();
 		backgroundTest.addComponent(new Sprite("res/BackgroundPlaceholder.png", 1000, 1000, 0));
@@ -82,6 +95,8 @@ public class GameController {
 		gameWindow.getSpriteRenderer().addElement(animationTestA);
 
 	}
+
+	// ACCESSORS
 
 	private void updateCollisions() {
 		this.collisionController.UpdateCollisions();

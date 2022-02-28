@@ -6,6 +6,9 @@ import ie.ucd.tor.engine.maths.Point2D;
 
 import java.util.List;
 
+/**
+ * Component to allow a component to detect collisions
+ */
 public class Collider extends Component {
 
 	private final int colliderWidth;
@@ -17,6 +20,19 @@ public class Collider extends Component {
 		this.colliderHeight = colliderHeight;
 		this.offset = offset;
 	}
+
+	@Override
+	public void enable() {
+		super.enable();
+		CollisionController.getInstance().addColliderToSystem(this);
+	}
+
+	@Override
+	public void disable() {
+		super.disable();
+	}
+
+	// ACCESSORS
 
 	public int getColliderWidth() {
 		return colliderWidth;
@@ -32,17 +48,6 @@ public class Collider extends Component {
 
 	public List<CollisionData> getCollisions() {
 		return CollisionController.getInstance().getCollisions(this);
-	}
-
-	@Override
-	public void enable() {
-		super.enable();
-		CollisionController.getInstance().addColliderToSystem(this);
-	}
-
-	@Override
-	public void disable() {
-		super.disable();
 	}
 
 	@Override

@@ -8,6 +8,11 @@ import java.io.IOException;
 
 public class ImagesUtil {
 
+	/**
+	 * Load an image into the application
+	 * @param textureLocation, location of the image
+	 * @return the loaded image
+	 */
 	public static BufferedImage loadImageTexture(String textureLocation) {
 		File textureFile = new File(textureLocation);
 		try {

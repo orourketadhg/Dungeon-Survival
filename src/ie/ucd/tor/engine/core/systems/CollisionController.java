@@ -8,6 +8,10 @@ import ie.ucd.tor.engine.maths.Point2D;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * Class to update all registered colliders in the system
+ */
 public class CollisionController {
 
 	private final List<Collider> colliders;
@@ -32,6 +36,9 @@ public class CollisionController {
 		return instance;
 	}
 
+	/**
+	 * Update the state based collisions in the system
+	 */
 	public void UpdateCollisions() {
 
 		List<CollisionData> newCollisions = new ArrayList<>();
@@ -39,10 +46,12 @@ public class CollisionController {
 		for (Collider A: colliders) {
 			for (Collider B: colliders) {
 
+				// skip if A and B are the same
 				if (A == B) {
 					continue;
 				}
 
+				// Skip if A or B are disabled
 				if (!A.getGameObject().isEnabled() || !B.getGameObject().isEnabled()) {
 					continue;
 				}
@@ -79,22 +88,6 @@ public class CollisionController {
 
 	}
 
-	public List<CollisionData> getCollisions(Collider collider) {
-		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(collider))).collect(Collectors.toList());
-	}
-
-	public void addColliderToSystem(Collider collider) {
-		colliders.add(collider);
-	}
-
-	public void removeColliderToSystem(Collider collider) {
-		colliders.remove(collider);
-	}
-
-	public void clearColliders() {
-		colliders.clear();
-	}
-
 	/**
 	 * collision detection method
 	 *
@@ -115,8 +108,32 @@ public class CollisionController {
 
 	}
 
+	/**
+	 * Filter out collisions to check if a collision existed in the past
+	 * @param A, Collider A in the collision
+	 * @param B, Collider B in the collision
+	 * @return true, if a collision existed, false otherwise
+	 */
 	private boolean pastCollisionExists(Collider A, Collider B) {
 		return collisionsLastFrame.stream().filter((collisionData -> collisionData.collisionIncludes(A) && collisionData.collisionIncludes(B) && collisionData.getCollisionType() != CollisionType.Exiting)).toList().size() > 0;
+	}
+
+	// ACCESSORS
+
+	public List<CollisionData> getCollisions(Collider collider) {
+		return currentCollisions.stream().filter((collisionData -> collisionData.collisionIncludes(collider))).collect(Collectors.toList());
+	}
+
+	public void addColliderToSystem(Collider collider) {
+		colliders.add(collider);
+	}
+
+	public void removeColliderToSystem(Collider collider) {
+		colliders.remove(collider);
+	}
+
+	public void clearColliders() {
+		colliders.clear();
 	}
 
 }

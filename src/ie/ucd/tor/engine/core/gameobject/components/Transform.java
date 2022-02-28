@@ -3,6 +3,9 @@ package ie.ucd.tor.engine.core.gameobject.components;
 import ie.ucd.tor.engine.core.gameobject.GameObject;
 import ie.ucd.tor.engine.maths.Point2D;
 
+/**
+ * Component to hold a GameObjects position and scale
+ */
 public class Transform extends Component {
 
 	private Point2D position;

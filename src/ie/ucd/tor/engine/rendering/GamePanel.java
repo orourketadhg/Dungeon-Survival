@@ -13,6 +13,9 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Panel to render images in the game
+ */
 public class GamePanel extends JPanel {
 
 	private static final double ANIMATION_SPEED = 100;
@@ -44,6 +47,9 @@ public class GamePanel extends JPanel {
 		this.animationTime = 0;
 	}
 
+	/**
+	 * Update/redraw the images in the panel
+	 */
 	public void update() {
 		this.revalidate();
 		this.repaint();
@@ -58,12 +64,18 @@ public class GamePanel extends JPanel {
 
 	}
 
+	/**
+	 * Draw all the sprites registered in the system
+	 * @param graphics, graphics instance to draw the images
+	 */
 	private void drawPanelElements(Graphics graphics) {
 		for (GameObject element: elements) {
+			// continue if the gameObject is disabled
 			if (!element.isEnabled()) {
 				continue;
 			}
 
+			// draw the animated and non-animated sprites
 			Sprite sprite = element.getComponent(Sprite.class);
 			Animation animation = element.getComponent(Animation.class);
 			if (!Objects.isNull(animation)) {
@@ -81,15 +93,23 @@ public class GamePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Draw an animated element to the panel
+	 * @param animation, the animation data
+	 * @param graphics, the graphics instance
+	 */
 	private void drawAnimatedElement(Animation animation, Graphics graphics) {
 		Graphics2D g2 = (Graphics2D) graphics.create();
 
+		// get position and scale
 		Point2D position = animation.getTransform().getPosition();
 		Point2D scale = animation.getTransform().getScale();
 
+		// calcualte the sprite frame to draw in the animation
 		SpriteData data = animation.calculateNextSprite(animationTime, ANIMATION_SPEED);
 		BufferedImage spriteImage = data.getSprite();
 
+		// draw the image
 		g2.drawImage(spriteImage, (int) position.getX(), (int) position.getY(), (int) (data.getSpriteWidth() * scale.getX()), (int) (data.getSpriteHeight() * scale.getY()), null);
 	}
 
@@ -123,6 +143,9 @@ public class GamePanel extends JPanel {
 		elements.remove(element);
 	}
 
+	/**
+	 * 
+	 */
 	public void clearElements() {
 		elements.clear();
 		text.clear();
@@ -131,6 +154,9 @@ public class GamePanel extends JPanel {
 
 	}
 
+	/**
+	 * Sort the elements based on render priority
+	 */
 	private void sortElements() {
 		elements.sort((o1, o2) -> {
 			int p1 = o1.hasComponent(Sprite.class) ? o1.getComponent(Sprite.class).getRenderPriority() : o1.getComponent(Animation.class).getRenderPriority();
