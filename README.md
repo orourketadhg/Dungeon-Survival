@@ -2,6 +2,8 @@
 
 ##HOW TO PLAY
 
+RUN GAME FROM Main.java
+
 Your aim is to survive by passing through as many rooms as possible.
 
 If you meet monsters you get locked in the room until all monsters are defeated.

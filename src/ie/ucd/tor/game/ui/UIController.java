@@ -12,6 +12,9 @@ import ie.ucd.tor.game.core.DungeonSurvival;
 import ie.ucd.tor.game.player.PlayerController;
 import ie.ucd.tor.game.room.RoomManager;
 
+/**
+ * UI behaviour Controller
+ */
 public class UIController extends Behaviour {
 
 	private final GameObject tutorial;
@@ -70,9 +73,10 @@ public class UIController extends Behaviour {
 	@Override
 	public void execute() {
 
-		// change the active UIs based on active state
-
+		// check if the game is over
 		if (isGameOver) {
+
+			// restart after a 5 second delay
 			long time = DungeonSurvival.getInstance().getSpriteAnimationTime();
 			if (time > delay) {
 				DungeonSurvival.getInstance().restartGame();
@@ -85,15 +89,20 @@ public class UIController extends Behaviour {
 			checkGameOver();
 		}
 
+		// toggle the tutorial being viewed
 		if (InputEventHandler.getInstance().isKeyEscPressed() && !isGameOver) {
 			toggleTutorial();
 		}
 
+		// update the players health on the UI
 		updatePlayerOneHealthUI();
 		updatePlayerTwoHealthUI();
 
 	}
 
+	/**
+	 * Check if the game is over by looking if either of the players health is 0
+	 */
 	private void checkGameOver() {
 		int playerOneHealth = DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).getPlayerHealth();
 		int playerTwoHealth = DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).getPlayerHealth();
@@ -110,6 +119,9 @@ public class UIController extends Behaviour {
 		}
 	}
 
+	/**
+	 * Toggle the tutorial being visable
+	 */
 	public void toggleTutorial() {
 
 		long currentTime = DungeonSurvival.getInstance().getSpriteAnimationTime();
@@ -133,15 +145,23 @@ public class UIController extends Behaviour {
 		delay = currentTime + 100;
 	}
 
+	/**
+	 * Update player 1 health onto the UI
+	 */
 	private void updatePlayerOneHealthUI() {
 		int health = DungeonSurvival.getInstance().getPlayerOne().getComponent(PlayerController.class).getPlayerHealth();
 		playerOneHealth.getComponent(Animation.class).setCurrentAnimation(String.valueOf(health));
 	}
 
+	/**
+	 * Update player 2 health onto the UI
+	 */
 	private void updatePlayerTwoHealthUI() {
 		int health = DungeonSurvival.getInstance().getPlayerTwo().getComponent(PlayerController.class).getPlayerHealth();
 		playerTwoHealth.getComponent(Animation.class).setCurrentAnimation(String.valueOf(health));
 	}
+
+	// ACCESSORS
 
 	public boolean isGameOver() {
 		return isGameOver;
